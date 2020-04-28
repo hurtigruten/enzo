@@ -6,7 +6,6 @@ export class CacheLoader {
     
     constructor (public xmlBodies: string[], devMode?: boolean) {
         this._poolSize = 12;
-        console.log("DevMode: " + devMode)
         devMode? this._host = this._remoteHost : this._host = this._localHost
         console.log("host: " + this._host)
     }

@@ -1,6 +1,7 @@
 {
     "defaultMarkets": ["DE", "FR", "NO", "UK", "US"],
-    "defaultDaysAhead": 365,
+    "defaultDaysAhead": 364,
+    "defaultDirection": "North",
     "searchDayRange": 5,
     "sailings": [
       {
@@ -8,6 +9,35 @@
         "direction": "North-South",
         "fromPort": "BGO",
         "toPort": "BGO",
+        "daysAhead": 364,
+        "marketFilter": ["DE", "NO", "UK"],
+        "partyMixes": ["ADULT,ADULT"]
+      },
+      {
+        "voyageType": "NORWAY_VOYAGE",
+        "direction": "North-South",
+        "fromPort": "BGO",
+        "toPort": "TRD",
+        "daysAhead": 364,
+        "marketFilter": ["DE", "NO", "UK"],
+        "partyMixes": ["ADULT,ADULT"]
+      },
+      {
+        "voyageType": "NORWAY_VOYAGE",
+        "direction": "North",
+        "fromPort": "BGO",
+        "toPort": "KKN",
+        "daysAhead": 364,
+        "marketFilter": ["DE", "NO", "UK"],
+        "partyMixes": ["ADULT,ADULT"]
+      },
+      {
+        "voyageType": "NORWAY_VOYAGE",
+        "direction": "South",
+        "fromPort": "KKN",
+        "toPort": "BGO",
+        "daysAhead": 364,
+        "marketFilter": ["DE", "NO", "UK"],
         "partyMixes": ["ADULT,ADULT"]
       }
     ]

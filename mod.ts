@@ -10,6 +10,8 @@ const args = parse(Deno.args, {
 const configParser = new ConfigParser(args.config);
 const payload = configParser.parseConfig();
 
+console.log("Number of searches: " + payload.length);
+
 const cacheLoader = new CacheLoader(payload, true);
 
 //await cacheLoader.load()

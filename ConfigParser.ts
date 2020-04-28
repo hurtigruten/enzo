@@ -4,27 +4,27 @@ import cacheConfigPartial from "./cacheConfigPartial.json";
 import { buildXMLBody } from "./xmlSerializer.ts";
 
 interface cacheConfig {
-  defaultMarkets: string[],
-  defaultDaysAhead: number,
-  searchDayRange: number,
-  sailings: sailing[]
+  defaultMarkets: string[];
+  defaultDaysAhead: number;
+  searchDayRange: number;
+  sailings: sailing[];
 }
 interface sailing {
-  voyageType: string,
-  direction: string,
-  daysAhead?: number,
-  fromPort: string,
-  toPort: string,
-  partyMixes: string[],
-  marketFilter?: string[]
+  voyageType: string;
+  direction?: string;
+  daysAhead?: number;
+  fromPort: string;
+  toPort: string;
+  partyMixes: string[];
+  marketFilter?: string[];
 }
 export interface JsonSearch {
-  fromDay: string,
-  toDay: string,
-  voyageType: string,
-  voyageCode: string,
-  party: string,
-  market: string,
+  fromDay: string;
+  toDay: string;
+  voyageType: string;
+  voyageCode: string;
+  party: string;
+  market: string;
 }
 
 export class ConfigParser {
@@ -32,7 +32,6 @@ export class ConfigParser {
   
   constructor (config: string) {
     this._config = (config === "partial") ? cacheConfigPartial : cacheConfig;
-    console.log(this._config)
   }
 
   parseConfig(): string[] {

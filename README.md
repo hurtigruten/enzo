@@ -56,3 +56,5 @@ To allow for caching a smaller data set more regularly, add the following flag: 
 * Store cache results in redis cache and build API on top?
 * Build an API that offers available promotions?
 * Any way to build the cache more dynamically, instead of forcing a complete run?
+* Detect if a port combination gives no results at all and log it
+* Write a customDB script in Seaware to find which sailings are loaded, instead of using config (requires creating new rules if needed)
