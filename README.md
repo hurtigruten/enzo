@@ -16,7 +16,7 @@ The application has not aged well, it consists of a main script file of ca 600 l
 # The goal of sea-deno
 I decided to write a new application from scratch in **Typescript** using **fetch** and **Deno**. My (selfish) goal was to have some fun and learn new things, but the main purpose of the rewrite is to make it more **maintainable** (way less code, easier to add sailings, easier to develop further, etc.) and more **modern** (not relying on deprecated/unsupported components, using the latest and greatest server side javascript execution) application compared to the old one. 
 
-Some nice side effects include **faster** execution (mainly due to an asyncronous request pool saturating Bizlogic) and **safer** operation (provided by Deno's security model and the compiled Typescript).
+Some nice side effects include **faster** execution (mainly due to an asyncronous request pool saturating Bizlogic), **safer** operation (provided by Deno's security model and the compiled Typescript) increased **portability** (can be run on Mac, Linux and Windows).
 
 Running javascript server side spells Node in capital letters, but I decided to go for Deno for it's built in Typescript support, security model and because node_modules is plain ugly. As of writing this, Deno has not reached 1.0 yet. Should Deno turn flop like Dart or Apple Maps, the source code is minimal and can very easily be executed using Node.
 
