@@ -34,25 +34,26 @@ From your favorite command line run:
 deno --allow-net mod.ts
 ```
 
-# TODO / Future Ideas
+# TODO
 
 * ~~Initial PoC~~
 * ~~Simulate loads to find optimal saturation~~
 * ~~Write better Readme~~
+* ~~Introduce defaultDaysAhead and mixin~~
 * Introduce all searches from old app
-* Introduce defaultDaysAhead and mixin
-* Introduce runOften? to support Full and Partial runs
+* Introduce runOften? to support Full and Partial runs - or two configs with Deno flag?
 * Implement logging
-* Break on error?
 * Mechanism for stopping a run?
-* Use denon?
-* Use DotEnv?
-* Consider scheduling, cron or windows task scheduler?
+* Scheduling, cron or windows task scheduler?
 * Check old script for any missing functionality
 * Implement DevMode
+
+# Long term tasls / Future Ideas
+* Build a pipeline (Bitbucket pipeline, Azure pipeline, Octopus deploy something something)
+* Write tests
+* Use denon?
+* Use DotEnv?
 * Implement API to serve what is cached
 * Store cache results in redis cache and build API on top?
-* Any way to build the cache more dynamically, instead of forcing a complete run?
 * Build an API that offers available promotions?
-* Write tests
-* Build a pipeline (Bitbucket pipeline, Azure pipeline, Octopus deploy something something)
+* Any way to build the cache more dynamically, instead of forcing a complete run?

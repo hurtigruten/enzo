@@ -1,5 +1,5 @@
 import { serialize } from "./deps.ts"
-import { JsonSearch } from './mod.ts';
+import { JsonSearch } from './ConfigParser.ts';
 
 export function buildXMLBody (jsonSearch: JsonSearch) {
   return serialize({

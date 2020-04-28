@@ -1,7 +1,7 @@
 export class CacheLoader {
     private _poolSize : number;
     private _localHost = "http://localhost:8085/SwBizLogic/Service.svc/ProcessRequest";
-    private _remoteHost = "http://c54censap0008:8085/SwBizLogic/Service.svc/ProcessRequest"; // Use Dot.Env library
+    private _remoteHost = "http://c54censap0008:8085/SwBizLogic/Service.svc/ProcessRequest";
     private _host : string;
     
     constructor (public xmlBodies: string[], devMode?: boolean) {
