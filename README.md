@@ -55,3 +55,4 @@ deno --allow-net mod.ts
 * Any way to build the cache more dynamically, instead of forcing a complete run?
 * Build an API that offers available promotions?
 * Write tests
+* Build a pipeline (Bitbucket pipeline, Azure pipeline, Octopus deploy something something)
