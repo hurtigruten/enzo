@@ -22,7 +22,7 @@ This main script is controlled by ca 25 javascript files (who composes XML reque
 The bat files, in turn, is triggered by Windows Task Scheduler. Given this old stack, it's likely the whole thing breaks on the next OS upgrade, or if someone sneezes :p
 
 # The goal of sea-deno
-I decided to write a new application from scratch. My (selfish) goal was to have some fun and learn new things, but the main purpose of the rewrite is to make it a more *maintainable* and *modern* application compared to the old one. 
+I decided to write a new application from scratch in Typescript using Deno. My (selfish) goal was to have some fun and learn new things, but the main purpose of the rewrite is to make it a more *maintainable* and *modern* application compared to the old one. 
 
 Some nice side effects include *faster* execution time and *safer* operation.
 
