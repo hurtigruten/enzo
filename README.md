@@ -9,7 +9,7 @@ PG in turn uses one xlsx file to keep track of what is being cached and another 
 
 PG currently uses the cache only for Booking Domain API searches, as the PG Client only allows for max 5 day searches (sacrificing performance, but gaining accuracy)
 
-The existing app that was written around 2011 - 2013 by developers in Hurtigruten Estonia in corporation with E-Developers (Versonix contractor). The initial version had hard codings that needed regulat maintenance, it was very slow and only cached a small dataset. In 2015 it was it was extended and optimized by an Estionian developer and myself as part of the DLP 1 project. The worst hard codings were removed, the performance was multiplied tenfolds but the structural problems was not fixed.
+The existing app that was written around 2011 - 2013 by developers in Hurtigruten Estonia in corporation with E-Developers (Versonix contractor). The initial version had hard codings that needed regulat maintenance, it was very slow and only cached a small dataset. In 2015 it was it was extended and optimized as part of the DLP 1 project. The worst hard codings were removed, the performance was multiplied tenfolds but the structural problems was not fixed.
 
 The application has not aged well, it consists of a main script file of ca 600 lines of **JScript (COM Classic)** that utilizes **Msxml2.XMLHTTP.3.0** to make the XML requests to Bizlogic and **WScript** to talk to the OS. This main script is controlled by ca 25 javascript files (who composes the XML requests using string concatination. yuck). Finally, 13 bat files use cscript to execute the javascript on the server. The bat files, in turn, is executed on a scheduled defined by Windows Task Scheduler triggers. Given this old stack, it's likely the whole thing breaks on the next OS upgrade, or if someone sneezes.
 
@@ -29,10 +29,9 @@ Deno needs to be installed, check the [website](https://deno.land/)
 
 Scheduling is done by..
 
-From your favorite command line run: 
-```
-deno --allow-net mod.ts
-```
+From your favorite command line run: ```deno --allow-net mod.ts```
+
+To allow for caching a smaller data set more regularly, add the following flag: ```deno --allow-net mod.ts --cache-mode partial```
 
 # TODO
 
@@ -41,7 +40,7 @@ deno --allow-net mod.ts
 * ~~Write better Readme~~
 * ~~Introduce defaultDaysAhead and mixin~~
 * Introduce all searches from old app
-* Introduce runOften? to support Full and Partial runs - or two configs with Deno flag?
+* ~~Support full and partial runs with Deno flag~~
 * Implement logging
 * Mechanism for stopping a run?
 * Scheduling, cron or windows task scheduler?

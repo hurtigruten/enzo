@@ -1,5 +1,6 @@
 import cacheConfigDev from "./samples/sampleCacheConfig.json";
 import cacheConfig from "./cacheConfig.json";
+import cacheConfigPartial from "./cacheConfigPartial.json";
 import { buildXMLBody } from "./xmlSerializer.ts";
 
 interface cacheConfig {
@@ -29,8 +30,9 @@ export interface JsonSearch {
 export class ConfigParser {
   private _config: cacheConfig;
   
-  constructor (devMode?: boolean) {
-    this._config = cacheConfigDev;
+  constructor (config: string) {
+    this._config = (config === "partial") ? cacheConfigPartial : cacheConfig;
+    console.log(this._config)
   }
 
   parseConfig(): string[] {
