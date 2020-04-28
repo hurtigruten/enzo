@@ -1,0 +1,17 @@
+{
+    "defaultMarkets": ["DE", "FR", "NO", "UK", "US"],
+    "defaultDaysAhead": 100,
+    "searchDayRange": 5,
+    "sailings": [
+      {
+        "voyageType": "NORWAY_VOYAGE",
+        "direction": "North-South",
+        "daysAhead": 60,
+        "fromPort": "BGO",
+        "toPort": "BGO",
+        "marketFilter" : ["US"],
+        "partyMixes": ["ADULT,ADULT"]
+      }
+    ]
+  }
+  
