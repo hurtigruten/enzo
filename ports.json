@@ -1,0 +1,24 @@
+{
+    "allMarkets": ["DE", "FR", "NO", "UK", "US"],
+    "searchDayRange": 5,
+    "sailings": [
+      {
+        "voyageType": "NORWAY_VOYAGE",
+        "direction": "North-South",
+        "daysAhead": 849,
+        "fromPort": "BGO",
+        "toPort": "BGO",
+        "partyMixes": ["ADULT", "ADULT,ADULT"]
+      },
+      {
+        "voyageType": "NORWAY_VOYAGE",
+        "direction": "North-South",
+        "daysAhead": 849,
+        "fromPort": "BGO",
+        "toPort": "TRD",
+        "marketFilter" : ["NO","UK"],
+        "partyMixes": ["ADULT"]
+      }
+    ]
+  }
+  
