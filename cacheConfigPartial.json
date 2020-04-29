@@ -2,6 +2,7 @@
     "defaultMarkets": ["DE", "FR", "NO", "UK", "US"],
     "defaultDaysAhead": 364,
     "defaultDirection": "North",
+    "defaultPartyMix": ["ADULT","ADULT,ADULT"],
     "searchDayRange": 5,
     "sailings": [
       {
@@ -10,8 +11,7 @@
         "fromPort": "BGO",
         "toPort": "BGO",
         "daysAhead": 364,
-        "marketFilter": ["DE", "NO", "UK"],
-        "partyMixes": ["ADULT,ADULT"]
+        "marketFilter": ["DE", "NO", "UK"]
       },
       {
         "voyageType": "NORWAY_VOYAGE",
@@ -19,8 +19,7 @@
         "fromPort": "BGO",
         "toPort": "TRD",
         "daysAhead": 364,
-        "marketFilter": ["DE", "NO", "UK"],
-        "partyMixes": ["ADULT,ADULT"]
+        "marketFilter": ["DE", "NO", "UK"]
       },
       {
         "voyageType": "NORWAY_VOYAGE",
@@ -28,8 +27,7 @@
         "fromPort": "BGO",
         "toPort": "KKN",
         "daysAhead": 364,
-        "marketFilter": ["DE", "NO", "UK"],
-        "partyMixes": ["ADULT,ADULT"]
+        "marketFilter": ["DE", "NO", "UK"]
       },
       {
         "voyageType": "NORWAY_VOYAGE",
@@ -37,8 +35,63 @@
         "fromPort": "KKN",
         "toPort": "BGO",
         "daysAhead": 364,
-        "marketFilter": ["DE", "NO", "UK"],
-        "partyMixes": ["ADULT,ADULT"]
+        "marketFilter": ["DE", "NO", "UK"]
+      },
+      {
+        "voyageType": "NORWAY_SHORT_VOYAGE",
+        "direction": "North",
+        "fromPort": "BGO",
+        "toPort": "TOS",
+        "daysAhead": 120,
+        "marketFilter" : ["NO","UK"]
+      },
+      {
+        "voyageType": "NORWAY_SHORT_VOYAGE",
+        "direction": "South",
+        "fromPort": "TRD",
+        "toPort": "BGO",
+        "daysAhead": 120,
+        "marketFilter" : ["NO","UK"]
+      },
+      {
+        "voyageType": "NORWAY_SHORT_VOYAGE",
+        "direction": "South",
+        "fromPort": "TOS",
+        "toPort": "BGO",
+        "daysAhead": 120,
+        "marketFilter" : ["NO","UK"]
+      },
+      {
+        "voyageType": "NORWAY_SHORT_VOYAGE",
+        "direction": "North",
+        "fromPort": "BGO",
+        "toPort": "AES",
+        "daysAhead": 120,
+        "marketFilter" : ["NO","UK"]
+      },
+      {
+        "voyageType": "NORWAY_SHORT_VOYAGE",
+        "direction": "South",
+        "fromPort": "AES",
+        "toPort": "BGO",
+        "daysAhead": 120,
+        "marketFilter" : ["NO","UK"]
+      },
+      {
+        "voyageType": "NORWAY_SHORT_VOYAGE",
+        "direction": "North",
+        "fromPort": "BOO",
+        "toPort": "SVJ",
+        "daysAhead": 120,
+        "marketFilter" : ["NO","UK"]
+      },
+      {
+        "voyageType": "NORWAY_SHORT_VOYAGE",
+        "direction": "North",
+        "fromPort": "BOO",
+        "toPort": "STU",
+        "daysAhead": 120,
+        "marketFilter" : ["NO","UK"]
       }
     ]
   }

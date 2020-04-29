@@ -7,16 +7,9 @@ interface cacheConfig {
   defaultMarkets: string[];
   defaultDaysAhead: number;
   searchDayRange: number;
-  sailings: sailing[];
-}
-interface sailing {
-  voyageType: string;
-  direction?: string;
-  daysAhead?: number;
-  fromPort: string;
-  toPort: string;
-  partyMixes: string[];
-  marketFilter?: string[];
+  defaultDirection: string;
+  defaultPartyMix: string[];
+  sailings: any[];
 }
 export interface JsonSearch {
   fromDay: string;
@@ -31,7 +24,8 @@ export class ConfigParser {
   private _config: cacheConfig;
   
   constructor (config: string) {
-    this._config = (config === "partial") ? cacheConfigPartial : cacheConfig;
+    //this._config = (config === "partial") ? cacheConfigPartial : cacheConfig;
+    this._config = cacheConfigDev;
   }
 
   parseConfig(): string[] {
@@ -44,6 +38,7 @@ function produceJsonSearches(config: cacheConfig): JsonSearch[] {
 
     // Flatten out partymixes, and mixin markets
   let flatParty = config.sailings.flatMap((sailing) => {
+    sailing.partyMixes = sailing.partyMixes || config.defaultPartyMix;
     return sailing.partyMixes.map((party: string) => ({
       voyageType: sailing.voyageType,
       daysAhead: sailing.daysAhead || config.defaultDaysAhead,
