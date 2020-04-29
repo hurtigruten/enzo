@@ -1,3 +1,5 @@
+import { logger } from "./logger.ts"
+
 export class CacheLoader {
     private _poolSize : number;
     private _localHost = "http://localhost:8085/SwBizLogic/Service.svc/ProcessRequest";
@@ -5,12 +7,13 @@ export class CacheLoader {
     private _host : string;
     
     constructor (public xmlBodies: string[], env: string) {
-        this._poolSize = 12; // Hard code for now
+        this._poolSize = 16; // Hard code for now
         this._host = (env === "prod") ? this._localHost : this._remoteHost;
-        console.log("host: " + this._host)
+        logger.debug("host: " + this._host)
     }
 
     load() {
+        logger.debug(`Starting cache run with a pool of ${this._poolSize} and ${this.xmlBodies.length} requests to run`);
         return this.asyncPool(this._poolSize, this.xmlBodies);
     }
 
@@ -23,8 +26,10 @@ export class CacheLoader {
             const e: any = p.then(() => executing.splice(executing.indexOf(e), 1));
             executing.push(e);
             if (executing.length >= poolLimit) {
-            console.log("current size: " + ret.length);
-            await Promise.race(executing);
+                if (ret.length % 10 === 0) {
+                    logger.debug(`Completed: ${ret.length}`)
+                }
+                await Promise.race(executing);
             }
         }
         return Promise.all(ret);
