@@ -3,7 +3,7 @@ import { ConfigParser } from "./ConfigParser.ts";
 import { parse } from "./deps.ts";
 
 const args = parse(Deno.args, {
-  default: { config: "full" },
+  default: { config: "full", env: "local" },
   alias: { config: "cache-mode" }
 });
 
@@ -12,7 +12,7 @@ const payload = configParser.parseConfig();
 
 console.log("Number of searches: " + payload.length);
 
-const cacheLoader = new CacheLoader(payload, true);
+const cacheLoader = new CacheLoader(payload, args.env);
 
 //await cacheLoader.load()
 

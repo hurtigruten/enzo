@@ -4,9 +4,9 @@ export class CacheLoader {
     private _remoteHost = "http://c54censap0008:8085/SwBizLogic/Service.svc/ProcessRequest";
     private _host : string;
     
-    constructor (public xmlBodies: string[], devMode?: boolean) {
-        this._poolSize = 12;
-        devMode? this._host = this._remoteHost : this._host = this._localHost
+    constructor (public xmlBodies: string[], env: string) {
+        this._poolSize = 12; // Hard code for now
+        this._host = (env === "prod") ? this._localHost : this._remoteHost;
         console.log("host: " + this._host)
     }
 

@@ -41,12 +41,12 @@ To allow for caching a smaller data set more regularly, add the following flag: 
 * ~~Introduce defaultDaysAhead and mixin~~
 * ~~Introduce all searches from old app~~
 * ~~Support full and partial runs with Deno flag~~
-* PG needs to start using the new config
+* ~~Support running in different environments with Deno flag~~
 * Implement logging
 * Mechanism for stopping a run?
 * Scheduling, cron or windows task scheduler?
 * Check old script for any missing functionality
-* Implement DevMode
+* PG needs to start using the new config
 
 # Long term tasks / Future Ideas
 * Build a pipeline (Bitbucket pipeline, Azure pipeline, Octopus deploy something something)
