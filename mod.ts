@@ -15,6 +15,3 @@ console.log("Number of searches: " + payload.length);
 const cacheLoader = new CacheLoader(payload, args.env);
 
 //await cacheLoader.load()
-
-
-

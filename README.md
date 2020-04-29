@@ -31,7 +31,14 @@ Scheduling is done by..
 
 From your favorite command line run: ```deno --allow-net mod.ts```
 
-To allow for caching a smaller data set more regularly, add the following flag: ```deno --allow-net mod.ts --cache-mode partial```
+The following flags are available: 
+* **--cache-mode** (defaults to "full", can be set to "partial" for caching the smaller data set)
+* **--env** (defaults to "local", can be set to "prod". Determines where Deno is running from. When using "prod", localhost is used as an endpoint)
+
+Example: ```deno --allow-net mod.ts --cache-mode partial --env prod```
+
+PS: In a Production environment it is recommended to bundle all dependencies. Todo this (from powershell), add an environment flag: ```$env:DENO_DIR="./deno_cache"```;
+The flag can also be added on a system level if desired using ```setx /M```
 
 # TODO
 
@@ -42,6 +49,7 @@ To allow for caching a smaller data set more regularly, add the following flag: 
 * ~~Introduce all searches from old app~~
 * ~~Support full and partial runs with Deno flag~~
 * ~~Support running in different environments with Deno flag~~
+* ~~Bundle dependensies by setting DENO_DIR environment flag~~
 * Implement logging
 * Mechanism for stopping a run?
 * Scheduling, cron or windows task scheduler?

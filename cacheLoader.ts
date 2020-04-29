@@ -14,7 +14,7 @@ export class CacheLoader {
         return this.asyncPool(this._poolSize, this.xmlBodies);
     }
 
-    async asyncPool(poolLimit: number, array: string[]): Promise<any> {
+    private async asyncPool(poolLimit: number, array: string[]): Promise<any> {
         const ret = new Array();
         const executing = new Array();
         for (const item of array) {
@@ -30,7 +30,7 @@ export class CacheLoader {
         return Promise.all(ret);
     }
 
-    async postRequest(xmlBody: string): Promise<void> {
+    private async postRequest(xmlBody: string): Promise<void> {
         const req = new Request(this._host, {
             method: "post",
             headers: { "Content-type": "application/x-versonix-api" },
