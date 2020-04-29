@@ -24,8 +24,8 @@ export class ConfigParser {
   private _config: cacheConfig;
   
   constructor (config: string) {
-    //this._config = (config === "partial") ? cacheConfigPartial : cacheConfig;
-    this._config = cacheConfigDev;
+    this._config = (config === "partial") ? cacheConfigPartial : cacheConfig;
+    //this._config = cacheConfigDev;
   }
 
   parseConfig(): string[] {

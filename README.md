@@ -39,8 +39,9 @@ To allow for caching a smaller data set more regularly, add the following flag: 
 * ~~Simulate loads to find optimal saturation~~
 * ~~Write better Readme~~
 * ~~Introduce defaultDaysAhead and mixin~~
-* Introduce all searches from old app
+* ~~Introduce all searches from old app~~
 * ~~Support full and partial runs with Deno flag~~
+* PG needs to start using the new config
 * Implement logging
 * Mechanism for stopping a run?
 * Scheduling, cron or windows task scheduler?
