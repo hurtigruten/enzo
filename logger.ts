@@ -7,11 +7,11 @@ await log.setup({
     console: new log.handlers.ConsoleHandler("DEBUG", {
         formatter: `[{levelName}] {datetime}: {msg}`
     }),
-    /*file: new log.handlers.FileHandler("DEBUG", {
+    file: new log.handlers.FileHandler("DEBUG", {
       filename: "./log.txt",
       // you can change format of output message using any keys in `LogRecord`
       formatter: `[{levelName}] {datetime}: {msg}`
-    }),*/
+    }),
   },
 
   loggers: {

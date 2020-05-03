@@ -49,12 +49,14 @@ The flag can also be added on a system level if desired using ```setx /M```
 * ~~Introduce all searches from old app~~
 * ~~Support full and partial runs with Deno flag~~
 * ~~Support running in different environments with Deno flag~~
-* ~~Bundle dependensies by setting DENO_DIR environment flag~~
+* ~~Bundle dependencies by setting DENO_DIR environment flag~~
+* ~~ Make sure Seaware XML API settings are sane. Validate was default!~~
 * Implement logging
 * Mechanism for stopping a run?
-* Scheduling, cron or windows task scheduler?
+* Scheduling with windows task scheduler
 * Check old script for any missing functionality
 * PG needs to start using the new config
+* ~~"Only one usage of each socket address" happens sometimes. Increase the number of TCP ports and reduce wait time before closing connection on the server~~
 
 # Long term tasks / Future Ideas
 * Build a pipeline (Bitbucket pipeline, Azure pipeline, Octopus deploy something something)
