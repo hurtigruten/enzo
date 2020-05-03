@@ -1,4 +1,4 @@
-import * as log from "https://deno.land/std/log/mod.ts";
+import { log, Logger } from "./deps.ts";
 
 // custom configuration with 2 loggers (the default and `tasks` loggers)
 await log.setup({
@@ -7,12 +7,10 @@ await log.setup({
     console: new log.handlers.ConsoleHandler("DEBUG", {
         formatter: `[{levelName}] {datetime}: {msg}`
     }),
-/*
-    // Set log level of log file
-    file: new log.handlers.FileHandler("WARNING", {
+    /*file: new log.handlers.FileHandler("DEBUG", {
       filename: "./log.txt",
-      // you can change format of output message using any keys in `LogRecord` Add timestamp
-      formatter: `[{levelName}] Date.now(): {msg}`, // How do I get new line? \n does not work. Also add readable timestamp
+      // you can change format of output message using any keys in `LogRecord`
+      formatter: `[{levelName}] {datetime}: {msg}`
     }),*/
   },
 
@@ -21,16 +19,10 @@ await log.setup({
     default: {
       level: "DEBUG",
       handlers: ["console"],
-    },
-
-    /*tasks: {
-      level: "ERROR",
-      handlers: ["console", "file"],
-    },*/
+      //handlers: ["console", "file"]
+    }
   },
 });
 
 // get default logger
-let logger = log.getLogger();
-
-export { logger }
+export const logger : Logger = log.getLogger();

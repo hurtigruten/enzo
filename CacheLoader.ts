@@ -1,33 +1,34 @@
 import { logger } from "./logger.ts"
 
 export class CacheLoader {
-    private _poolSize : number;
+    
     private _localHost = "http://localhost:8085/SwBizLogic/Service.svc/ProcessRequest";
     private _remoteHost = "http://c54censap0008:8085/SwBizLogic/Service.svc/ProcessRequest";
     private _host : string;
     
-    constructor (public xmlBodies: string[], env: string) {
-        this._poolSize = 16; // Hard code for now
+    // TODO: Avoid hardcoding of config
+    constructor (private env: string, private poolSize = 16 ) {
         this._host = (env === "prod") ? this._localHost : this._remoteHost;
         logger.debug("host: " + this._host)
     }
 
-    load() {
-        logger.debug(`Starting cache run with a pool of ${this._poolSize} and ${this.xmlBodies.length} requests to run`);
-        return this.asyncPool(this._poolSize, this.xmlBodies);
+    load(xmlBodies: string[]): Promise<any> {
+        logger.debug(`Starting cache run with a pool of ${this.poolSize} and ${xmlBodies.length} requests to run`);
+        return this.asyncPool(this.poolSize, xmlBodies);
     }
 
-    private async asyncPool(poolLimit: number, array: string[]): Promise<any> {
+    private async asyncPool(poolLimit: number, xmlList: string[]): Promise<any> {
         const ret = new Array();
         const executing = new Array();
-        for (const item of array) {
+        for (const item of xmlList) {
             const p = Promise.resolve().then(() => this.postRequest(item));
             ret.push(p);
             const e: any = p.then(() => executing.splice(executing.indexOf(e), 1));
             executing.push(e);
             if (executing.length >= poolLimit) {
-                if (ret.length % 10 === 0) {
-                    logger.debug(`Completed: ${ret.length}`)
+                if (ret.length % 50 === 0) {
+                    const percent = ((ret.length / xmlList.length) * 100).toFixed(2);
+                    logger.debug(`Completed: ${ret.length} (${percent} %)`);
                 }
                 await Promise.race(executing);
             }
@@ -43,21 +44,18 @@ export class CacheLoader {
         });
     
         return fetch(req)
-        .then((res) => {
-            if (res.status !== 200) {
-            console.log(`Error in response! Status code: ${res.status}`);
-            return;
-            }
-            res.text().then((data) => {
-            if (data.includes("PackageID")) {
-                // Write to a cache?
-            } else {
-                //console.log("No content")
-            }
+            .then((res) => {
+                if (res.status !== 200) {
+                    logger.error(`Error in response! Status code: ${res.status}`)
+                    return;
+                }
+                /*
+                Keep commented code in case we want to extend by reading cached response
+                res.text().then((data) => { });
+                */
+            })
+            .catch((e) => {
+                logger.error(`Fetch Error: ${e}`);
             });
-        })
-        .catch((e) => {
-            console.log(`Fetch Error: ${e}`);
-        });
     }
 }

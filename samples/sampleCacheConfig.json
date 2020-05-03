@@ -1,9 +1,9 @@
 {
   "defaultMarkets": ["US"],
-  "defaultDaysAhead": 1,
+  "defaultDaysAhead": 10,
   "defaultDirection": "North",
-  "searchDayRange": 1,
-  "defaultPartyMix": ["ADULT,ADULT"],
+  "searchDayRange": 5,
+  "defaultPartyMix": ["ADULT","ADULT,ADULT"],
     "sailings": [
       {
         "voyageType": "NORWAY_VOYAGE",

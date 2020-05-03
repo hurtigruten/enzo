@@ -3,12 +3,21 @@ import { ConfigParser } from "./ConfigParser.ts";
 import { parse } from "./deps.ts";
 
 const args = parse(Deno.args, {
-  default: { config: "full", env: "local" },
-  alias: { config: "cache-mode" }
+  default: { 
+    config: "full", 
+    env: "local" 
+  },
+  alias: { 
+    config: "cache-mode" 
+  }
 });
 
+// Construct a Parser and Loader with provided config
 const configParser = new ConfigParser(args.config);
-const payload = configParser.parseConfig();
-const cacheLoader = new CacheLoader(payload, args.env);
+const cacheLoader = new CacheLoader(args.env);
 
-await cacheLoader.load()
+// Parse the json config to XML bodies
+const payload = configParser.parseConfig();
+
+// Execute calls to BizLogic XML API
+await cacheLoader.load(payload)
