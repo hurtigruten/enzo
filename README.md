@@ -53,12 +53,10 @@ The flag can also be added on a system level if desired using ```setx /M```
 * ~~ Make sure Seaware XML API settings are sane. Validate was default!~~
 * Implement logging
 * Optimize the date ranges (cap at 730 days for full? 90 days for SV in partial?)
-* Mechanism for stopping a run?
+* Mechanism for stopping a run? (lock file?)
 * Scheduling with windows task scheduler
-* Check old script for any missing functionality
+* Retry if requests failed (after wait?)
 * PG needs to start using the new config
-* Locate CustomDbSearch SFSDbSearch and PolarGlobalDbSearch
-* Determine which .ini file is used
 * Look into OneWaySearchScenarioHRG.xml (BMCompany_ID)
 * ~~"Only one usage of each socket address" happens sometimes. Increase the number of TCP ports and reduce wait time before closing connection on the server~~
 

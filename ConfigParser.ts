@@ -22,7 +22,7 @@ interface JsonSearch {
 export class ConfigParser {
   constructor(private config: cacheConfig) {
     //this.config = cacheConfigDev;
-    config = ("partial") ? cacheConfigPartial : cacheConfig;
+    this.config = ("partial") ? cacheConfigPartial : cacheConfig;
   }
 
   // Parse Json config and serialize to Seaware XML
