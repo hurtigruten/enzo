@@ -17,7 +17,6 @@ interface JsonSearch {
 
 export class ConfigParser {
   constructor(readonly config: CacheConfig) {}
-
   // Parse Json config and serialize to Seaware XML
   parseConfig(): string[] {
     const searches: JsonSearch[] = this.produceJsonSearches(this.config);

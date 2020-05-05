@@ -1,5 +1,5 @@
 # The Seaware cache application
-The Seaware cache application, hosted [here](https://bitbucket.org/hurtigruteninternal/bizlogic_cache/) is responsible for caching Seaware sailings (availability and price breakdown)
+The Seaware cache application, hosted [here](https://bitbucket.org/hurtigruteninternal/bizlogic_cache/) has been responsible for caching Seaware sailings (availability and price breakdown) since 2012
 
 The application is basically a collection of javascript files that are run (using Windows Task Scheduler and a collection of .bat files) that fires off a large number of XMLHTTPServer requests at the local Bizlogic instance, forcing it to cache the searches for later retrieval by PG. A full run is executed every night, typically taking 4-5 hours and then a partial run is executed 3-4 times per day on popular sailings (or sailings close to departure) to ensure as up to date cache as possible (a brute force cache will inherently always struggle to keep up to date, but this can be mitigated somewhat by forcing a refresh if no data is found).
 
@@ -9,16 +9,18 @@ PG, in turn, uses one xlsx file to keep track of what is being cached and anothe
 
 PG currently uses the cache only for Booking Domain API searches, as the PG Client only allows for max 5-day searches (sacrificing performance but gaining accuracy)
 
-The existing app that was written around 2011 - 2013 by developers in Hurtigruten Estonia in cooperation with E-Developers (Versonix contractor). The initial version had hard codings that needed regular maintenance, it was very slow and only cached a small dataset. In 2015 it was extended and optimized as part of the DLP 1 project. The worst hard codings were removed, the performance was multiplied tenfolds but the structural problems were not fixed. In 2017 we removed the complex 2 cache server setup (two Bizlogic servers cached separate datasets and copied over the results to be read in by the other server. Meant to be a failover solution, but effectively 2 places it could break).
+The existing app that was written around 2012 - 2013 by developers in Hurtigruten Estonia in cooperation with E-Developers (Versonix contractor). The initial version had hard codings that needed regular maintenance, it was very slow and only cached a small dataset. In 2015 it was extended and optimized as part of the DLP 1 project. The worst hard codings were removed, the performance was multiplied tenfolds but the structural problems were not fixed. In 2017 we removed the complex 2 cache server setup (two Bizlogic servers cached separate datasets and copied over the results to be read in by the other server. Meant to be a failover solution, but effectively 2 places it could break).
 
 The application has not aged well, it consists of the main script file of ca 600 lines of **JScript (COM Classic)** that utilizes **Msxml2.XMLHTTP.3.0** to make the XML requests to Bizlogic and **WScript** to talk to the OS. This main script is controlled by ca 25 javascript files. Finally, 13 bat files use cscript to execute the javascript on the server. The bat files, in turn, is executed on a schedule defined by Windows Task Scheduler triggers. Given this old stack, it's likely the whole thing breaks on the next OS upgrade, or if someone sneezes.
 
+Read more about the Seaware Cache [here](https://versonix.atlassian.net/wiki/spaces/PublicDocs/pages/10289154/Availability+Cache)
+
 # The goal of sea-deno
-I decided to write a new application from scratch in **Typescript** using **fetch** and **Deno**. My (selfish) goal was to have some fun and learn new things, but the main purpose of the rewrite is to make it more **maintainable** (way less code, easier to add sailings, easier to develop further, etc.) and more **modern** (not relying on deprecated/unsupported components, using the latest and greatest server-side javascript execution) application compared to the old one. 
+I decided to write a new application from scratch in **Typescript** using **Fetch** and **Deno**. My (selfish) goal was to have some fun and learn new things, but the main purpose of the rewrite is to make it more **maintainable** (way less code, easier to add sailings, easier to extend.) and more **modern** (not relying on deprecated/unsupported components, using the latest and greatest server-side javascript execution) application compared to the old one. 
 
-Some nice side effects include **faster** execution (mainly due to an asynchronous request pool saturating Bizlogic), **safer** operation (provided by Deno's security model, and the compiled Typescript) increased **portability** (can be run on Mac, Linux, and Windows).
+Some nice side effects include **faster** execution (mainly due to an asynchronous request pool saturating Bizlogic more effectiviely), **safer** operation (provided by Deno's security model, and the compiled Typescript) increased **portability** (can be run on Mac, Linux, and Windows).
 
-Running javascript server-side spells Node in capital letters, but I decided to go for Deno for its built-in Typescript support, security model, and because node_modules is plain ugly. As of writing this, Deno has not reached 1.0 yet. Should Deno turn flop like Dart or Apple Maps, the source code is minimal and can very easily be executed using Node.
+Running javascript server-side spells Node in capital letters, but I decided to go for Deno for its built-in Typescript support, security model, and because node_modules is plain ugly. As of writing this, Deno has not reached 1.0 yet. Should Deno flop like Dart or Apple Maps, the source code is minimal and can very easily be executed using Node.
 
 In the future, we could look at building new capabilities into the application such as middleware to offer APIs, dynamically produce the custom search rules in Seaware, a cache to store results locally, and maybe even introducing new Seaware API calls.
 
@@ -51,12 +53,10 @@ The flag can also be added on a system level if desired using ```setx /M```
 * ~~ Make sure Seaware XML API settings are sane. Validate was default!~~
 * Implement logging
 * Optimize the date ranges (cap at 730 days for full? 90 days for SV in partial?)
-* Mechanism for stopping a run?
+* Mechanism for stopping a run? (lock file? or check processes?)
 * Scheduling with windows task scheduler
-* Check old script for any missing functionality
+* Retry if requests failed (after wait?)
 * PG needs to start using the new config
-* Locate CustomDbSearch SFSDbSearch and PolarGlobalDbSearch
-* Determine which .ini file is used
 * Look into OneWaySearchScenarioHRG.xml (BMCompany_ID)
 * ~~"Only one usage of each socket address" happens sometimes. Increase the number of TCP ports and reduce wait time before closing connection on the server~~
 
