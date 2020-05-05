@@ -10,10 +10,9 @@ const args = parse(Deno.args, {
   },
 });
 
-const json: CacheConfig = readJsonSync(args.config) as CacheConfig;
-
-// Construct a Parser and Loader with provided config
-const configParser = new ConfigParser(json);
+// Construct a Parser and Loader based on args
+const config: CacheConfig = readJsonSync(args.config) as CacheConfig;
+const configParser = new ConfigParser(config);
 const cacheLoader = new CacheLoader(args.env);
 
 // Parse the json config to XML bodies
