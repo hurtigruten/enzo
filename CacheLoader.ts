@@ -18,22 +18,29 @@ export class CacheLoader {
   }
 
   private async asyncPool(poolLimit: number, xmlList: string[]): Promise<unknown> {
-    const ret = new Array();
+    // All promises
+    const results = new Array();
+    // Pool of ongoing queries
     const executing = new Array();
-    for (const item of xmlList) {
-      const p = Promise.resolve().then(() => this.postRequest(item));
-      ret.push(p);
-      const e: unknown = p.then(() => executing.splice(executing.indexOf(e), 1));
+    for (const xml of xmlList) {
+      // Log the progress so far
+      if (results.length % 50 === 0) {
+        const percent = ((results.length / xmlList.length) * 100).toFixed(2);
+        logger.debug(`Completed: ${results.length} (${percent} %)`);
+      }
+      // Send the post request and added to the results
+      const promise = Promise.resolve().then(() => this.postRequest(xml));
+      results.push(promise);
+      // Add the request to the pool and remove it when it's resolved
+      const e: Promise<unknown> = promise.then(() => executing.splice(executing.indexOf(e), 1));
       executing.push(e);
+      // If the pool is currently full, wait for a free spot
       if (executing.length >= poolLimit) {
-         if (ret.length % 50 === 0) {
-            const percent = ((ret.length / xmlList.length) * 100).toFixed(2);
-            logger.debug(`Completed: ${ret.length} (${percent} %)`);
-         }
          await Promise.race(executing);
       }
+
     }
-    return Promise.all(ret);
+    return Promise.all(results);
   }
 
   private async postRequest(xmlBody: string): Promise<void> {

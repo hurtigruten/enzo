@@ -3,7 +3,7 @@
   "defaultDaysAhead": 849,
   "defaultDirection": "North",
   "defaultPartyMix": ["ADULT", "ADULT,ADULT"],
-  "searchDayRange": 5,
+  "searchRange": 5,
   "sailings": [
     {
       "voyageType": "NORWAY_VOYAGE",

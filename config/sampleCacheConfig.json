@@ -2,7 +2,7 @@
   "defaultMarkets": ["US"],
   "defaultDaysAhead": 10,
   "defaultDirection": "North",
-  "searchDayRange": 5,
+  "searchRange": 5,
   "defaultPartyMix": ["ADULT","ADULT,ADULT"],
     "sailings": [
       {
