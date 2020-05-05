@@ -32,8 +32,8 @@ Deno needs to be installed, check the [website](https://deno.land/)
 Scheduling is done by..
 
 The following flags are available: 
-* **--config** (defaults to "./cacheConfig.json", can be set to "./cacheConfigPartial.json" for caching the smaller data set)
-* **--env** (defaults to "local", can be set to "prod". Determines where Deno is running from. When using "prod", localhost is used as an endpoint)
+* **--config** (Optional and defaults to "./cacheConfig.json", can be set to "./cacheConfigPartial.json" for caching the smaller data set)
+* **--host** (Optional and defaults to "remote", can be set to "local". Determines where Bizlogic is available, localhost should be used in Production)
 
 From your favorite command line run: ```deno run --allow-read --allow-net mod.ts --config "./samples/sampleCacheConfig.json"```
 
@@ -50,7 +50,7 @@ The flag can also be added on a system level if desired using ```setx /M```
 * ~~Support full and partial runs with Deno flag~~
 * ~~Support running in different environments with Deno flag~~
 * ~~Bundle dependencies by setting DENO_DIR environment flag~~
-* ~~ Make sure Seaware XML API settings are sane. Validate was default!~~
+* ~~Make sure Seaware XML API settings are sane. Validate was default!~~
 * Implement logging
 * Optimize the date ranges (cap at 730 days for full? 90 days for SV in partial?)
 * Mechanism for stopping a run? (lock file? or check processes?)

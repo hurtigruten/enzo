@@ -4,12 +4,11 @@ export class CacheLoader {
     
   readonly _localHost = "http://localhost:8085/SwBizLogic/Service.svc/ProcessRequest";
   readonly _remoteHost = "http://10.26.32.45:8085/SwBizLogic/Service.svc/ProcessRequest";
-  readonly _host : string;
+  readonly poolSize = 12;
     
-  // TODO: Avoid hardcoding of config?
-  constructor (readonly env: string, readonly poolSize = 12 ) {
-    this._host = (env === "prod") ? this._localHost : this._remoteHost;
-    logger.debug(`host: ${this._host}`)
+  constructor (readonly host: string) {
+    this.host = (host === "local") ? this._localHost : this._remoteHost;
+    logger.debug(`host: ${this.host}`)
   }
 
   load(xmlBodies: string[]): Promise<unknown> {
@@ -44,7 +43,7 @@ export class CacheLoader {
   }
 
   private async postRequest(xmlBody: string): Promise<void> {
-    const req = new Request(this._host, {
+    const req = new Request(this.host, {
       method: "post",
       headers: { "Content-type": "application/x-versonix-api" },
       body: xmlBody,
@@ -56,7 +55,7 @@ export class CacheLoader {
         return;
       }
       /*
-      Keep commented code in case we want to extend by reading cached response
+      Don't read the response for now
       res.text().then((data) => { });
       */
     })

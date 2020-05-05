@@ -25,7 +25,6 @@ export class ConfigParser {
 
   // Responisble for parsing the JsonConfig and flatten each object based on arrays (partymix, market and pages)
   private produceJsonSearches(json: CacheConfig): JsonSearch[] {
-
     // Mix in default values
     const sailings = json.sailings.map((obj) => {
       const daysAhead = obj.daysAhead || json.defaultDaysAhead;
@@ -62,18 +61,16 @@ export class ConfigParser {
         ),
       }));
     });
-    // Map to JsonSearch objects and return
-    return flatDates.map((obj) => {
-      const search: JsonSearch = {
-        fromDay: obj.fromDay,
-        toDay: obj.toDay,
-        voyageType: obj.voyageType,
-        voyageCode: obj.voyageCode,
-        party: obj.party,
-        market: obj.market
-      }
-      return search;
-    });
+    // Map to JsonSearch objects
+    const result: JsonSearch[] = flatDates.map((obj) => ({
+      fromDay: obj.fromDay,
+      toDay: obj.toDay,
+      voyageType: obj.voyageType,
+      voyageCode: obj.voyageCode,
+      party: obj.party,
+      market: obj.market
+    }));
+    return result;
   }
 
   private dateFromToday(daysAhead: number): string {
@@ -83,16 +80,16 @@ export class ConfigParser {
   }
 
   private parseParty(partyMix: string) {
-    const r = partyMix.split(",").map((party) => { return `<Value><Str>${party}</Str></Value>` })
-    return r.join("") 
+    const res: string[] = partyMix.split(",").map((party) => { return `<Value><Str>${party}</Str></Value>` })
+    return res.join("") 
   }
 
-  private transformToXML(jsonSearch: JsonSearch): string {
+  private transformToXML(search: JsonSearch): string {
     return `<GetAvailPrimPkgsCustom_IN><MsgHeader><Version>1.0</Version><CallerInfo><UserInfo><Internal></Internal></UserInfo></CallerInfo><ValidateMode>N</ValidateMode></MsgHeader>
       <SearchOptions><CacheSearchMode>ForcePopulateCacheOnly</CacheSearchMode></SearchOptions><CustomParams><Scenario>ONEWAY</Scenario>
-      <Param><Code>DateFrom</Code><Value><Date>${jsonSearch.fromDay}</Date></Value></Param><Param><Code>DateTo</Code><Value><Date>${jsonSearch.toDay}</Date></Value></Param>
-      <Param><Code>VoyageType</Code><Value><Str>${jsonSearch.voyageType}</Str></Value></Param><Param><Code>VoyageCode</Code><Value><Str>${jsonSearch.voyageCode}</Str></Value></Param>
-      <Param><Code>PartyMix</Code>${this.parseParty(jsonSearch.party)}</Param><Param><Code>UseShipAvailCache</Code><Value><Str>Y</Str></Value></Param>
-      <Param><Code>Market</Code><Value><Str>${jsonSearch.market}</Str></Value></Param></CustomParams></GetAvailPrimPkgsCustom_IN>`
+      <Param><Code>DateFrom</Code><Value><Date>${search.fromDay}</Date></Value></Param><Param><Code>DateTo</Code><Value><Date>${search.toDay}</Date></Value></Param>
+      <Param><Code>VoyageType</Code><Value><Str>${search.voyageType}</Str></Value></Param><Param><Code>VoyageCode</Code><Value><Str>${search.voyageCode}</Str></Value></Param>
+      <Param><Code>PartyMix</Code>${this.parseParty(search.party)}</Param><Param><Code>UseShipAvailCache</Code><Value><Str>Y</Str></Value></Param>
+      <Param><Code>Market</Code><Value><Str>${search.market}</Str></Value></Param></CustomParams></GetAvailPrimPkgsCustom_IN>`
   }
 }

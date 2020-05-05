@@ -6,10 +6,7 @@ import { parse, readJsonSync } from "./deps.ts";
 const args = parse(Deno.args, {
   default: {
     config: "./cacheConfig.json",
-    env: "local",
-  },
-  alias: {
-    //config: "cache-mode",
+    host: "remote",
   },
 });
 
@@ -20,7 +17,7 @@ const configParser = new ConfigParser(json);
 const cacheLoader = new CacheLoader(args.env);
 
 // Parse the json config to XML bodies
-const payload = configParser.parseConfig();
+const payload: string[] = configParser.parseConfig();
 
 // Execute calls to BizLogic XML API
 await cacheLoader.load(payload);
