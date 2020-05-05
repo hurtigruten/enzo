@@ -24,14 +24,14 @@ export class ConfigParser {
   }
 
   // Responisble for parsing the JsonConfig and flatten each object based on arrays (partymix, market and pages)
-  private produceJsonSearches(config: CacheConfig): JsonSearch[] {
+  private produceJsonSearches(json: CacheConfig): JsonSearch[] {
 
     // Flatten out partymixes and mix in default values
-    const flatParty = config.sailings.flatMap((obj) => {
-      obj.partyMixes = obj.partyMixes || config.defaultPartyMix;
-      obj.marketList = obj.marketFilter || config.defaultMarkets;
-      obj.daysAhead = obj.daysAhead || config.defaultDaysAhead;
-      obj.pages = Array.from(Array(Math.ceil(obj.daysAhead / config.searchDayRange)).keys());
+    const flatParty = json.sailings.flatMap((obj) => {
+      obj.partyMixes = obj.partyMixes || json.defaultPartyMix;
+      obj.marketList = obj.marketFilter || json.defaultMarkets;
+      obj.daysAhead = obj.daysAhead || json.defaultDaysAhead;
+      obj.pages = Array.from(Array(Math.ceil(obj.daysAhead / json.searchDayRange)).keys());
       return obj.partyMixes.map((party: string) => ({ ...obj, party }));
     });
 
@@ -43,10 +43,10 @@ export class ConfigParser {
     // Flatten out pages and return list of JsonSearch objects
     return flatMarket.flatMap((obj) => {
       return obj.pages.map((page: number) => ({
-        fromDay: this.dateFromToday(page * config.searchDayRange),
+        fromDay: this.dateFromToday(page * json.searchDayRange),
         toDay: this.dateFromToday(
           Math.min(
-            (page * config.searchDayRange) + (config.searchDayRange - 1),
+            (page * json.searchDayRange) + (json.searchDayRange - 1),
             obj.daysAhead - 1
           )
         ),

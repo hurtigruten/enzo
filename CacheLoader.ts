@@ -23,7 +23,7 @@ export class CacheLoader {
     for (const item of xmlList) {
       const p = Promise.resolve().then(() => this.postRequest(item));
       ret.push(p);
-      const e: any = p.then(() => executing.splice(executing.indexOf(e), 1));
+      const e: unknown = p.then(() => executing.splice(executing.indexOf(e), 1));
       executing.push(e);
       if (executing.length >= poolLimit) {
          if (ret.length % 50 === 0) {
