@@ -1,4 +1,4 @@
-import { log, Logger } from "./deps.ts";
+import { log } from "./deps.ts";
 
 await log.setup({
   handlers: {
@@ -24,4 +24,6 @@ await log.setup({
 });
 
 // get default logger
-export const logger : Logger = log.getLogger();
+const logger = log.getLogger();
+
+export { logger }
