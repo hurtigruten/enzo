@@ -1,8 +1,4 @@
-import cacheConfigDev from "./samples/sampleCacheConfig.json";
-import cacheConfig from "./cacheConfig.json";
-import cacheConfigPartial from "./cacheConfigPartial.json";
-
-interface cacheConfig {
+export interface CacheConfig {
   defaultMarkets: string[];
   defaultDaysAhead: number;
   searchDayRange: number;
@@ -20,10 +16,7 @@ interface JsonSearch {
 }
 
 export class ConfigParser {
-  constructor(private config: cacheConfig) {
-    //this.config = cacheConfigDev;
-    config = ("partial") ? cacheConfigPartial : cacheConfig;
-  }
+  constructor(readonly config: CacheConfig) {}
 
   // Parse Json config and serialize to Seaware XML
   parseConfig(): string[] {
@@ -32,7 +25,7 @@ export class ConfigParser {
   }
 
   // Responisble for parsing the JsonConfig and flatten each object based on arrays (partymix, market and pages)
-  private produceJsonSearches(config: cacheConfig): JsonSearch[] {
+  private produceJsonSearches(config: CacheConfig): JsonSearch[] {
 
     // Flatten out partymixes and mix in default values
     const flatParty = config.sailings.flatMap((obj) => {

@@ -2,22 +2,22 @@ import { logger } from "./logger.ts"
 
 export class CacheLoader {
     
-  private _localHost = "http://localhost:8085/SwBizLogic/Service.svc/ProcessRequest";
-  private _remoteHost = "http://c54censap0008:8085/SwBizLogic/Service.svc/ProcessRequest";
-  private _host : string;
+  readonly _localHost = "http://localhost:8085/SwBizLogic/Service.svc/ProcessRequest";
+  readonly _remoteHost = "http://10.26.32.45:8085/SwBizLogic/Service.svc/ProcessRequest";
+  readonly _host : string;
     
   // TODO: Avoid hardcoding of config?
-  constructor (private env: string, private poolSize = 16 ) {
+  constructor (readonly env: string, readonly poolSize = 12 ) {
     this._host = (env === "prod") ? this._localHost : this._remoteHost;
     logger.debug(`host: ${this._host}`)
   }
 
-  load(xmlBodies: string[]): Promise<any> {
+  load(xmlBodies: string[]): Promise<unknown> {
     logger.debug(`Starting cache run with a pool of ${this.poolSize} and ${xmlBodies.length} requests to run`);
     return this.asyncPool(this.poolSize, xmlBodies);
   }
 
-  private async asyncPool(poolLimit: number, xmlList: string[]): Promise<any> {
+  private async asyncPool(poolLimit: number, xmlList: string[]): Promise<unknown> {
     const ret = new Array();
     const executing = new Array();
     for (const item of xmlList) {

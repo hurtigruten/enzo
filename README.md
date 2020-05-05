@@ -29,13 +29,11 @@ Deno needs to be installed, check the [website](https://deno.land/)
 
 Scheduling is done by..
 
-From your favorite command line run: ```deno --allow-net mod.ts```
-
 The following flags are available: 
-* **--cache-mode** (defaults to "full", can be set to "partial" for caching the smaller data set)
+* **--config** (defaults to "./cacheConfig.json", can be set to "./cacheConfigPartial.json" for caching the smaller data set)
 * **--env** (defaults to "local", can be set to "prod". Determines where Deno is running from. When using "prod", localhost is used as an endpoint)
 
-Example: ```deno --allow-net mod.ts --cache-mode partial --env prod```
+From your favorite command line run: ```deno run --allow-read --allow-net mod.ts --config "./samples/sampleCacheConfig.json"```
 
 PS: In a Production environment it is recommended to bundle all dependencies. Todo this (from powershell), add an environment flag: ```$env:DENO_DIR="./deno_cache"```;
 The flag can also be added on a system level if desired using ```setx /M```
