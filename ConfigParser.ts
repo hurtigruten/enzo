@@ -16,7 +16,9 @@ interface JsonSearch {
 }
 
 export class ConfigParser {
+
   constructor(readonly config: CacheConfig) {}
+
   // Parse Json config and serialize to Seaware XML
   parseConfig(): string[] {
     const searches: JsonSearch[] = this.produceJsonSearches(this.config);
@@ -25,6 +27,7 @@ export class ConfigParser {
 
   // Responisble for parsing the JsonConfig and flatten each object based on arrays (partymix, market and pages)
   private produceJsonSearches(json: CacheConfig): JsonSearch[] {
+  
     // Mix in default values
     const sailings = json.sailings.map((obj) => {
       const daysAhead = obj.daysAhead || json.defaultDaysAhead;
@@ -61,6 +64,7 @@ export class ConfigParser {
         ),
       }));
     });
+
     // Map to JsonSearch objects
     const result: JsonSearch[] = flatDates.map((obj) => ({
       fromDay: obj.fromDay,
@@ -73,17 +77,20 @@ export class ConfigParser {
     return result;
   }
 
+  // Calculate number of days from today
   private dateFromToday(daysAhead: number): string {
     let date = new Date();
     date.setDate(date.getDate() + daysAhead);
     return date.toISOString().split("T")[0];
   }
 
+  // Party mixes need to be spread out
   private parseParty(partyMix: string) {
     const res: string[] = partyMix.split(",").map((party) => { return `<Value><Str>${party}</Str></Value>` })
     return res.join("") 
   }
 
+  // Template literal are slightly better than string cocatination. Could use an XML lib for this.
   private transformToXML(search: JsonSearch): string {
     return `<GetAvailPrimPkgsCustom_IN><MsgHeader><Version>1.0</Version><CallerInfo><UserInfo><Internal></Internal></UserInfo></CallerInfo><ValidateMode>N</ValidateMode></MsgHeader>
       <SearchOptions><CacheSearchMode>ForcePopulateCacheOnly</CacheSearchMode></SearchOptions><CustomParams><Scenario>ONEWAY</Scenario>

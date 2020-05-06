@@ -11,11 +11,13 @@ export class CacheLoader {
     logger.debug(`host: ${this.host}`)
   }
 
+  // Main method that simple wraps the aync pool
   load(xmlBodies: string[]): Promise<unknown> {
     logger.debug(`Starting cache run with a pool of ${this.poolSize} and ${xmlBodies.length} requests to run`);
     return this.asyncPool(this.poolSize, xmlBodies);
   }
 
+  // A async pool that runs requests in a throttled manner
   private async asyncPool(poolLimit: number, xmlList: string[]): Promise<unknown> {
     // All promises
     const results = new Array();
@@ -42,6 +44,7 @@ export class CacheLoader {
     return Promise.all(results);
   }
 
+  // Post a XML HTTP requests to Seaware
   private async postRequest(xmlBody: string): Promise<void> {
     const req = new Request(this.host, {
       method: "post",
