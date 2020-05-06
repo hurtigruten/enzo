@@ -29,7 +29,7 @@ Deno needs to be installed, check the [website](https://deno.land/)
 
 # Usage
 
-Scheduling is done by..
+When running in Production (or locally on any bizlogic), a windows task scheduler job should be set up to trigger the execution of the script. When running from you local machine, you need remote access to the server (be in the HRG network or use vpn from home)
 
 The following flags are available: 
 * **--config** (Optional and defaults to "./cacheConfig.json", can be set to "./cacheConfigPartial.json" for caching the smaller data set)
