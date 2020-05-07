@@ -93,7 +93,7 @@ export class ConfigParser {
   // Template literal are slightly better than string cocatination. Could use an XML lib for this.
   private transformToXML(search: JsonSearch): string {
     return `<GetAvailPrimPkgsCustom_IN><MsgHeader><Version>1.0</Version><CallerInfo><UserInfo><Internal></Internal></UserInfo></CallerInfo><ValidateMode>N</ValidateMode></MsgHeader>
-      <SearchOptions><CacheSearchMode>ForcePopulateCacheOnly</CacheSearchMode></SearchOptions><CustomParams><Scenario>ONEWAY</Scenario>
+      <SearchOptions><CacheSearchMode>ForcePopulateCacheOnly</CacheSearchMode><IncludePriceDetails>Y</IncludePriceDetails></SearchOptions><CustomParams><Scenario>ONEWAY</Scenario>
       <Param><Code>DateFrom</Code><Value><Date>${search.fromDay}</Date></Value></Param><Param><Code>DateTo</Code><Value><Date>${search.toDay}</Date></Value></Param>
       <Param><Code>VoyageType</Code><Value><Str>${search.voyageType}</Str></Value></Param><Param><Code>VoyageCode</Code><Value><Str>${search.voyageCode}</Str></Value></Param>
       <Param><Code>PartyMix</Code>${this.parseParty(search.party)}</Param><Param><Code>UseShipAvailCache</Code><Value><Str>Y</Str></Value></Param>
