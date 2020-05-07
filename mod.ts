@@ -1,5 +1,6 @@
 import { CacheLoader } from "./CacheLoader.ts";
-import { ConfigParser, CacheConfig } from "./ConfigParser.ts";
+import { ConfigParser } from "./ConfigParser.ts";
+import { CacheConfig } from './models/models.ts';
 import { parse, readJsonSync } from "./deps.ts";
 
 // Read CLI arguments. Config is used to determine a full or partial run, env determines if the script is locally or remote

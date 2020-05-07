@@ -1,19 +1,4 @@
-export interface CacheConfig {
-  defaultMarkets: string[];
-  defaultDaysAhead: number;
-  searchRange: number;
-  defaultDirection: string;
-  defaultPartyMix: string[];
-  sailings: any[];
-}
-interface JsonSearch {
-  fromDay: string,
-  toDay: string;
-  voyageType: string;
-  voyageCode: string;
-  party: string;
-  market: string;
-}
+import { CacheConfig, JsonSearch } from './models/models.ts';
 
 export class ConfigParser {
 
