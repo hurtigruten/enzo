@@ -51,13 +51,13 @@ The flag can also be added on a system level if desired using ```setx /M```
 * ~~Support running in different environments with Deno flag~~
 * ~~Bundle dependencies by setting DENO_DIR environment flag~~
 * ~~Make sure Seaware XML API settings are sane. Validate was default!~~
-* Implement logging
+* Implement file logging
 * Optimize the date ranges (cap at 730 days for full? 90 days for SV in partial?)
 * Mechanism for stopping a run? (lock file? or check processes?)
 * Scheduling with windows task scheduler
 * Retry if requests failed (after wait?)
 * PG needs to start using the new config
-* Look into OneWaySearchScenarioHRG.xml (BMCompany_ID)
+* Move scheduling to the app itself and install it as a window service. Then use " Deploy a Windows Service" in Octopus to deploy updates.
 * ~~"Only one usage of each socket address" happens sometimes. Increase the number of TCP ports and reduce wait time before closing connection on the server~~
 
 # Long term tasks / Future Ideas
