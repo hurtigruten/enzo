@@ -3,7 +3,7 @@
     "defaultDaysAhead": 364,
     "defaultDirection": "North",
     "defaultPartyMix": ["ADULT", "ADULT,ADULT"],
-    "searchRange": 5,
+    "searchRange": 10,
     "sailings": [
       {
         "id": "ab3e4985-3ac9-4524-80be-0646f4eb0b0e",
