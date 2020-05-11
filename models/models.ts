@@ -1,4 +1,4 @@
-export interface CacheConfig {
+export type CacheConfig = {
     defaultMarkets: string[];
     defaultDaysAhead: number;
     searchRange: number;
@@ -6,7 +6,7 @@ export interface CacheConfig {
     defaultPartyMix: string[];
     sailings: Sailing[];
 }
-export interface JsonSearch {
+export type JsonSearch = {
     fromDay: string,
     toDay: string;
     voyageType: string;
@@ -14,7 +14,7 @@ export interface JsonSearch {
     party: string;
     market: string;
 }
-export interface Sailing {
+export type Sailing = {
     id: string;
     voyageType: string;
     direction?: string;

@@ -1,24 +1,23 @@
-import { parse } from "https://deno.land/std/flags/mod.ts";
-import { readJsonSync } from "https://deno.land/std/fs/read_json.ts";
-import { CacheLoader } from "./CacheLoader.ts";
-import { ConfigParser } from "./ConfigParser.ts";
-import { CacheConfig } from './models/models.ts';
+import { parse, readJsonSync } from "./deps.ts";
+import { LOCAL_HOST, REMOTE_HOST, PORT, URL, POOL_SIZE, CACHE_MODE } from "./config.ts"
+import { CacheLoader } from "./services/CacheLoader.ts";
+import { ConfigParser } from "./services/ConfigParser.ts";
+import { CacheConfig } from "./models/models.ts";
 
-// Read CLI arguments. Config is used to determine a full or partial run, env determines if the script is locally or remote
+// Read arguments. Config is used to determine a full or partial run, host determines if the script is locally or remote
 const args = parse(Deno.args, {
   default: {
-    config: "./cacheConfig.json",
-    host: "remote",
+    config: "./configs/fullCache.json",
+    host: "local",
   },
 });
 
-// Construct a Parser and Loader based on args
+// Parse the supplied json config file to XML bodies
 const config: CacheConfig = readJsonSync(args.config) as CacheConfig;
-const configParser = new ConfigParser(config);
-const cacheLoader = new CacheLoader(args.env);
-
-// Parse the json config to XML bodies
+const configParser = new ConfigParser(config, CACHE_MODE);
 const payload: string[] = configParser.parseConfig();
 
 // Execute calls to BizLogic XML API
+const url = (args.host === 'remote') ? `${REMOTE_HOST}:${PORT}${URL}` : `${LOCAL_HOST}:${PORT}${URL}`
+const cacheLoader = new CacheLoader(url, POOL_SIZE);
 await cacheLoader.load(payload);
