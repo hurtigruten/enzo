@@ -6,9 +6,10 @@ await log.setup({
     console: new log.handlers.ConsoleHandler("DEBUG", {
         formatter: `[{levelName}] {datetime}: {msg}`
     }),
-    file: new log.handlers.FileHandler("DEBUG", {
-      filename: 'log.txt',
-      // you can change format of output message using any keys in `LogRecord`
+    file: new log.handlers.RotatingFileHandler("DEBUG", {
+      filename: 'cacheLog.txt',
+      maxBytes: 5000000,
+      maxBackupCount: 10,
       formatter: `[{levelName}] {datetime}: {msg}`
     }),
   },

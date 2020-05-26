@@ -1,7 +1,5 @@
 import { JsonSearch } from '../models/models.ts';
 
-
-
   // Party mixes need to be spread out
   function parseParty(partyMix: string) {
     const res: string[] = partyMix.split(",").map((party) => { return `<Value><Str>${party}</Str></Value>` })
