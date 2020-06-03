@@ -20,7 +20,7 @@ I decided to write a new application from scratch in **Typescript** using **Fetc
 
 Some nice side effects include **faster** execution (mainly due to an asynchronous request pool saturating Bizlogic more effectiviely), **safer** operation (provided by Deno's security model, and the compiled Typescript) increased **portability** (can be run on Mac, Linux, and Windows).
 
-Running javascript server-side spells Node in capital letters, but I decided to go for Deno for its built-in Typescript support, security model, and because node_modules is plain ugly. As of writing this, Deno has not reached 1.0 yet. Should Deno flop like Dart or Apple Maps, the source code is minimal and can very easily be executed using Node.
+Running javascript server-side spells Node.js in capital letters, but I decided to go for Deno for its built-in Typescript support, security model, and because node_modules is plain ugly. Should Deno flop like Dart or Apple Maps, the source code is minimal and can very easily be executed using Node.
 
 In the future, we could look at building new capabilities into the application such as middleware to offer APIs, dynamically produce the custom search rules in Seaware, a cache to store results locally, and maybe even introducing new Seaware API calls.
 
@@ -35,7 +35,7 @@ The following flags are available:
 * **--config** (Optional and defaults to "./cacheConfig.json", can be set to "./cacheConfigPartial.json" for caching the smaller data set)
 * **--host** (Optional and defaults to "remote", can be set to "local". Determines where Bizlogic is available, localhost should be used in Production)
 
-From your favorite command line run: ```deno run --allow-read --allow-net mod.ts --config "./samples/sampleCacheConfig.json"```
+From your favorite command line run: ```deno run --allow-read --allow-net singleRun.ts --config "./samples/sampleCacheConfig.json"```
 
 PS: In a Production environment it is recommended to bundle all dependencies. Todo this (from powershell), add an environment flag: ```$env:DENO_DIR="./deno_cache"```;
 The flag can also be added on a system level if desired using ```setx /M```
@@ -56,7 +56,7 @@ The flag can also be added on a system level if desired using ```setx /M```
 * Add versioning to urls
 * Retry if requests failed? (after wait?)
 * PG needs to start using the new config
-* Package with Deno install and install it as a window service. Then use "Deploy a Windows Service" in Octopus to deploy updates.
+* Package with Deno install. Then use "Deploy a Windows Service" in Octopus to deploy updates.
 * ~~"Only one usage of each socket address" happens sometimes. Increase the number of TCP ports and reduce wait time before closing connection on the server~~
 
 # Long term tasks / Future Ideas

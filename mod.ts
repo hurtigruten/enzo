@@ -23,7 +23,7 @@ const cacheLoader = new CacheLoader(url, POOL_SIZE);
 
 let cron = new Cron();
 cron.start();
-// Full cache refresh nightly
+// Add job for Full cache refresh nightly
 cron.add("5 0 * * *", async () => {
   logger.debug("Full cache refresh started");
   
@@ -34,7 +34,7 @@ cron.add("5 0 * * *", async () => {
   await cacheLoader.load(fullPayload);
 });
 
-// Partial cache refresh
+// Add job for first Partial cache refresh
 cron.add("0 11 * * *", async () => {
   logger.debug("Partial cache refresh started");
   
@@ -45,8 +45,8 @@ cron.add("0 11 * * *", async () => {
   await cacheLoader.load(partialPayload);
 });
 
-// Partial cache refresh
-cron.add("30 15 * * *", async () => {
+// Add job for Partial cache refresh
+cron.add("00 15 * * *", async () => {
   logger.debug("Partial cache refresh started");
   
   // Parse the partial json config file to XML bodies
