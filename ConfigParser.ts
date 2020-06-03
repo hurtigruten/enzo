@@ -30,12 +30,10 @@ type Sailing = {
 
 export class ConfigParser {
 
-  constructor(readonly config: CacheConfig, readonly cacheMode: string) {}
-
   // Parse Json config and serialize to Seaware XML
-  parseConfig(): string[] {
-    const searches: JsonSearch[] = this.produceJsonSearches(this.config);
-    return searches.map((search) => transformToXML(search, this.cacheMode));
+  parseConfig(config: CacheConfig, cacheMode: string): string[] {
+    const searches: JsonSearch[] = this.produceJsonSearches(config);
+    return searches.map((search) => transformToXML(search, cacheMode));
   }
 
   // Responisble for parsing the JsonConfig and flatten each object based on arrays (partymix, market and pages)
