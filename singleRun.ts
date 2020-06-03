@@ -1,6 +1,7 @@
 import { parse, readJsonSync, Cron } from "./deps.ts";
 import { CacheLoader } from "./CacheLoader.ts";
 import { ConfigParser, CacheConfig } from "./ConfigParser.ts";
+import { logger } from "./logger.ts";
 
 // Read arguments. Config is used to determine a full or partial run, host determines if the script is locally or remote
 const args = parse(Deno.args, {
@@ -25,4 +26,6 @@ const payload: string[] = configParser.parseConfig(config, CACHE_MODE);
 // Setup cache loader with supplied url
 const cacheLoader = new CacheLoader(url, POOL_SIZE);
 
+logger.debug("Single cache refresh started");
 await cacheLoader.load(payload);
+logger.debug("Single cache refresh finished");

@@ -43,6 +43,7 @@ cron.add("0 11 * * *", async () => {
   const partialPayload: string[] = configParser.parseConfig(partialConfig, CACHE_MODE);
 
   await cacheLoader.load(partialPayload);
+  logger.debug("Partial cache refresh finished");
 });
 
 // Add job for Partial cache refresh
@@ -54,4 +55,5 @@ cron.add("00 15 * * *", async () => {
   const partialPayload: string[] = configParser.parseConfig(partialConfig, CACHE_MODE);
 
   await cacheLoader.load(partialPayload);
+  logger.debug("Partial cache refresh finished");
 });
