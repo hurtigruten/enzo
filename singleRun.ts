@@ -15,14 +15,14 @@ const LOCAL_HOST = "http://localhost:8085/SwBizLogic/Service.svc/ProcessRequest"
 const REMOTE_HOST = "http://10.26.32.45:8085/SwBizLogic/Service.svc/ProcessRequest";
 const POOL_SIZE = 15;
 const CACHE_MODE = "ForcePopulateCacheOnly";
+const url = args.host === "remote" ? REMOTE_HOST : LOCAL_HOST;
 
 // Parse the supplied json config file to XML bodies
 const config: CacheConfig = readJsonSync(args.config) as CacheConfig;
-const configParser = new ConfigParser(config, CACHE_MODE);
-const payload: string[] = configParser.parseConfig();
+const configParser = new ConfigParser();
+const payload: string[] = configParser.parseConfig(config, CACHE_MODE);
 
 // Setup cache loader with supplied url
-const url = args.host === "remote" ? REMOTE_HOST : LOCAL_HOST;
 const cacheLoader = new CacheLoader(url, POOL_SIZE);
 
 await cacheLoader.load(payload);
