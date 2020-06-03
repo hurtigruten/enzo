@@ -1,4 +1,4 @@
-import { logger } from "../logging/logger.ts"
+import { logger } from "./logger.ts"
 
 export class CacheLoader {
        

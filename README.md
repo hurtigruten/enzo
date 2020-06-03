@@ -53,17 +53,17 @@ The flag can also be added on a system level if desired using ```setx /M```
 * ~~Make sure Seaware XML API settings are sane. Validate was default!~~
 * ~~Implement file logging~~
 * ~~Optimize the date ranges (cap at 730 days for full? 90 days for SV in partial?)~~
-* Scheduling with windows task scheduler, package with Deno install
-* Retry if requests failed (after wait?)
+* Add versioning to urls
+* Retry if requests failed? (after wait?)
 * PG needs to start using the new config
-* Move scheduling to the app itself and install it as a window service. Then use " Deploy a Windows Service" in Octopus to deploy updates.
+* Package with Deno install and install it as a window service. Then use "Deploy a Windows Service" in Octopus to deploy updates.
 * ~~"Only one usage of each socket address" happens sometimes. Increase the number of TCP ports and reduce wait time before closing connection on the server~~
 
 # Long term tasks / Future Ideas
 * Build a deploy pipeline
 * Write tests
 * Use denon?
-* ~~Implement API to serve what is cached~~
+* Implement API to serve what is cached
 * Store cache results in redis cache and build API on top?
 * Build an API that offers available promotions?
 * Look into Drop Cache as a new search mode

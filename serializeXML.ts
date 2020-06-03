@@ -1,5 +1,3 @@
-import { JsonSearch } from '../models/models.ts';
-
   // Party mixes need to be spread out
   function parseParty(partyMix: string) {
     const res: string[] = partyMix.split(",").map((party) => { return `<Value><Str>${party}</Str></Value>` })
@@ -7,7 +5,7 @@ import { JsonSearch } from '../models/models.ts';
   }
   
   // Template literal are slightly better than string cocatination. Could use an XML lib for this.
-  export function transformToXML(search: JsonSearch, cacheMode: string): string {
+  export function transformToXML(search: any, cacheMode: string): string {
     return `<GetAvailPrimPkgsCustom_IN><MsgHeader><Version>1.0</Version><CallerInfo><UserInfo><Internal></Internal></UserInfo></CallerInfo><ValidateMode>N</ValidateMode></MsgHeader>
       <SearchOptions><CacheSearchMode>${cacheMode}</CacheSearchMode><IncludePriceDetails>Y</IncludePriceDetails></SearchOptions><CustomParams><Scenario>ONEWAY</Scenario>
       <Param><Code>DateFrom</Code><Value><Date>${search.fromDay}</Date></Value></Param><Param><Code>DateTo</Code><Value><Date>${search.toDay}</Date></Value></Param>

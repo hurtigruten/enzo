@@ -1,4 +1,4 @@
-import { log } from "../deps.ts";
+import { log } from "./deps.ts";
 
 await log.setup({
   handlers: {
@@ -7,7 +7,7 @@ await log.setup({
         formatter: `[{levelName}] {datetime}: {msg}`
     }),
     file: new log.handlers.RotatingFileHandler("DEBUG", {
-      filename: 'cacheLog.txt',
+      filename: 'logs/cacheLog.txt',
       maxBytes: 5000000,
       maxBackupCount: 10,
       formatter: `[{levelName}] {datetime}: {msg}`
