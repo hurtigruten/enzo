@@ -32,7 +32,6 @@ export class CacheLoader {
       if (executing.length >= poolLimit) {
          await Promise.race(executing);
       }
-
     }
     return Promise.all(results);
   }
