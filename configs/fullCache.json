@@ -203,6 +203,20 @@
         "added": "2020-05-07T21:35:23.130Z"
       },
       {
+        "id": "96676b47-9e14-4aa6-9c2f-22942df3ca65",
+        "voyageType": "EXPLORER",
+        "fromPort": "GLW",
+        "toPort": "LIV",
+        "added": "2020-05-07T21:35:23.130Z"
+      },
+      {
+        "id": "61ba3790-cf99-4171-9cc0-eb78699f84e3",
+        "voyageType": "EXPLORER",
+        "fromPort": "GLW",
+        "toPort": "POR",
+        "added": "2020-05-07T21:35:23.130Z"
+      },
+      {
         "id": "144bce3b-4ffd-4e14-b026-397f169a5069",
         "voyageType": "EXPLORER",
         "fromPort": "GYE",
@@ -319,6 +333,20 @@
         "voyageType": "EXPLORER",
         "fromPort": "LIV",
         "toPort": "POR",
+        "added": "2020-05-07T21:35:40.153Z"
+      },
+      {
+        "id": "e4aa158b-4d8d-47df-b60f-4628ff04f69c",
+        "voyageType": "EXPLORER",
+        "fromPort": "LIV",
+        "toPort": "GLW",
+        "added": "2020-05-07T21:35:40.153Z"
+      },
+      {
+        "id": "0e7c977f-d0b3-4923-a7d8-7ea73b60de2f",
+        "voyageType": "EXPLORER",
+        "fromPort": "LIV",
+        "toPort": "LIV",
         "added": "2020-05-07T21:35:40.153Z"
       },
       {
@@ -497,10 +525,31 @@
         "added": "2020-05-07T21:36:05.206Z"
       },
       {
+        "id": "1d05c0c1-fdd7-4629-9102-7c61ccc00405",
+        "voyageType": "EXPLORER",
+        "fromPort": "POR",
+        "toPort": "GLW",
+        "added": "2020-05-07T21:36:06.207Z"
+      },
+      {
+        "id": "4ec24433-2e07-40c5-b3fa-c196e6a0497e",
+        "voyageType": "EXPLORER",
+        "fromPort": "POR",
+        "toPort": "LIV",
+        "added": "2020-05-07T21:36:06.207Z"
+      },
+      {
         "id": "fa5210d3-7f53-4685-8a2e-d089e673fbb0",
         "voyageType": "EXPLORER",
         "fromPort": "POR",
         "toPort": "LON",
+        "added": "2020-05-07T21:36:06.207Z"
+      },
+      {
+        "id": "b27e2dad-7cc4-448d-9bb7-792d4bcfa37b",
+        "voyageType": "EXPLORER",
+        "fromPort": "POR",
+        "toPort": "POR",
         "added": "2020-05-07T21:36:06.207Z"
       },
       {
@@ -509,6 +558,20 @@
         "fromPort": "PTY",
         "toPort": "CLL",
         "added": "2020-05-07T21:36:07.208Z"
+      },
+      {
+        "id": "076b740a-4bfe-4fd0-a3c2-efe0fe07bddb",
+        "voyageType": "EXPLORER",
+        "fromPort": "PTY",
+        "toPort": "GYE",
+        "added": "2020-08-07T21:36:07.208Z"
+      },
+      {
+        "id": "ecc5df66-0c5d-43cf-a774-dad1691bcdc9",
+        "voyageType": "EXPLORER",
+        "fromPort": "PTY",
+        "toPort": "LIM",
+        "added": "2020-08-07T21:36:07.208Z"
       },
       {
         "id": "d8ee01ad-9d29-4662-a1b8-ac24f5bafa48",

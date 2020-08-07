@@ -42,25 +42,16 @@ The flag can also be added on a system level if desired using ```setx /M```
 
 # TODO
 
-* ~~Initial PoC~~
-* ~~Simulate loads to find optimal saturation~~
-* ~~Write better Readme~~
-* ~~Introduce defaultDaysAhead and mixin~~
-* ~~Introduce all searches from old app~~
-* ~~Support full and partial runs with Deno flag~~
-* ~~Support running in different environments with Deno flag~~
-* ~~Bundle dependencies by setting DENO_DIR environment flag~~
-* ~~Make sure Seaware XML API settings are sane. Validate was default!~~
-* ~~Implement file logging~~
-* ~~Optimize the date ranges (cap at 730 days for full? 90 days for SV in partial?)~~
-* Add versioning to urls
-* Retry if requests failed? (after wait?)
+* Add port combos from summer
+* Production deployment
 * PG needs to start using the new config
-* Package with Deno install. Then use "Deploy a Windows Service" in Octopus to deploy updates.
+* Move from Windows Task scheduler to Cron
+* Retry if requests failed? (after wait?)
+* Add option to cache single sailing
+* Build a deploy pipeline
 * ~~"Only one usage of each socket address" happens sometimes. Increase the number of TCP ports and reduce wait time before closing connection on the server~~
 
 # Long term tasks / Future Ideas
-* Build a deploy pipeline
 * Write tests
 * Use denon?
 * Implement API to serve what is cached
@@ -68,6 +59,6 @@ The flag can also be added on a system level if desired using ```setx /M```
 * Build an API that offers available promotions?
 * Look into Drop Cache as a new search mode
 * Look into ResultModes node in the custom availability request 
-* Any way to build the cache more dynamically, instead of forcing a complete run?
+* Any way to build the cache more dynamically, instead of forcing a complete run? Perhaps by storing search results from b2c/b2b
 * Detect if a port combination gives no results at all and log it
 * Write a customDB script in Seaware to find which sailings are loaded, instead of using config (requires creating new rules if needed)

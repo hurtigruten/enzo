@@ -1,4 +1,4 @@
-import { parse, readJsonSync, Cron } from "./deps.ts";
+import { parse, readJsonSync } from "./deps.ts";
 import { CacheLoader } from "./CacheLoader.ts";
 import { ConfigParser, CacheConfig } from "./ConfigParser.ts";
 import { logger } from "./logger.ts";
