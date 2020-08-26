@@ -41,9 +41,6 @@ PS: In a Production environment it is recommended to bundle all dependencies. To
 The flag can also be added on a system level if desired using ```setx /M```
 
 # TODO
-
-* Add port combos from summer
-* Production deployment
 * PG needs to start using the new config
 * Move from Windows Task scheduler to Cron
 * Retry if requests failed? (after wait?)
