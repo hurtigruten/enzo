@@ -49,7 +49,6 @@ The flag can also be added on a system level if desired using ```setx /M```
 * Retry if requests failed? (after wait?)
 * Add option to cache single sailing
 * Build a deploy pipeline
-* ~~"Only one usage of each socket address" happens sometimes. Increase the number of TCP ports and reduce wait time before closing connection on the server~~
 
 # Long term tasks / Future Ideas
 * Write tests
