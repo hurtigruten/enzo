@@ -47,6 +47,7 @@
         "direction": "North",
         "fromPort": "BGO",
         "toPort": "TOS",
+        "daysAhead": 120,
         "marketFilter": ["NO", "UK"],
         "added": "2020-05-08T09:10:50.842Z"
       },
@@ -56,6 +57,7 @@
         "direction": "South",
         "fromPort": "TRD",
         "toPort": "BGO",
+        "daysAhead": 120,
         "marketFilter": ["NO", "UK"],
         "added": "2020-05-08T09:10:51.843Z"
       },
