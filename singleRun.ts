@@ -1,4 +1,4 @@
-import { parse, readJsonSync } from "./deps.ts";
+import { parse } from "./deps.ts";
 import { CacheLoader } from "./CacheLoader.ts";
 import { ConfigParser, CacheConfig } from "./ConfigParser.ts";
 import { logger } from "./logger.ts";
@@ -19,7 +19,7 @@ const CACHE_MODE = "ForcePopulateCacheOnly";
 const url = args.host === "remote" ? REMOTE_HOST : LOCAL_HOST;
 
 // Parse the supplied json config file to XML bodies
-const config: CacheConfig = readJsonSync(args.config) as CacheConfig;
+const config: CacheConfig = JSON.parse(Deno.readTextFileSync(args.config)) as CacheConfig;
 const configParser = new ConfigParser();
 const payload: string[] = configParser.parseConfig(config, CACHE_MODE);
 
