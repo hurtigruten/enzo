@@ -8,7 +8,7 @@
       {
         "id": "5710c41b-80c2-41a7-8b10-521057eae29f",
         "voyageType": "NORWAY_VOYAGE",
-        "direction": "North-South",
+        "direction": "North_South",
         "fromPort": "BGO",
         "toPort": "BGO",
         "daysAhead": 730,
@@ -17,7 +17,7 @@
       {
         "id": "0ebd1177-6a12-4aec-b29f-fe3caff47b28",
         "voyageType": "NORWAY_VOYAGE",
-        "direction": "North-South",
+        "direction": "North_South",
         "fromPort": "BGO",
         "toPort": "TRD",
         "daysAhead": 730,
