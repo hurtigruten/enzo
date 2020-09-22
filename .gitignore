@@ -1,4 +1,5 @@
-cacheLog.*
+log.*
 tsconfig.json
 .vscode
 .gitignore
+logs/cacheLog.txt
