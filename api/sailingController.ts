@@ -1,9 +1,16 @@
 import type { Context } from "https://deno.land/x/abc@v1.1.0/mod.ts";
 import type { Sailing, CacheConfig } from "./sailingModel.ts";
 import { v4 } from "https://deno.land/std/uuid/mod.ts"
+import { parse } from "https://deno.land/std@0.69.0/flags/mod.ts";
 
-const config: CacheConfig = JSON.parse(Deno.readTextFileSync("../configs/fullCache.json"));
+// Read arguments. Config is used to determine a full or partial run, host determines if the script is locally or remote
+const args = parse(Deno.args, {
+  default: {
+    config: "../configs/fullCache.json"
+  },
+});
 
+const config: CacheConfig = JSON.parse(Deno.readTextFileSync(args.config));
 let sailings: Sailing[] = config.sailings;
 
 export const getCacheConfig = (c: Context) => {
