@@ -15,8 +15,6 @@ export const getAllSailings = (c: Context) => {
   let result = sailings;
   fromPort ? result = result.filter((s: Sailing) => s.fromPort === fromPort) : result;
   toPort ? result = result.filter((s: Sailing) => s.toPort === toPort) : result;
-  // sort by fromPort
-  //result = (sailings.length >= 1) ? sailings.sort((a, b) => a.fromPort.localeCompare(b.fromPort)) : sailings
   return c.json(result, 200);
 };
 
