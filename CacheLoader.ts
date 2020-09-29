@@ -6,7 +6,6 @@ export class CacheLoader {
 
   // Main method that simple wraps the aync pool
   load(xmlBodies: string[]): Promise<unknown> {
-    logger.debug(`Starting cache run towards ${this.host}, with a pool of ${this.poolSize} and ${xmlBodies.length} requests to run`);
     return this.asyncPool(this.poolSize, xmlBodies);
   }
 

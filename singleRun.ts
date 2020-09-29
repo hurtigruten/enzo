@@ -26,6 +26,7 @@ const payload: string[] = configParser.parseConfig(config);
 // Setup cache loader with supplied url
 const cacheLoader = new CacheLoader(url, POOL_SIZE);
 
-logger.debug("Single cache refresh started");
+logger.debug(`Starting cache run towards ${url} with a request pool size of ${POOL_SIZE}`);
+logger.debug(`Using the ${args.config} config that has a search range of ${config.searchRange}, giving ${payload.length} requests to run`);
 await cacheLoader.load(payload);
 logger.debug("Single cache refresh finished");
