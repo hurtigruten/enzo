@@ -13,8 +13,8 @@ export class CacheLoader {
   // A async pool that runs requests in a throttled manner
   private async asyncPool(poolLimit: number, xmlList: string[]): Promise<unknown> {
 
-    const results = new Array();
-    const executing = new Array();
+    const results: Promise<unknown>[] = [];
+    const executing: Promise<unknown>[] = [];
 
     for (const xml of xmlList) {
       // Log the progress so far
