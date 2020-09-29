@@ -1,4 +1,4 @@
-  // Party mixes need to be spread out
+  // Utility for spreading party mixes out
   function parseParty(partyMix: string) {
     const res: string[] = partyMix.split(",").map((party) => { return `<Value><Str>${party}</Str></Value>` })
     return res.join("") 

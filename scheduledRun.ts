@@ -1,6 +1,7 @@
 import { parse, Cron } from "./deps.ts";
 import { CacheLoader } from "./CacheLoader.ts";
-import { ConfigParser, CacheConfig } from "./ConfigParser.ts";
+import { ConfigParser } from "./ConfigParser.ts";
+import type { CacheConfig } from "./types.ts";
 import { logger } from "./logger.ts";
 
 // Read arguments. Config is used to determine a full or partial run, host determines if the script is locally or remote
