@@ -1,5 +1,5 @@
 import { transformToXML } from "./serializeXML.ts";
-import type { CacheConfig, JsonSearch, Sailing } from "./types.ts";
+import type { CacheConfig, JsonSearch } from "./types.ts";
 
 export class ConfigParser {
 
