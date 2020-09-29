@@ -1,12 +1,12 @@
 import { transformToXML } from "./serializeXML.ts";
-import type { CacheConfig, JsonSearch } from "./types.ts";
+import type { CacheConfig, JsonSearch, Sailing } from "./types.ts";
 
 export class ConfigParser {
 
   // Parse Json config and serialize to Seaware XML
-  parseConfig(config: CacheConfig, cacheMode: string): string[] {
+  parseConfig(config: CacheConfig): string[] {
     const searches: JsonSearch[] = this.produceJsonSearches(config);
-    return searches.map((search) => transformToXML(search, cacheMode));
+    return searches.map((search: JsonSearch) => transformToXML(search, config.cacheMode));
   }
 
   // Responisble for parsing the JsonConfig and flatten each object based on arrays (partymix, market and pages)
