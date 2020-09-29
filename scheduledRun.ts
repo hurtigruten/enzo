@@ -41,7 +41,7 @@ cron.add("0 11 * * *", async () => {
   logger.debug("Partial cache refresh started");
   
   // Parse the partial json config file to XML bodies
-  const partialConfig: CacheConfig = JSON.parse(Deno.readTextFileSync("./configs/partialCache.json") as CacheConfig;
+  const partialConfig: CacheConfig = JSON.parse(Deno.readTextFileSync("./configs/partialCache.json")) as CacheConfig;
   const partialPayload: string[] = configParser.parseConfig(partialConfig, CACHE_MODE);
 
   await cacheLoader.load(partialPayload);
@@ -53,7 +53,7 @@ cron.add("00 15 * * *", async () => {
   logger.debug("Partial cache refresh started");
   
   // Parse the partial json config file to XML bodies
-  const partialConfig: CacheConfig = JSON.parse(Deno.readTextFileSync("./configs/partialCache.json") as CacheConfig;
+  const partialConfig: CacheConfig = JSON.parse(Deno.readTextFileSync("./configs/partialCache.json")) as CacheConfig;
   const partialPayload: string[] = configParser.parseConfig(partialConfig, CACHE_MODE);
 
   await cacheLoader.load(partialPayload);
