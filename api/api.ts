@@ -1,4 +1,4 @@
-import { Application } from "https://deno.land/x/abc@v1.1.0/mod.ts";
+import { Application } from "../deps.ts";
 import { getCacheConfig, getAllSailings, getSailing, createSailing, deleteSailing } from "./sailingController.ts";
 
 const app = new Application();
