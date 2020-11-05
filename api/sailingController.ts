@@ -1,4 +1,4 @@
-import type { Context } from "https://deno.land/x/abc@v1.1.0/mod.ts";
+import type { Context } from "../deps.ts";
 import type { CacheConfig, Sailing } from "../types.ts";
 import { v4, parse } from "../deps.ts";
 
