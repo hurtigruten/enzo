@@ -63,7 +63,7 @@ export class ConfigParser {
 
   // Calculate number of days from today
   private dateFromToday(daysAhead: number): string {
-    let date = new Date();
+    const date = new Date();
     date.setDate(date.getDate() + daysAhead);
     return date.toISOString().split("T")[0];
   }

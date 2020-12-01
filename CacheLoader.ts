@@ -4,7 +4,7 @@ export class CacheLoader {
        
   constructor (readonly host: string, readonly poolSize: number) {}
 
-  // Main method that simple wraps the aync pool
+  // Main method that simply wraps the aync pool
   load(xmlBodies: string[]): Promise<unknown> {
     return this.asyncPool(this.poolSize, xmlBodies);
   }
@@ -43,18 +43,18 @@ export class CacheLoader {
       body: xmlBody,
     });
   
-    return fetch(req).then((res) => {
+    try {
+      const res = await fetch(req);
       if (res.status !== 200) {
-        logger.error(`Error in response! Status code: ${res.status}`)
+        logger.error(`Error in response! Status code: ${res.status}`);
         return;
       }
       /*
       Plug in here to  read the response
       res.text().then((data) => { });
       */
-    })
-    .catch((e) => {
+    } catch (e) {
       logger.error(`Fetch Error: ${e}`);
-    });
+    }
   }
 }
