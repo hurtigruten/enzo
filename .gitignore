@@ -1,5 +1,4 @@
 log.*
-tsconfig.json
+testSeawareCall.ts
 .vscode
 .gitignore
-logs/cacheLog.txt

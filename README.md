@@ -1,4 +1,4 @@
-# The Seaware cache application
+# The legacy Seaware cache application
 The Seaware cache application, hosted [here](https://bitbucket.org/hurtigruteninternal/bizlogic_cache/) has been responsible for caching Seaware sailings (availability and price breakdown) since 2012
 
 The application is basically a collection of javascript files that are run (using Windows Task Scheduler and a collection of .bat files) that fires off a large number of XMLHTTPServer requests at the local Bizlogic instance, forcing it to cache the searches for later retrieval by PG. A full run is executed every night, typically taking 4-5 hours and then a partial run is executed 3-4 times per day on popular sailings (or sailings close to departure) to ensure as up to date cache as possible (a brute force cache will inherently always struggle to keep up to date, but this can be mitigated somewhat by forcing a refresh if no data is found).
@@ -22,28 +22,25 @@ Some nice side effects include **faster** execution (mainly due to an asynchrono
 
 Running javascript server-side spells Node.js in capital letters, but I decided to go for Deno for its built-in Typescript support, security model, and because node_modules is plain ugly. The source code is minimal and can very easily be executed using Node.
 
-In the future, we could look at building new capabilities into the application such as middleware to offer APIs, dynamically produce the custom search rules in Seaware, a cache to store results locally, and maybe even introducing new Seaware API calls.
+In the future, we could look at building new capabilities into the application such as middleware to offer more APIs, dynamically produce the custom search rules in Seaware, a cache to store results locally, and maybe even introducing new Seaware API calls.
 
 # Prerequisites
 Deno needs to be installed, check the [website](https://deno.land/)
 
 # Usage
-
 When running in Production (or locally on any bizlogic), a windows task scheduler job should be set up to trigger the execution of the script. When running from you local machine, you need remote access to the server (be in the HRG network or use vpn from home)
 
 The following flags are available: 
 * **--config** (Optional and defaults to "./cacheConfig.json", can be set to "./cacheConfigPartial.json" for caching the smaller data set)
 * **--host** (Optional and defaults to "remote", can be set to "local". Determines where Bizlogic is available, localhost should be used in Production)
 
-From your favorite command line run: ```deno run --allow-read --allow-net singleRun.ts --config "./samples/sampleCacheConfig.json"```
+From your favorite command line run: ```deno run -A singleRun.ts --config "./samples/sampleCacheConfig.json"```
 
 PS: In a Production environment it is recommended to bundle all dependencies. To do this (from powershell), add an environment flag: ```$env:DENO_DIR="./deno_cache"```;
 The flag can also be added on a system level if desired using ```setx /M```
 
 # TODO
-* Move from Windows Task scheduler to Cron
 * Retry if requests failed? (after wait?)
-* Add option to cache single sailing
 * Build a deploy pipeline
 
 # Long term tasks / Future Ideas
