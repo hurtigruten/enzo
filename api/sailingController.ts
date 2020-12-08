@@ -40,7 +40,7 @@ export const createSailing = async (c: Context) => {
   const added = new Date();
   const sailing: Sailing = { id, voyageType, direction, fromPort, toPort, daysAhead, partyMixes, marketFilter, added };
   sailings.push(sailing);
-  // TODO: Persist new sailing - see oak
+  // TODO: Persist new sailing - see sea-oak
   //return c.json(sailing, 201);
   return c.string("Not implemented", 200)
 };
