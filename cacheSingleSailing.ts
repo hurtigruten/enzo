@@ -1,8 +1,9 @@
-import { CacheLoader } from "./CacheLoader.ts";
-import { ConfigParser } from "./ConfigParser.ts";
+import { asyncPool } from "./seawareLoader.ts";
+import { produceJsonSearches } from "./sailingsParser.ts";
 import { parse } from "./deps.ts";
 import { logger } from "./logger.ts";
-import { CacheConfig, Sailing } from "./types.ts";
+import { transformToXML } from "./serializeXML.ts";
+import { CacheConfig, Sailing, SailingSearch } from "./types.ts";
 
 /*
     This script allows the user to cache a single sailing (or port combination).
@@ -31,7 +32,6 @@ const url = args.host === "remote" ? REMOTE_HOST : LOCAL_HOST;
 
 // Parse the full json config file
 const config: CacheConfig = JSON.parse(Deno.readTextFileSync(args.config)) as CacheConfig;
-const configParser = new ConfigParser();
 
 // Find requested sailing in config
 const filteredSailings: Sailing[] = config.sailings.filter(function (sailing) {
@@ -45,14 +45,12 @@ if (filteredSailings.length === 0) {
 
 // Parse the config, using only the requested sailing
 config.sailings = filteredSailings;
-const payload: string[] = configParser.parseConfig(config);
-
-// Setup cache loader with supplied url
-const cacheLoader = new CacheLoader(url, POOL_SIZE);
+const searches: SailingSearch[] = produceJsonSearches(config);
+const payload: string[] = searches.map((search: SailingSearch) => transformToXML(search, config.cacheMode));
 
 logger.debug(`Caching single sailing on: ${url}`);
 logger.debug(`Request pool size: ${POOL_SIZE}`);
 logger.debug(`Searching for ${args.fromPort} to ${args.toPort}`);
 logger.debug(`Search range setting ${config.searchRange}, giving ${payload.length} requests to run`);
-await cacheLoader.load(payload);
+await asyncPool(url, POOL_SIZE, payload);
 logger.debug("Caching single sailing finished");

@@ -1,4 +1,4 @@
-import type { JsonSearch } from "./types.ts"
+import type { SailingSearch } from "./types.ts"
 
 // Utility for spreading party mixes out
 function parseParty(partyMix: string) {
@@ -7,7 +7,7 @@ function parseParty(partyMix: string) {
 }
   
 // Template literal are slightly better than string cocatination. Could use an XML lib for this.
-export function transformToXML(search: JsonSearch, cacheMode: string): string {
+export function transformToXML(search: SailingSearch, cacheMode: string): string {
   return `<GetAvailPrimPkgsCustom_IN><MsgHeader><Version>1.0</Version><CallerInfo><UserInfo><Internal></Internal></UserInfo></CallerInfo><ValidateMode>N</ValidateMode></MsgHeader>
     <SearchOptions><CacheSearchMode>${cacheMode}</CacheSearchMode><IncludePriceDetails>Y</IncludePriceDetails></SearchOptions><CustomParams><Scenario>ONEWAY</Scenario>
     <Param><Code>DateFrom</Code><Value><Date>${search.fromDay}</Date></Value></Param><Param><Code>DateTo</Code><Value><Date>${search.toDay}</Date></Value></Param>

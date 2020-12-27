@@ -1,5 +1,5 @@
 import type { Context } from "../deps.ts";
-import type { CacheConfig, Sailing } from "../types.ts";
+import type { CacheConfig, Sailing, TourConfig } from "../types.ts";
 import { v4, parse } from "../deps.ts";
 
 // Read arguments. Config is used to determine a full or partial run, host determines if the script is locally or remote
@@ -8,6 +8,12 @@ const args = parse(Deno.args, {
     config: "../configs/fullCache.json"
   },
 });
+
+const tourConfig: TourConfig = JSON.parse(Deno.readTextFileSync("../configs/sampleTourConfig.json"));
+
+export const getTourConfig = (c: Context) => {
+  return c.json(tourConfig, 200);
+};
 
 const config: CacheConfig = JSON.parse(Deno.readTextFileSync(args.config));
 let sailings: Sailing[] = config.sailings;
