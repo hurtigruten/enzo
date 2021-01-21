@@ -36,7 +36,7 @@ The following flags are available:
 
 From your favorite command line run: ```deno run -A singleRun.ts``` for a full cache refresh.
 
-To cache a partial set of the cache: ```deno run -A singleRun.ts --config=".\configs\partialCache.json"``` pointing to to the path of the relevant cache set.
+To cache a partial set of the cache: ```deno run -A singleRun.ts --config=".\configs\partialCache.json"``` pointing to the path of the relevant cache set.
 
 To cache a single port combination: ```deno run -A cacheSingleSailing.ts --fromPort=USH --toPort=USH``` assigning the ports as appropriate.
 
