@@ -33,7 +33,8 @@ export type Sailing = {
 export type TourConfig = {
   defaultMarkets: string[];
   defaultPartyMix: string[];
-  tours: (TourWithDepartureDateRange|TourWithSpecificDepartureDates)[];
+  toursWithSpecificDates: TourWithSpecificDepartureDates[];
+  toursWithDateRanges: TourWithDepartureDateRange[];
 }
 
 type TourBasic = {

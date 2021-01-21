@@ -31,10 +31,14 @@ Deno needs to be installed, check the [website](https://deno.land/)
 When running in Production (or locally on any bizlogic), a windows task scheduler job should be set up to trigger the execution of the script. When running from you local machine, you need remote access to the server (be in the HRG network or use vpn from home)
 
 The following flags are available: 
-* **--config** (Optional and defaults to "./cacheConfig.json", can be set to "./cacheConfigPartial.json" for caching the smaller data set)
-* **--host** (Optional and defaults to "remote", can be set to "local". Determines where Bizlogic is available, localhost should be used in Production)
+* **--config** (Optional, if not set the full cache will be refreshed. Point it to one of the json files in the config folder)
+* **--host** (Optional. Set it to "remote" if you are executing from your local computer)
 
-From your favorite command line run: ```deno run -A singleRun.ts --config "./samples/sampleCacheConfig.json"```
+From your favorite command line run: ```deno run -A singleRun.ts``` for a full cache refresh
+To cache a partial set of the cache: ```deno run -A singleRun.ts --config=".\configs\partialCache.json"``` pointing to to the path of the relevant cache set
+To cache a single port combination: ```deno run -A cacheSingleSailing.ts --fromPort=USH --toPort=USH``` assigning the ports as appropriate
+
+# Recommended Production settings
 
 PS: In a Production environment it is recommended to bundle all dependencies. To do this (from powershell), add an environment flag: ```$env:DENO_DIR="./deno_cache"```;
 The flag can also be added on a system level if desired using ```setx /M```
