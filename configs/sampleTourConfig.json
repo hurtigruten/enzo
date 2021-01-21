@@ -1,0 +1,27 @@
+{
+  "defaultMarkets": ["DE", "FR", "NO", "UK", "US"],
+  "defaultPartyMix": ["ADULT", "ADULT,ADULT"],
+  "toursWithSpecificDates": [
+    {
+      "id": 12345,
+      "name": "Antartica Explorer tour",
+      "fromPort": "USH",
+      "toPort": "USH",
+      "departureDates": ["2021-02-21", "2021-11-26", "2022-03-14"],
+      "marketFilter": ["FR", "UK"]
+    }
+  ],
+  "toursWithDateRanges": [
+    {
+      "id": 678901,
+      "name": "NO Coastal tour",
+      "fromPort": "BGO",
+      "toPort": "BGO",
+      "agreementID": 1065,
+      "partyMix": ["ADULT,ADULT"],
+      "marketFilter": ["NO"],
+      "departureDateFrom": "2021-03-01",
+      "departureDateTo": "2021-03-15"
+    }
+  ]
+}
