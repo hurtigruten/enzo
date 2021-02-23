@@ -2,7 +2,7 @@ import { asyncPool } from "./seawareLoader.ts";
 import { produceJsonSearches } from "./sailingsParser.ts";
 import { parse } from "./deps.ts";
 import { logger } from "./logger.ts";
-import { transformToXML } from "./serializeXML.ts";
+import { createSeawareRequest } from "./serializeXML.ts";
 import { CacheConfig, Sailing, SailingSearch } from "./types.ts";
 
 /*
@@ -46,7 +46,7 @@ if (filteredSailings.length === 0) {
 // Parse the config, using only the requested sailing
 config.sailings = filteredSailings;
 const searches: SailingSearch[] = produceJsonSearches(config);
-const payload: string[] = searches.map((search: SailingSearch) => transformToXML(search, config.cacheMode));
+const payload: string[] = searches.map((search: SailingSearch) => createSeawareRequest(search));
 
 logger.debug(`Caching single sailing on: ${url}`);
 logger.debug(`Request pool size: ${POOL_SIZE}`);
