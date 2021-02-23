@@ -4,7 +4,6 @@
     "defaultDirection": "North",
     "defaultPartyMix": ["ADULT", "ADULT,ADULT"],
     "searchRange": 10,
-    "cacheMode": "ForcePopulateCacheOnly",
     "sailings": [
       {
         "id": "bf834707-f8c4-4bda-8f0c-18857b789b67",

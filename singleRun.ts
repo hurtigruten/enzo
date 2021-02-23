@@ -22,7 +22,7 @@ const url = args.host === "remote" ? REMOTE_HOST : LOCAL_HOST;
 // Parse the supplied json config file to XML bodies
 const config: CacheConfig = JSON.parse(Deno.readTextFileSync(args.config)) as CacheConfig;
 const searches: SailingSearch[] = produceJsonSearches(config);
-const payload: string[] = searches.map((search: SailingSearch) => transformToXML(search, config.cacheMode));
+const payload: string[] = searches.map((search: SailingSearch) => transformToXML(search));
 
 // Setup cache loader with supplied url
 logger.debug(`Starting cache run towards ${url} with a request pool size of ${POOL_SIZE}`);

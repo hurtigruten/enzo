@@ -11,7 +11,7 @@ export type CacheConfig = {
 export type SailingSearch = {
   fromDay: string;
   toDay: string;
-  voyageType?: string;
+  voyageType: string;
   voyageCode: string;
   party: string;
   market: string;

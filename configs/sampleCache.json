@@ -3,7 +3,6 @@
   "defaultDaysAhead": 100,
   "defaultDirection": "North",
   "searchRange": 10,
-  "cacheMode": "ForcePopulateCacheOnly",
   "defaultPartyMix": ["ADULT","ADULT"],
     "sailings": [
       {

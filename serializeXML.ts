@@ -6,20 +6,57 @@ function parseParty(partyMix: string) {
   return res.join("") 
 }
   
-// Template literal are slightly better than string cocatination. Could use an XML lib for this. TODO: add agreement ID switch in separate function
-export function transformToXML(search: SailingSearch, cacheMode: string): string {
+// Template literal are slightly better than string cocatination. Could use an XML lib for this.
+export function createSeawareRequest(search: SailingSearch): string {
   return `<GetAvailPrimPkgsCustom_IN>
-    <MsgHeader><Version>1.0</Version><CallerInfo><UserInfo><Internal></Internal></UserInfo></CallerInfo><ValidateMode>N</ValidateMode></MsgHeader>
-    <SearchOptions><CacheSearchMode>${cacheMode}</CacheSearchMode><IncludePriceDetails>Y</IncludePriceDetails></SearchOptions>
+    <MsgHeader>
+      <Version>1.0</Version>
+      <CallerInfo><UserInfo><Internal></Internal></UserInfo></CallerInfo>
+      <ValidateMode>N</ValidateMode>
+    </MsgHeader>
+    <SearchOptions>
+      <CacheSearchMode>ForcePopulateCacheOnly</CacheSearchMode>
+      <IncludePriceDetails>Y</IncludePriceDetails>
+    </SearchOptions>
     <CustomParams>
-    <Scenario>ONEWAY</Scenario>
-    <Param><Code>DateFrom</Code><Value><Date>${search.fromDay}</Date></Value></Param>
-    <Param><Code>DateTo</Code><Value><Date>${search.toDay}</Date></Value></Param>
-    <Param><Code>VoyageType</Code><Value><Str>${search.voyageType}</Str></Value></Param>
-    <Param><Code>VoyageCode</Code><Value><Str>${search.voyageCode}</Str></Value></Param>
-    <Param><Code>PartyMix</Code>${parseParty(search.party)}</Param>
-    <Param><Code>UseShipAvailCache</Code><Value><Str>Y</Str></Value></Param>
-    <Param><Code>Market</Code><Value><Str>${search.market}</Str></Value></Param>
+      <Scenario>ONEWAY</Scenario>
+      <Param><Code>DateFrom</Code><Value><Date>${search.fromDay}</Date></Value></Param>
+      <Param><Code>DateTo</Code><Value><Date>${search.toDay}</Date></Value></Param>
+      <Param><Code>VoyageType</Code><Value><Str>${search.voyageType}</Str></Value></Param>
+      <Param><Code>VoyageCode</Code><Value><Str>${search.voyageCode}</Str></Value></Param>
+      <Param><Code>PartyMix</Code>${parseParty(search.party)}</Param>
+      <Param><Code>UseShipAvailCache</Code><Value><Str>Y</Str></Value></Param>
+      <Param><Code>Market</Code><Value><Str>${search.market}</Str></Value></Param>
+    </CustomParams>
+    </GetAvailPrimPkgsCustom_IN>`
+}
+// TODO: components, sailactivities, classifications, pkgdef, priceguesttotal needed? ValidateMode. OfficeCode? xmlns?
+export function createSeawareRequestWithAllotment(search: SailingSearch): string {
+  return `<GetAvailPrimPkgsCustom_IN xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <MsgHeader>
+      <Version>1.0</Version>
+      <CallerInfo><UserInfo><Internal></Internal></UserInfo><OfficeCode>HRG</OfficeCode></CallerInfo>
+      <ValidateMode>Y</ValidateMode>
+    </MsgHeader>
+    <SearchOptions>
+      <CacheSearchMode>ForcePopulateCacheOnly</CacheSearchMode>
+      <IncludePriceDetails>Y</IncludePriceDetails>
+      <IncludeComponents>Y</IncludeComponents>
+      <IncludeSailActivities>Y</IncludeSailActivities>
+      <IncludeClassifications>Y</IncludeClassifications>
+      <IncludePkgDef>Y</IncludePkgDef>
+      <IncludePriceGuestTotal>Y</IncludePriceGuestTotal>
+    </SearchOptions>
+    <CustomParams>
+      <Scenario>ONEWAY</Scenario>
+      <Param><Code>DateFrom</Code><Value><Date>${search.fromDay}</Date></Value></Param>
+      <Param><Code>DateTo</Code><Value><Date>${search.toDay}</Date></Value></Param>
+      <Param><Code>VoyageType</Code><Value><Str>${search.voyageType}</Str></Value></Param>
+      <Param><Code>VoyageCode</Code><Value><Str>${search.voyageCode}</Str></Value></Param>
+      <Param><Code>AllotmentAgreementID</Code><Value><Num>${search.allotmentID}</Num></Value></Param>
+      <Param><Code>PartyMix</Code>${parseParty(search.party)}</Param>
+      <Param><Code>UseShipAvailCache</Code><Value><Str>Y</Str></Value></Param>
+      <Param><Code>Market</Code><Value><Str>${search.market}</Str></Value></Param>
     </CustomParams>
     </GetAvailPrimPkgsCustom_IN>`
 }
