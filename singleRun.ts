@@ -3,7 +3,7 @@ import { asyncPool } from "./seawareLoader.ts";
 import { produceJsonSearches } from "./sailingsParser.ts";
 import type { CacheConfig, SailingSearch } from "./types.ts";
 import { logger } from "./logger.ts";
-import { transformToXML } from "./serializeXML.ts";
+import { createSeawareRequest } from "./serializeXML.ts";
 
 // Read arguments. Config is used to determine a full or partial run, host determines if the script is locally or remote
 const args = parse(Deno.args, {
@@ -22,7 +22,7 @@ const url = args.host === "remote" ? REMOTE_HOST : LOCAL_HOST;
 // Parse the supplied json config file to XML bodies
 const config: CacheConfig = JSON.parse(Deno.readTextFileSync(args.config)) as CacheConfig;
 const searches: SailingSearch[] = produceJsonSearches(config);
-const payload: string[] = searches.map((search: SailingSearch) => transformToXML(search));
+const payload: string[] = searches.map((search: SailingSearch) => createSeawareRequest(search));
 
 // Setup cache loader with supplied url
 logger.debug(`Starting cache run towards ${url} with a request pool size of ${POOL_SIZE}`);
