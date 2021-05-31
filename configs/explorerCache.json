@@ -650,6 +650,11 @@
         "added": "2020-05-07T21:36:33.242Z"
       },
       {
+        "voyageType": "EXPLORER",
+        "fromPort": "YCB",
+        "toPort": "PUQ"
+      },
+      {
         "id": "44e1a296-7c28-4fa8-8d62-f1f11fd3ab0e",
         "voyageType": "EXPLORER",
         "fromPort": "YCB",
@@ -711,6 +716,11 @@
         "fromPort": "YVR",
         "toPort": "SWD",
         "added": "2020-05-07T21:36:42.254Z"
+      },
+      {
+        "voyageType": "EXPLORER",
+        "fromPort": "YVR",
+        "toPort": "USH"
       },
       {
         "id": "7ff7423a-b3d1-45f6-95b4-870192d03067",
