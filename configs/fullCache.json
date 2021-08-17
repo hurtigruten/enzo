@@ -182,6 +182,16 @@
         "added": "2020-05-07T21:35:20.129Z"
       },
       {
+        "voyageType": "EXPLORER",
+        "fromPort": "DSS",
+        "toPort": "DSS"
+      },
+      {
+        "voyageType": "EXPLORER",
+        "fromPort": "DSS",
+        "toPort": "LPA"
+      },
+      {
         "id": "25f9b220-443e-45fb-9808-87f270e37e25",
         "voyageType": "EXPLORER",
         "fromPort": "GEC",
