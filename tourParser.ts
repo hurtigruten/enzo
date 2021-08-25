@@ -5,6 +5,7 @@ export function parseToursWithSpecificDates(json: TourConfig): SailingSearch[] {
   const toursWithSpecifics = json.toursWithSpecificDates.map((tour) => {
     return {
       voyageCode: tour.fromPort + "-" + tour.toPort,
+      voyageType: tour.voyageType,
       agreementID: tour.agreementID,
       partyMixes: tour.partyMix || json.defaultPartyMix,
       marketList: tour.marketFilter || json.defaultMarkets,
@@ -32,6 +33,7 @@ export function parseToursWithSpecificDates(json: TourConfig): SailingSearch[] {
     fromDay: obj.date,
     toDay: obj.date,
     voyageCode: obj.voyageCode,
+    voyageType: obj.voyageType,
     allotmentID: obj.agreementID,
     party: obj.party,
     market: obj.market,
@@ -52,6 +54,7 @@ export function parseToursWithDateRange(json: TourConfig): SailingSearch[] {
     return {
       voyageCode: tour.fromPort + "-" + tour.toPort,
       agreementID: tour.agreementID,
+      voyageType: tour.voyageType,
       partyMixes: tour.partyMix || json.defaultPartyMix,
       marketList: tour.marketFilter || json.defaultMarkets,
       pages: pages,
@@ -86,6 +89,7 @@ export function parseToursWithDateRange(json: TourConfig): SailingSearch[] {
     fromDay: obj.fromDay,
     toDay: obj.toDay,
     voyageCode: obj.voyageCode,
+    voyageType: obj.voyageType,
     allotmentID: obj.agreementID,
     party: obj.party,
     market: obj.market,

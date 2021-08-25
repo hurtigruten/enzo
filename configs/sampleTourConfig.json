@@ -7,6 +7,7 @@
       "name": "Antartica Explorer tour",
       "fromPort": "USH",
       "toPort": "USH",
+      "voyageType": "EXPLORER",
       "departureDates": ["2021-02-21", "2021-11-26", "2022-03-14"],
       "marketFilter": ["FR", "UK"]
     }
@@ -17,6 +18,7 @@
       "name": "NO Coastal tour",
       "fromPort": "BGO",
       "toPort": "BGO",
+      "voyageType": "EXPLORER",
       "agreementID": 1065,
       "partyMix": ["ADULT,ADULT"],
       "marketFilter": ["NO"],

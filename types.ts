@@ -42,6 +42,7 @@ type TourBasic = {
   name: string;
   fromPort: string;
   toPort: string;
+  voyageType: string;
   agreementID?: number;
   partyMix?: string[];
   marketFilter?: string[];
