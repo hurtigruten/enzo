@@ -46,6 +46,7 @@ PS: In a Production environment it is recommended to bundle all dependencies. To
 The flag can also be added on a system level if desired using ```setx /M```
 
 # TODO
+* Add Allotment based Tours (need a list of allotment ids from PG for the Tour)
 * Retry if requests failed? (after wait?)
 * Build a deploy pipeline
 
