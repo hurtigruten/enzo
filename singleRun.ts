@@ -4,6 +4,7 @@ import { produceJsonSearches } from "./sailingsParser.ts";
 import type { CacheConfig, SailingSearch } from "./types.ts";
 import { logger } from "./logger.ts";
 import { createSeawareRequest } from "./serializeXML.ts";
+import { postSlackMessage } from "./slack-bot/mod.ts";
 
 // Read arguments. Config is used to determine a full or partial run, host determines if the script is locally or remote
 const args = parse(Deno.args, {
@@ -31,4 +32,6 @@ logger.debug(`Using the ${args.config} config that has a search range of ${confi
 // Execute population of cache
 await asyncPool(url, POOL_SIZE, payload);
 
-logger.debug("Single cache refresh finished");
+logger.debug("Full cache refresh finished");
+
+postSlackMessage("Full cache refresh complete");

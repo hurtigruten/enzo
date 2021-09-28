@@ -31,6 +31,7 @@ export function createSeawareRequest(search: SailingSearch): string {
     </GetAvailPrimPkgsCustom_IN>`
 }
 // TODO: components, sailactivities, classifications, pkgdef, priceguesttotal needed? ValidateMode. OfficeCode? xmlns?
+// TODO: Separate function, or is it ok to supply empty allotmentid?
 export function createSeawareRequestWithAllotment(search: SailingSearch): string {
   return `<GetAvailPrimPkgsCustom_IN xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <MsgHeader>

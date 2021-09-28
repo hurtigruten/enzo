@@ -4,6 +4,7 @@ import { parse } from "./deps.ts";
 import { logger } from "./logger.ts";
 import { createSeawareRequest } from "./serializeXML.ts";
 import { CacheConfig, Sailing, SailingSearch } from "./types.ts";
+import { postSlackMessage } from "./slack-bot/mod.ts";
 
 /*
     This script allows the user to cache a single sailing (or port combination).
@@ -40,6 +41,7 @@ const filteredSailings: Sailing[] = config.sailings.filter(function (sailing) {
 
 if (filteredSailings.length === 0) {
     logger.error(`Could not find a sailing in fullCache.json for: From port ${args.fromPort} to port ${args.toPort}`);
+    postSlackMessage(`Could not find a sailing in fullCache.json for: From port ${args.fromPort} to port ${args.toPort}`)
     Deno.exit(1);
 }
 
@@ -54,3 +56,5 @@ logger.debug(`Searching for ${args.fromPort} to ${args.toPort}`);
 logger.debug(`Search range setting ${config.searchRange}, giving ${payload.length} requests to run`);
 await asyncPool(url, POOL_SIZE, payload);
 logger.debug("Caching single sailing finished");
+
+postSlackMessage(`Cached ${args.fromPort} - ${args.toPort}`);
