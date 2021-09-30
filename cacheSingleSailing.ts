@@ -61,4 +61,4 @@ await asyncPool(url, POOL_SIZE, payload);
 const endTime: Date = new Date();
 var diffSecs = (endTime.getSeconds() - startTime.getSeconds());
 
-postSlackMessage(`Cache run complete, using config: ${args.config}. Run time: ${diffSecs} seconds`);
+postSlackMessage(`Cache run complete. Run time: ${diffSecs} seconds`);

@@ -49,9 +49,18 @@ async function cacheSailing(fromPort: string, toPort:string) {
     const searches: SailingSearch[] = produceJsonSearches(config);
     const payload: string[] = searches.map((search: SailingSearch) => createSeawareRequest(search));
 
+    postSlackMessage(`Searching for ${fromPort} to ${toPort}. ${payload.length} requests to run`);
+
+    // Timer
+    const startTime: Date = new Date();
+
+    // Execute cache run
     await asyncPool(url, POOL_SIZE, payload);
 
-    postSlackMessage(`Cached ${fromPort} - ${toPort}`);
+    const endTime: Date = new Date();
+    var diffSecs = (endTime.getSeconds() - startTime.getSeconds());
+
+    postSlackMessage(`Cache run complete. Run time: ${diffSecs} seconds`);
 }
 
 
