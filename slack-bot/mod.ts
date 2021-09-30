@@ -1,4 +1,4 @@
-import { SocketModeClient } from "https://deno.land/x/slack_socket_mode@1.0.3/mod.ts"
+import { SocketModeClient } from "../deps.ts";
 import { produceJsonSearches } from "../sailingsParser.ts";
 import { asyncPool } from "../seawareLoader.ts";
 import { createSeawareRequest } from "../serializeXML.ts";

@@ -2,7 +2,6 @@ import { parse } from "./deps.ts";
 import { asyncPool } from "./seawareLoader.ts";
 import { produceJsonSearches } from "./sailingsParser.ts";
 import type { CacheConfig, SailingSearch } from "./types.ts";
-import { logger } from "./logger.ts";
 import { createSeawareRequest } from "./serializeXML.ts";
 import { postSlackMessage } from "./slack-bot/mod.ts";
 
@@ -25,13 +24,14 @@ const config: CacheConfig = JSON.parse(Deno.readTextFileSync(args.config)) as Ca
 const searches: SailingSearch[] = produceJsonSearches(config);
 const payload: string[] = searches.map((search: SailingSearch) => createSeawareRequest(search));
 
-// Setup cache loader with supplied url
-logger.debug(`Starting cache run towards ${url} with a request pool size of ${POOL_SIZE}`);
-logger.debug(`Using the ${args.config} config that has a search range of ${config.searchRange}, giving ${payload.length} requests to run`);
+// Timer
+const startTime: Date = new Date();
 
 // Execute population of cache
+postSlackMessage(`Using the ${args.config} config that has a search range of ${config.searchRange}, giving ${payload.length} requests to run`);
 await asyncPool(url, POOL_SIZE, payload);
 
-logger.debug("Full cache refresh finished");
+const endTime: Date = new Date();
+var diffMins = (endTime.getMinutes() - startTime.getMinutes());
 
-postSlackMessage("Full cache refresh complete");
+postSlackMessage(`Cache run complete, using config: ${args.config}. Run time: ${diffMins} minutes`);

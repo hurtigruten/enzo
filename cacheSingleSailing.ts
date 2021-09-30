@@ -50,11 +50,15 @@ config.sailings = filteredSailings;
 const searches: SailingSearch[] = produceJsonSearches(config);
 const payload: string[] = searches.map((search: SailingSearch) => createSeawareRequest(search));
 
-logger.debug(`Caching single sailing on: ${url}`);
-logger.debug(`Request pool size: ${POOL_SIZE}`);
-logger.debug(`Searching for ${args.fromPort} to ${args.toPort}`);
-logger.debug(`Search range setting ${config.searchRange}, giving ${payload.length} requests to run`);
-await asyncPool(url, POOL_SIZE, payload);
-logger.debug("Caching single sailing finished");
+postSlackMessage(`Searching for ${args.fromPort} to ${args.toPort}. ${payload.length} requests to run`);
 
-postSlackMessage(`Cached ${args.fromPort} - ${args.toPort}`);
+// Timer
+const startTime: Date = new Date();
+
+// Execute cache run
+await asyncPool(url, POOL_SIZE, payload);
+
+const endTime: Date = new Date();
+var diffSecs = (endTime.getSeconds() - startTime.getSeconds());
+
+postSlackMessage(`Cache run complete, using config: ${args.config}. Run time: ${diffSecs} seconds`);
