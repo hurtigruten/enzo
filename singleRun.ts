@@ -31,7 +31,8 @@ const startTime: Date = new Date();
 postSlackMessage(`Using the ${args.config} config that has a search range of ${config.searchRange}, giving ${payload.length} requests to run`);
 await asyncPool(url, POOL_SIZE, payload);
 
-const endTime: Date = new Date();
-var diffMins = (endTime.getMinutes() - startTime.getMinutes());
+const endTime: Date = new Date();  
+const timeDiff: number = endTime.getTime() - startTime.getTime();
+const minutes = Math.round(timeDiff / 1000 / 60);
 
-postSlackMessage(`Cache run complete, using config: ${args.config}. Run time: ${diffMins} minutes`);
+postSlackMessage(`Cache run complete, using config: ${args.config}. Run time: ${minutes} minutes`);

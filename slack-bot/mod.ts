@@ -58,10 +58,8 @@ async function cacheSailing(fromPort: string, toPort:string) {
     await asyncPool(url, POOL_SIZE, payload).then() ;
 
     const endTime: Date = new Date();  
-    const timeDiff: number = endTime.getTime() - startTime.getTime(); //in ms
-
-    // get seconds 
-    var seconds = Math.round(timeDiff / 1000);
+    const timeDiff: number = endTime.getTime() - startTime.getTime();
+    const seconds = Math.round(timeDiff / 1000);
 
     postSlackMessage(`Cache run complete. Run time: ${seconds} seconds`);
 }
