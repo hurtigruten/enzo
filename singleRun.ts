@@ -3,7 +3,7 @@ import { asyncPool } from "./seawareLoader.ts";
 import { produceJsonSearches } from "./sailingsParser.ts";
 import type { CacheConfig, SailingSearch } from "./types.ts";
 import { createSeawareRequest } from "./serializeXML.ts";
-import { postSlackMessage } from "./slack-bot/mod.ts";
+import { postSlackMessage } from "./slack-bot/postToSlack.ts";
 
 // Read arguments. Config is used to determine a full or partial run, host determines if the script is locally or remote
 const args = parse(Deno.args, {
