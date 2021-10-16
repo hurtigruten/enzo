@@ -1,16 +1,16 @@
-import { Application } from "../deps.ts";
-import { getCacheConfig, getAllSailings, getTourConfig } from "./sailingController.ts";
+import { listenAndServe } from "../deps.ts";
+import { CacheConfig } from "../types.ts";
 
-const app = new Application();
+const config: CacheConfig = JSON.parse(Deno.readTextFileSync("../configs/fullCache.json"));
 
-// routes
-app
-  .get("/", getCacheConfig)
-  .get("/sailings", getAllSailings)
-  .get("/tours", getTourConfig)
-  //.get("/sailings/:id", getSailing)
-  //.post("/sailings/", createSailing)
-  //.delete("sailings/:id", deleteSailing)
+listenAndServe(":3000", (req:Request) => new Response(requestHandler(req)));
 
-// listen to port
-app.start({ port: 3000 });
+function requestHandler(req: Request): string {
+    if (req.url === "http://localhost:3000/sailings") {
+      return JSON.stringify(config.sailings);
+    }
+    if (req.url === "http://localhost:3000/") { 
+      return JSON.stringify(config);
+  }
+  return "Invalid request"
+}
