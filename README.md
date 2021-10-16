@@ -32,13 +32,10 @@ When running in Production (or locally on any bizlogic), a windows task schedule
 
 The following flags are available: 
 * **--config** (Optional, if not set the full cache will be refreshed. Point it to one of the json files in the config folder)
-* **--host** (Optional. Set it to "remote" if you are executing from your local computer)
 
 From your favorite command line run: ```deno run -A singleRun.ts``` for a full cache refresh.
 
 To cache a partial set of the cache: ```deno run -A singleRun.ts --config=".\configs\partialCache.json"``` pointing to the path of the relevant cache set.
-
-To cache a single port combination: ```deno run -A cacheSingleSailing.ts --fromPort=USH --toPort=USH``` assigning the ports as appropriate.
 
 # Recommended Production settings
 
