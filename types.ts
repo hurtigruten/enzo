@@ -56,4 +56,3 @@ export type TourWithDepartureDateRange = TourBasic & {
 export type TourWithSpecificDepartureDates = TourBasic & {
   departureDates: string[];
 }
-

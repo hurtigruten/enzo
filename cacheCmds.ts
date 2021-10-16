@@ -4,14 +4,27 @@ import { createSeawareRequest } from "./serializeXML.ts";
 import { CacheConfig, Sailing, SailingSearch } from "./types.ts";
 import { postSlackMessage } from "./slack-bot/postToSlack.ts";
 
-export async function cacheSingleSailing(fromPort: string, toPort:string) {
-    // Config
-    const url = "http://localhost:8085/SwBizLogic/Service.svc/ProcessRequest";
-    const POOL_SIZE = 15;
-    const configFile = "../configs/fullCache.json"
+// Config
+const LOCAL_HOST = "http://localhost:8085/SwBizLogic/Service.svc/ProcessRequest";
+const REMOTE_HOST = "http://10.26.32.45:8085/SwBizLogic/Service.svc/ProcessRequest";
+const POOL_SIZE = 15;
+const FULL_CONFIG = "../configs/fullCache.json"
 
+export async function fullRun(host: string, cacheFile: string){
+    const url = host === "remote" ? REMOTE_HOST : LOCAL_HOST;
+
+    // Parse the supplied json config file to XML bodies
+    const config: CacheConfig = JSON.parse(Deno.readTextFileSync(cacheFile)) as CacheConfig;
+    const searches: SailingSearch[] = produceJsonSearches(config);
+    const payload: string[] = searches.map((search: SailingSearch) => createSeawareRequest(search));
+
+    // Execute population of cache
+    await asyncPool(url, POOL_SIZE, payload);
+}
+
+export async function cacheSingleSailing(fromPort: string, toPort:string) {
     // Parse the full json config file
-    const config: CacheConfig = JSON.parse(Deno.readTextFileSync(configFile)) as CacheConfig;
+    const config: CacheConfig = JSON.parse(Deno.readTextFileSync(FULL_CONFIG)) as CacheConfig;
 
     // Find requested sailing in config
     const filteredSailings: Sailing[] = config.sailings.filter(function (sailing) {
@@ -30,16 +43,14 @@ export async function cacheSingleSailing(fromPort: string, toPort:string) {
     postSlackMessage(`Searching for ${fromPort} to ${toPort}. ${payload.length} requests to run`);
 
     // Timer
-    const startTime: Date = new Date();
+    const startTime: number = Date.now();
 
     // Execute cache run
-    await asyncPool(url, POOL_SIZE, payload).then() ;
+    await asyncPool(LOCAL_HOST, POOL_SIZE, payload).then() ;
 
-    const endTime: Date = new Date();  
-    const timeDiff: number = endTime.getTime() - startTime.getTime();
-    const seconds = Math.round(timeDiff / 1000);
+    const durationInSeconds = Math.round((Date.now() - startTime) / 1000);
 
-    postSlackMessage(`Cache run complete. Run time: ${seconds} seconds`);
+    postSlackMessage(`Cache run complete. Run time: ${durationInSeconds} seconds`);
 }
 
 export function whatIsCached() {

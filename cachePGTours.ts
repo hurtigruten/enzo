@@ -2,7 +2,6 @@ import { parse } from "./deps.ts";
 //import { CacheLoader } from "./CacheLoader.ts";
 import { parseToursWithDateRange, parseToursWithSpecificDates } from "./tourParser.ts";
 import type { SailingSearch, TourConfig } from "./types.ts";
-import { logger } from "./logger.ts";
 import { createSeawareRequest, createSeawareRequestWithAllotment } from "./serializeXML.ts";
 
 // Read arguments. Config is used to determine a full or partial run, host determines if the script is locally or remote
@@ -24,7 +23,6 @@ async function http<T>(request: RequestInfo): Promise<T | undefined> {
     const body = await response.json();
     return body;
   } catch (e) {
-    logger.error(`Fetch Error: ${e}`);
     Deno.exit(1);
   }
 }
