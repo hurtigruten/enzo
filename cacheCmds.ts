@@ -6,20 +6,20 @@ import { postSlackMessage } from "./slack-bot/postToSlack.ts";
 
 // Config
 const LOCAL_HOST = "http://localhost:8085/SwBizLogic/Service.svc/ProcessRequest";
-const REMOTE_HOST = "http://10.26.32.45:8085/SwBizLogic/Service.svc/ProcessRequest";
 const POOL_SIZE = 15;
-const FULL_CONFIG = "../configs/fullCache.json"
+const FULL_CONFIG = "./configs/fullCache.json";
 
-export async function fullRun(host: string, cacheFile: string){
-    const url = host === "remote" ? REMOTE_HOST : LOCAL_HOST;
+export async function fullRun(pathToConfig: string|URL){
 
     // Parse the supplied json config file to XML bodies
-    const config: CacheConfig = JSON.parse(Deno.readTextFileSync(cacheFile)) as CacheConfig;
+    const config: CacheConfig = JSON.parse(Deno.readTextFileSync(pathToConfig)) as CacheConfig;
     const searches: SailingSearch[] = produceJsonSearches(config);
     const payload: string[] = searches.map((search: SailingSearch) => createSeawareRequest(search));
 
+    postSlackMessage(`Using the cache file: ${config}, with a search range of: ${config.searchRange}. Giving ${payload.length} requests to run.`);
+
     // Execute population of cache
-    await asyncPool(url, POOL_SIZE, payload);
+    await asyncPool(LOCAL_HOST, POOL_SIZE, payload);
 }
 
 export async function cacheSingleSailing(fromPort: string, toPort:string) {

@@ -10,13 +10,11 @@ const args = parse(Deno.args, {
   },
 });
 
-postSlackMessage(`Using the ${args.config} config that has a search range of ${args.config.searchRange}`);
-
 // Timer
 const startTime: number = Date.now();
 
 // Execute population of cache
-await fullRun(args.host, args.config);
+await fullRun(args.config);
 
 const durationInMinutes = Math.round((Date.now() - startTime) / 1000 / 60);
 
