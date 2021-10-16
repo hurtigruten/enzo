@@ -16,7 +16,7 @@ export async function fullRun(pathToConfig: string|URL){
     const searches: SailingSearch[] = produceJsonSearches(config);
     const payload: string[] = searches.map((search: SailingSearch) => createSeawareRequest(search));
 
-    postSlackMessage(`Using the cache file: ${pathToConfig}, with a search range of: ${config.searchRange}. Giving ${payload.length} requests to run.`);
+    postSlackMessage(`Starting to cache. ${payload.length} requests to run.`);
 
     // Execute population of cache
     await asyncPool(LOCAL_HOST, POOL_SIZE, payload);
