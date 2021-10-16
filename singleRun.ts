@@ -10,7 +10,7 @@ const args = parse(Deno.args, {
   },
 });
 
-postSlackMessage(`Using the ${args.config} config that has a search range of ${args.config.searchRange}, giving ${payload.length} requests to run`);
+postSlackMessage(`Using the ${args.config} config that has a search range of ${args.config.searchRange}`);
 
 // Timer
 const startTime: number = Date.now();
