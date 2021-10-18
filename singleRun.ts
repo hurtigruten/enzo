@@ -8,8 +8,6 @@ const args = parse(Deno.args, {
   },
 });
 
-const startTime: number = Date.now();
 await fullRun(args.config);
-const durationInMinutes = Math.round((Date.now() - startTime) / 1000 / 60);
 
-postSlackMessage(`Cache run complete. Run time: ${durationInMinutes} minutes`);
+postSlackMessage(`Cache run complete`);

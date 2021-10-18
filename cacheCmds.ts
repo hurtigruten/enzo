@@ -42,15 +42,10 @@ export async function cacheSingleSailing(fromPort: string, toPort:string) {
 
     postSlackMessage(`Searching for ${fromPort} to ${toPort}. ${payload.length} requests to run`);
 
-    // Timer
-    const startTime: number = Date.now();
-
     // Execute cache run
     await asyncPool(LOCAL_HOST, POOL_SIZE, payload).then() ;
 
-    const durationInSeconds = Math.round((Date.now() - startTime) / 1000);
-
-    postSlackMessage(`Cache run complete. Run time: ${durationInSeconds} seconds`);
+    postSlackMessage(`Cache run complete`);
 }
 
 export function whatIsCached() {

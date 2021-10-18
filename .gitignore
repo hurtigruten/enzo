@@ -1,4 +1,4 @@
 log.*
-testSeawareCall.ts
+test*.*
 .vscode
 .gitignore
