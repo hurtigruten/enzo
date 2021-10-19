@@ -50,6 +50,6 @@ export async function cacheSingleSailing(fromPort: string, toPort:string) {
 
 export function whatIsCached() {
     const configFile = "../configs/fullCache.json"
-    const config: CacheConfig = JSON.parse(Deno.readTextFileSync(configFile)) as CacheConfig;
+    const config: CacheConfig = JSON.parse(Deno.readTextFileSync(configFile));
     postSlackMessage(JSON.stringify(config));
 }
