@@ -6,110 +6,88 @@
     "searchRange": 10,
     "sailings": [
       {
-        "id": "ab3e4985-3ac9-4524-80be-0646f4eb0b0e",
         "voyageType": "NORWAY_VOYAGE",
         "direction": "North_South",
         "fromPort": "BGO",
         "toPort": "BGO",
-        "marketFilter": ["DE", "NO", "UK"],
-        "added": "2020-05-08T09:10:46.890Z"
+        "marketFilter": ["DE", "NO", "UK"]
       },
       {
-        "id": "89e35e57-f9e6-45a7-93a9-7573cf0dce0e",
         "voyageType": "NORWAY_VOYAGE",
         "direction": "North_South",
         "fromPort": "BGO",
         "toPort": "TRD",
-        "marketFilter": ["DE", "NO", "UK"],
-        "added": "2020-05-08T09:10:47.839Z"
+        "marketFilter": ["DE", "NO", "UK"]
       },
       {
-        "id": "fc421ab3-2372-452a-aa2a-2c60b9d020c8",
         "voyageType": "NORWAY_VOYAGE",
         "direction": "North",
         "fromPort": "BGO",
         "toPort": "KKN",
-        "marketFilter": ["DE", "NO", "UK"],
-        "added": "2020-05-08T09:10:48.840Z"
+        "marketFilter": ["DE", "NO", "UK"]
       },
       {
-        "id": "70de927e-9224-47f8-b681-16cbcfb7c13e",
         "voyageType": "NORWAY_VOYAGE",
         "direction": "South",
         "fromPort": "KKN",
         "toPort": "BGO",
-        "marketFilter": ["DE", "NO", "UK"],
-        "added": "2020-05-08T09:10:49.846Z"
+        "marketFilter": ["DE", "NO", "UK"]
       },
       {
-        "id": "e06ccb32-c5a7-4a67-8496-0b6550a997d0",
         "voyageType": "NORWAY_SHORT_VOYAGE",
         "direction": "North",
         "fromPort": "BGO",
         "toPort": "TOS",
         "daysAhead": 120,
-        "marketFilter": ["NO", "UK"],
-        "added": "2020-05-08T09:10:50.842Z"
+        "marketFilter": ["NO", "UK"]
       },
       {
-        "id": "d7e16659-2936-4167-bdba-8c6906f60a9c",
         "voyageType": "NORWAY_SHORT_VOYAGE",
         "direction": "South",
         "fromPort": "TRD",
         "toPort": "BGO",
         "daysAhead": 120,
-        "marketFilter": ["NO", "UK"],
-        "added": "2020-05-08T09:10:51.843Z"
+        "marketFilter": ["NO", "UK"]
       },
       {
-        "id": "892bf418-183d-41af-a451-a5ef085f1da2",
         "voyageType": "NORWAY_SHORT_VOYAGE",
         "direction": "South",
         "fromPort": "TOS",
         "toPort": "BGO",
         "daysAhead": 120,
-        "marketFilter": ["NO", "UK"],
-        "added": "2020-05-08T09:10:52.844Z"
+        "marketFilter": ["NO", "UK"]
       },
       {
-        "id": "7c223b47-6332-4ce4-a11e-c4e8d7626fe4",
         "voyageType": "NORWAY_SHORT_VOYAGE",
         "direction": "North",
         "fromPort": "BGO",
         "toPort": "AES",
         "daysAhead": 120,
-        "marketFilter": ["NO", "UK"],
-        "added": "2020-05-08T09:10:53.845Z"
+        "marketFilter": ["NO", "UK"]
       },
       {
-        "id": "06af6154-681b-47bd-ba66-2bc7584e16d8",
         "voyageType": "NORWAY_SHORT_VOYAGE",
         "direction": "South",
         "fromPort": "AES",
         "toPort": "BGO",
         "daysAhead": 120,
-        "marketFilter": ["NO", "UK"],
-        "added": "2020-05-08T09:10:54.847Z"
+        "marketFilter": ["NO", "UK"]
       },
       {
-        "id": "e2795955-a07e-47d7-aad9-c1fda0da1cba",
         "voyageType": "NORWAY_SHORT_VOYAGE",
         "direction": "North",
         "fromPort": "BOO",
         "toPort": "SVJ",
         "daysAhead": 120,
-        "marketFilter": ["NO", "UK"],
-        "added": "2020-05-08T09:10:55.849Z"
+        "marketFilter": ["NO", "UK"]
       },
       {
-        "id": "50636bc8-7e01-4710-af4b-5916a051d0fd",
         "voyageType": "NORWAY_SHORT_VOYAGE",
         "direction": "North",
         "fromPort": "BOO",
         "toPort": "STU",
         "daysAhead": 120,
-        "marketFilter": ["NO", "UK"],
-        "added": "2020-05-08T09:10:56.851Z"
+        "marketFilter": ["NO", "UK"]
       }
     ]
   }

@@ -19,7 +19,6 @@ export type SailingSearch = {
 }
 
 export type Sailing = {
-  id: string;
   voyageType: string;
   direction?: string;
   fromPort: string;
@@ -27,7 +26,6 @@ export type Sailing = {
   daysAhead?: number;
   partyMixes?: string[];
   marketFilter?: string[];
-  added: Date;
 }
 
 export type TourConfig = {
