@@ -60,7 +60,3 @@ export function whatIsCached() {
 export function greet() {
     postSlackMessage("yo yo yo!");
 }
-
-function sailing(sailing: any,Sailing: any) {
-throw new Error("Function not implemented.");
-}
