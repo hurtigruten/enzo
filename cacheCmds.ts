@@ -53,3 +53,7 @@ export function whatIsCached() {
     const config: CacheConfig = JSON.parse(Deno.readTextFileSync(configFile));
     postSlackMessage(JSON.stringify(config));
 }
+
+export function greet() {
+    postSlackMessage("yo yo yo!");
+}
