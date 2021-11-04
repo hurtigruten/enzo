@@ -1,7 +1,7 @@
 import { SocketModeClient } from "../deps.ts";
 import { cacheSingleSailing, whatIsCached, greet } from "../cacheCmds.ts";
 
-const appToken = "xapp-1-A02FHFZ81N3-2560172068834-c247d49804eb5704a13c546c642125c66ef3e243fccc6f20584e6730dd27cf55"
+const appToken = "xapp-1-A02FHFZ81N3-2672165845639-c5f315333b06af43e2f33f1110da83c913010d3196455607f65638cbe0dfa1ac"
 const socketModeClient = new SocketModeClient({ appToken })
 
 // Attach listeners to events by type. See: https://api.slack.com/events/message
