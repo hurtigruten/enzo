@@ -1,6 +1,6 @@
 // Post a HTTP requests to Slack
 export async function postSlackMessage(body: string): Promise<void> {
-    const url = 'https://hooks.slack.com/services/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';
+    const url = 'https://hooks.slack.com/services/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';   
     const req = new Request(url, {
       method: "post",
       headers: { "Content-type": "application/json" },

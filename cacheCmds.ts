@@ -7,7 +7,7 @@ import { postSlackMessage } from "./slack-bot/postToSlack.ts";
 // Config
 const LOCAL_HOST = "http://localhost:8085/SwBizLogic/Service.svc/ProcessRequest";
 const POOL_SIZE = 15;
-const FULL_CONFIG = "./configs/fullCache.json";
+const FULL_CONFIG = "../configs/fullCache.json";
 
 export async function fullRun(pathToConfig: string|URL){
 
@@ -49,11 +49,18 @@ export async function cacheSingleSailing(fromPort: string, toPort:string) {
 }
 
 export function whatIsCached() {
-    const configFile = "../configs/fullCache.json"
-    const config: CacheConfig = JSON.parse(Deno.readTextFileSync(configFile));
-    postSlackMessage(JSON.stringify(config));
+    const config: CacheConfig = JSON.parse(Deno.readTextFileSync(FULL_CONFIG));
+    let response = "";
+    config.sailings.map((obj) => {
+        response += obj.fromPort + "-" + obj.toPort +". " 
+    });
+    postSlackMessage(response);
 }
 
 export function greet() {
     postSlackMessage("yo yo yo!");
+}
+
+function sailing(sailing: any,Sailing: any) {
+throw new Error("Function not implemented.");
 }
