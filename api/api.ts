@@ -1,3 +1,9 @@
-import { listenAndServe } from "../deps.ts";
+import { parse, listenAndServe } from "../deps.ts";
 
-listenAndServe(":3000", () => new Response(Deno.readTextFileSync("../configs/fullCache.json")));
+const args = parse(Deno.args, {
+  default: {
+    config: "../configs/fullCache.json"
+  },
+});
+
+listenAndServe(":3000", () => new Response(Deno.readTextFileSync(args.config)));
