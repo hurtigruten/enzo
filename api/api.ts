@@ -1,4 +1,4 @@
-import { parse, listenAndServe } from "../deps.ts";
+import { parse, serve } from "../deps.ts";
 
 const args = parse(Deno.args, {
   default: {
@@ -6,4 +6,4 @@ const args = parse(Deno.args, {
   },
 });
 
-listenAndServe(":3000", () => new Response(Deno.readTextFileSync(args.config)));
+serve((_req) => new Response(Deno.readTextFileSync(args.config)), { addr: ":3000" });

@@ -3,6 +3,7 @@ import { produceJsonSearches } from "./sailingsParser.ts";
 import { createSeawareRequest } from "./serializeXML.ts";
 import { CacheConfig, Sailing, SailingSearch } from "./types.ts";
 import { postSlackMessage } from "./slack-bot/postToSlack.ts";
+import { serve } from "./deps.ts";
 
 // Config
 const LOCAL_HOST = "http://localhost:8085/SwBizLogic/Service.svc/ProcessRequest";
@@ -60,3 +61,26 @@ export function whatIsCached() {
 export function greet() {
     postSlackMessage("yo yo yo!");
 }
+
+export async function isAPIup() {
+    let isUp = false;
+    try  {
+      const response = await fetch("http://localhost:3000");
+      if (response.status === 200) {
+        isUp = true;
+      }
+    } 
+    catch(e) {
+      //console.log(e)
+    }
+    if(isUp) {
+        postSlackMessage('API is up');
+    } else {
+        postSlackMessage('API is down');
+    }
+    
+  }
+
+  export function startAPI() {
+    serve((_req) => new Response("../configs/fullCache.json"), { addr: ":3000" });
+  }

@@ -1,4 +1,4 @@
-import { cacheSingleSailing, greet, whatIsCached } from "../cacheCmds.ts";
+import { cacheSingleSailing, isAPIup, greet, startAPI, whatIsCached } from "../cacheCmds.ts";
 
 type slackWssUrl = { "ok": boolean; "url": string };
 
@@ -56,10 +56,16 @@ function initializeWebsocket(socket: WebSocket) {
         const wordThree: string = words[2];
         const wordFive: string = words[4];
 
-        if (
-          text.includes("hi") || text.includes("hello") || text.includes("yo")
-        ) {
+        if (text.includes("hi") || text.includes("hello")) {
           greet();
+        }
+
+        if (text.includes("statusAPI")) {
+          isAPIup();
+        }
+        if (text.includes("startAPI")) {
+          startAPI();
+          isAPIup();
         }
 
         if (
