@@ -659,23 +659,8 @@
       "voyageType": "EXPLORER"
     },
     {
-      "fromPort": "DKR",
-      "toPort": "DKR",
-      "voyageType": "EXPLORER"
-    },
-    {
-      "fromPort": "DKR",
-      "toPort": "LPA",
-      "voyageType": "EXPLORER"
-    },
-    {
       "fromPort": "GPS",
       "toPort": "GPS",
-      "voyageType": "EXPLORER"
-    },
-    {
-      "fromPort": "LIS",
-      "toPort": "DKR",
       "voyageType": "EXPLORER"
     },
     {
@@ -704,16 +689,6 @@
       "voyageType": "EXPLORER"
     },
     {
-      "fromPort": "ONX",
-      "toPort": "BGI",
-      "voyageType": "EXPLORER"
-    },
-    {
-      "fromPort": "PAS",
-      "toPort": "VAP",
-      "voyageType": "EXPLORER"
-    },
-    {
       "fromPort": "REK",
       "toPort": "OME",
       "voyageType": "EXPLORER"
@@ -726,16 +701,6 @@
     {
       "fromPort": "TOS",
       "toPort": "LIS",
-      "voyageType": "EXPLORER"
-    },
-    {
-      "fromPort": "VAP",
-      "toPort": "ONX",
-      "voyageType": "EXPLORER"
-    },
-    {
-      "fromPort": "VAP",
-      "toPort": "PAS",
       "voyageType": "EXPLORER"
     },
     {
