@@ -42,8 +42,7 @@ The flag can also be added on a system level if desired using ```setx /M```
 
 # TODO
 * Add Allotment based Tours (need a list of allotment ids from PG for the Tour)
-* Retry if requests failed? (after wait?)
-* Build a deploy pipeline
+* Retry if requests failed?
 
 # Long term tasks / Future Ideas
 * Write tests
