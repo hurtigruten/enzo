@@ -22,8 +22,6 @@ Some nice side effects include **faster** execution (mainly due to an asynchrono
 
 Running javascript server-side spells Node.js in capital letters, but I decided to go for Deno for its built-in Typescript support, security model, and because node_modules is plain ugly. The source code is minimal and can very easily be executed using Node.
 
-In the future, we could look at building new capabilities into the application such as middleware to offer more APIs, dynamically produce the custom search rules in Seaware, a cache to store results locally, and maybe even introducing new Seaware API calls.
-
 # Prerequisites
 Deno needs to be installed, check the [website](https://deno.land/)
 
