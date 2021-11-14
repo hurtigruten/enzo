@@ -8,11 +8,6 @@ export async function asyncPool(
   const executing: Promise<unknown>[] = [];
 
   for (const xml of xmlList) {
-    // Log the progress so far
-    //if (results.length % 50 === 0) {
-    //  const percent = ((results.length / xmlList.length) * 100).toFixed(2);
-    //  logger.debug(`Completed: ${results.length} (${percent} %)`);
-    //}
     // Send the post request and added to the results
     const promise = Promise.resolve().then(() => postRequest(host, xml));
     results.push(promise);
@@ -39,6 +34,7 @@ async function postRequest(host: string, xmlBody: string): Promise<void> {
 
   try {
     const res = await fetch(req);
+    // Currently no handling of error messages from Seaware
     //if (res.status !== 200) {
     //  logger.error(`Error in response! Status code: ${res.status}`);
     //  return;

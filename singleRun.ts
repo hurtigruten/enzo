@@ -1,5 +1,5 @@
 import { parse } from "./deps.ts";
-import { postSlackMessage } from "./slack-bot/postToSlack.ts";
+import { postSlackMessage } from "./slack-bot/slackCmds.ts";
 import { fullRun } from "./cacheCmds.ts";
 
 const args = parse(Deno.args, {
