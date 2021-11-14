@@ -51,15 +51,9 @@ function initializeWebsocket(socket: WebSocket) {
       // TODO: Recoginize user: const text = message?.payload?.event?.user;
       // TODO: Catch ABC instead of string parsing
       if (text) {
-        const str: string = text.split("> ")[1] || "";
-        const words: string[] = str.split(" ");
-        const wordThree: string = words[2];
-        const wordFive: string = words[4];
-
         if (text.includes("hi") || text.includes("hello")) {
           greet();
         }
-
         if (text.includes("statusAPI")) {
           isAPIup();
         }
@@ -67,13 +61,12 @@ function initializeWebsocket(socket: WebSocket) {
           startAPI();
           isAPIup();
         }
-
-        if (
-          wordThree && wordThree.length === 3 && wordFive &&
-          wordFive.length === 3
-        ) {
-          console.log("Caching: " + wordThree + " to " + wordFive);
-          cacheSingleSailing(wordThree, wordFive);
+        const words: string[] = text.split(" ");
+        const portRegex = new RegExp('^[A-Z]{3}$', 'g')
+        const portCodes = words.filter(word => word.match(portRegex));
+        
+        if (portCodes.length === 2) {
+          cacheSingleSailing(portCodes[0], portCodes[1]);
         }
         if (text.includes("cached?")) whatIsCached();
       }
