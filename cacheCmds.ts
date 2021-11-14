@@ -9,6 +9,7 @@ import { serve } from "./deps.ts";
 const LOCAL_HOST =
   "http://localhost:8085/SwBizLogic/Service.svc/ProcessRequest";
 const POOL_SIZE = 15;
+// TODO: This relative path assumes the caller is in subfolder of the project
 const FULL_CONFIG = "../configs/fullCache.json";
 
 export async function fullRun(pathToConfig: string | URL) {
