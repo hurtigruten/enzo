@@ -1,4 +1,4 @@
-import { cacheSingleSailing, greet, help, isAPIup, startAPI, whatIsCached} from "../cacheCmds.ts";
+import { cacheSingleSailing, gitPull, greet, help, isAPIup, startAPI, whatIsCached} from "../cacheCmds.ts";
 import { getUserProfile, getWebsocketUrl } from "./slackCmds.ts";
 
 const sockets = new Set<WebSocket>();
@@ -66,6 +66,9 @@ function initializeWebsocket(socket: WebSocket) {
         }
         if (text.includes("help")) {
           help();
+        }
+        if (text.includes("gitPull")) {
+          gitPull();
         }
       }
     }

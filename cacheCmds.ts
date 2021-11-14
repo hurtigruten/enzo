@@ -12,6 +12,11 @@ const POOL_SIZE = 15;
 // TODO: This relative path assumes the caller is in subfolder of the project
 const FULL_CONFIG = "../configs/fullCache.json";
 
+export function gitPull() {
+    Deno.run({cmd : ["git", "pull"] });
+    postSlackMessage("Pulled latest code from master");
+}
+
 export async function fullRun(pathToConfig: string | URL) {
   // Parse the supplied json config file to XML bodies
   const config: CacheConfig = JSON.parse(
@@ -106,7 +111,8 @@ export function help() {
       "`help?` : If you want to view this help text \n-" +
       "`cached?` : If you want to see what is cached \n-" +
       "`statusAPI` : If you want to check that the cache API is running \n-" +
-      "`startAPI` : If you want me to start the cache API\n-" +
+      "`startAPI` : If you want me to start the cache API (use with caution!)\n-" +
+      "`gitPull` : If you want to pull the latest source code from git (use with caution!)\n-" +
       "`please cache USH to BGO` : If you include two three letter words in upper case, I will attempt to cache that particular port combination (using fromPort and toPort in the order you typed it)",
   );
 }
