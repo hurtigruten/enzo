@@ -1,17 +1,6 @@
 import { cacheSingleSailing, greet, help, isAPIup, startAPI, whatIsCached} from "../cacheCmds.ts";
 import { getUserProfile, getWebsocketUrl } from "./slackCmds.ts";
 
-type slackWssUrl = { "ok": boolean; "url": string };
-type userProfile = {
-  "ok": boolean;
-  "user": {
-    "profile": {
-      "real_name": string;
-      "display_name": string;
-    };
-  };
-};
-
 const sockets = new Set<WebSocket>();
 const delay = (ms: number) => new Promise((res) => setTimeout(res, ms));
 
@@ -25,7 +14,7 @@ async function createWebsocket(deadSocket: WebSocket | undefined) {
     sockets.delete(deadSocket);
   }
 
-  const wssResponse: slackWssUrl = await getWebsocketUrl();
+  const wssResponse = await getWebsocketUrl();
   // To debud, append this to the url: "&debug_reconnects=true");
   const newSocket = new WebSocket(wssResponse.url);
   initializeWebsocket(newSocket);
@@ -55,7 +44,7 @@ function initializeWebsocket(socket: WebSocket) {
       if (text) {
         if (text.includes("hi") || text.includes("hello")) {
           const userID: string = message?.payload?.event?.user;
-          const user: userProfile = await getUserProfile(userID);
+          const user = await getUserProfile(userID);
           greet(user.user.profile.display_name);
         }
         if (text.includes("statusAPI")) {
