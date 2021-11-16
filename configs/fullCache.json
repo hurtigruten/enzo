@@ -283,6 +283,11 @@
       "toPort": "MVD",
       "voyageType": "EXPLORER"
     },
+	{
+      "fromPort": "LIS",
+      "toPort": "POR",
+      "voyageType": "EXPLORER"
+    },
     {
       "fromPort": "LIV",
       "toPort": "POR",
