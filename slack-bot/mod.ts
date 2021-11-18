@@ -4,10 +4,18 @@ import { getUserProfile, getWebsocketUrl } from "./slackCmds.ts";
 const sockets = new Set<WebSocket>();
 const delay = (ms: number) => new Promise((res) => setTimeout(res, ms));
 
-// Create 2 connections
+// Create 5 connections
 createWebsocket(undefined);
-await delay(5000);
+await delay(2000);
 createWebsocket(undefined);
+await delay(2000);
+createWebsocket(undefined);
+await delay(2000);
+createWebsocket(undefined);
+await delay(2000);
+createWebsocket(undefined);
+
+
 
 async function createWebsocket(deadSocket: WebSocket | undefined) {
   if (deadSocket) {
