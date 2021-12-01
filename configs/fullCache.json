@@ -460,11 +460,6 @@
     },
     {
       "fromPort": "PTY",
-      "toPort": "LIM",
-      "voyageType": "EXPLORER"
-    },
-    {
-      "fromPort": "PTY",
       "toPort": "VAP",
       "voyageType": "EXPLORER"
     },
