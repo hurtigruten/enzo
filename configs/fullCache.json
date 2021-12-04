@@ -325,11 +325,6 @@
     },
     {
       "fromPort": "LYR",
-      "toPort": "REK",
-      "voyageType": "EXPLORER"
-    },
-    {
-      "fromPort": "LYR",
       "toPort": "TOS",
       "voyageType": "EXPLORER"
     },
@@ -401,11 +396,6 @@
     {
       "fromPort": "ONX",
       "toPort": "MIA",
-      "voyageType": "EXPLORER"
-    },
-    {
-      "fromPort": "ONX",
-      "toPort": "VAP",
       "voyageType": "EXPLORER"
     },
     {
@@ -560,11 +550,6 @@
     },
     {
       "fromPort": "USH",
-      "toPort": "USH",
-      "voyageType": "EXPLORER"
-    },
-    {
-      "fromPort": "USH",
       "toPort": "VAP",
       "voyageType": "EXPLORER"
     },
@@ -665,17 +650,7 @@
     },
     {
       "fromPort": "LIS",
-      "toPort": "DSS",
-      "voyageType": "EXPLORER"
-    },
-    {
-      "fromPort": "LIS",
       "toPort": "LIV",
-      "voyageType": "EXPLORER"
-    },
-    {
-      "fromPort": "LIV",
-      "toPort": "REK",
       "voyageType": "EXPLORER"
     },
     {
