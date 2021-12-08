@@ -1,5 +1,5 @@
 {
-  "defaultDaysAhead": 730,
+  "defaultDaysAhead": 500,
   "defaultDirection": "North",
   "defaultMarkets": [
     "UK"
