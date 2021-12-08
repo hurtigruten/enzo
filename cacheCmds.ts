@@ -28,9 +28,9 @@ export async function fullRun(pathToConfig: string | URL) {
   );
 
   postSlackMessage(`Starting to cache. ${payload.length} requests to run based on ${pathToConfig}`);
-
   // Execute population of cache
   await asyncPool(LOCAL_HOST, POOL_SIZE, payload);
+  postSlackMessage(`Cache run complete`);
 }
 
 export async function cacheSingleSailing(fromPort: string, toPort: string) {

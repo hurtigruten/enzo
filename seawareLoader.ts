@@ -4,17 +4,18 @@ import { postSlackMessage } from "./slack-bot/slackCmds.ts";
 export async function asyncPool(
   host: string,
   poolLimit: number,
-  xmlList: string[]
+  payload: string[]
 ): Promise<unknown> {
   const results: Promise<unknown>[] = [];
   const executing: Promise<unknown>[] = [];
-  const moduloNumber = results.length > 10000 ? 1000 : 50000;
+  // Flexible progress indicator. If there are more than 10000 requests, progress will be reported every 10000 done
+  const moduloNumber = payload.length > 10000 ? 10000 : 1000;
 
-  for (const xml of xmlList) {
+  for (const xml of payload) {
     // Log the progress so far
     if (results.length % moduloNumber === 0) {
-      const percent = ((results.length / xmlList.length) * 100).toFixed(2);
-      postSlackMessage(`Progress: ${results.length} (${percent} %)`);
+      const percent = ((results.length / payload.length) * 100).toFixed(2);
+      postSlackMessage((`${percent} % complete`));
     }
 
     // Send the post request and added to the results
