@@ -8,12 +8,13 @@ export async function asyncPool(
 ): Promise<unknown> {
   const results: Promise<unknown>[] = [];
   const executing: Promise<unknown>[] = [];
+  const moduloNumber = results.length > 10000 ? 1000 : 50000;
 
   for (const xml of xmlList) {
     // Log the progress so far
-    if (results.length % 50000 === 0) {
+    if (results.length % moduloNumber === 0) {
       const percent = ((results.length / xmlList.length) * 100).toFixed(2);
-      postSlackMessage(`Completed: ${results.length} (${percent} %)`);
+      postSlackMessage(`Progress: ${results.length} (${percent} %)`);
     }
 
     // Send the post request and added to the results
