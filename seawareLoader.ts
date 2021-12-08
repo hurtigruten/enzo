@@ -1,3 +1,5 @@
+import { postSlackMessage } from "./slack-bot/slackCmds.ts";
+
 // A async pool that runs requests in a throttled manner
 export async function asyncPool(
   host: string,
@@ -8,6 +10,12 @@ export async function asyncPool(
   const executing: Promise<unknown>[] = [];
 
   for (const xml of xmlList) {
+    // Log the progress so far
+    if (results.length % 50000 === 0) {
+      const percent = ((results.length / xmlList.length) * 100).toFixed(2);
+      postSlackMessage(`Completed: ${results.length} (${percent} %)`);
+    }
+
     // Send the post request and added to the results
     const promise = Promise.resolve().then(() => postRequest(host, xml));
     results.push(promise);
@@ -33,15 +41,16 @@ async function postRequest(host: string, xmlBody: string): Promise<void> {
   });
 
   try {
-    const res = await fetch(req);
+    await fetch(req)
+    //const res = await fetch(req);
     // Currently no handling of error messages from Seaware
     //if (res.status !== 200) {
-    //  logger.error(`Error in response! Status code: ${res.status}`);
+      //logger.error(`Error in response! Status code: ${res.status}`);
     //  return;
     //}
     // Plug in here to  read the response
     //  res.text().then((data) => { });
   } catch (e) {
-    //logger.error(`Fetch Error: ${e}`);
+    postSlackMessage(`Fetch Error: ${e}`);
   }
 }
