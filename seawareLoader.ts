@@ -13,7 +13,7 @@ export async function asyncPool(
 
   for (const xml of payload) {
     // Log the progress so far
-    if (results.length % moduloNumber === 0) {
+    if (results.length % moduloNumber === 0 && results.length !== 0) {
       const percent = ((results.length / payload.length) * 100).toFixed(2);
       postSlackMessage((`${percent} % complete`));
     }
