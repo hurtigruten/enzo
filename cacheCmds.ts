@@ -27,7 +27,7 @@ export async function fullRun(pathToConfig: string | URL) {
     createSeawareRequest(search)
   );
 
-  postSlackMessage(`Starting to cache. ${payload.length} requests to run.`);
+  postSlackMessage(`Starting to cache. ${payload.length} requests to run based on ${pathToConfig}`);
 
   // Execute population of cache
   await asyncPool(LOCAL_HOST, POOL_SIZE, payload);
