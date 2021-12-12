@@ -15,15 +15,13 @@ createWebsocket(undefined);
 await delay(2000);
 createWebsocket(undefined);
 
-
-
 async function createWebsocket(deadSocket: WebSocket | undefined) {
   if (deadSocket) {
     sockets.delete(deadSocket);
   }
 
   const wssResponse = await getWebsocketUrl();
-  // To debud, append this to the url: "&debug_reconnects=true");
+  // To debug, append this to the url: "&debug_reconnects=true");
   const newSocket = new WebSocket(wssResponse.url);
   initializeWebsocket(newSocket);
   sockets.add(newSocket);

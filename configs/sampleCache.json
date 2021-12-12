@@ -1,6 +1,6 @@
 {
   "defaultMarkets": ["NO"],
-  "defaultDaysAhead": 100,
+  "defaultDaysAhead": 730,
   "defaultDirection": "North",
   "searchRange": 10,
   "defaultPartyMix": ["ADULT","ADULT"],
