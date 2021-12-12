@@ -1,13 +1,10 @@
-import { asyncPool } from "./seawareLoader.ts";
+import { populateCacheRunner, readCacheRunner } from "./seawareLoader.ts";
 import { produceJsonSearches } from "./sailingsParser.ts";
 import { createSeawarePopulateCacheRequest, createSeawareReadCacheRequest} from "./serializeXML.ts";
 import { CacheConfig, Sailing, SailingSearch } from "./types.ts";
 import { postSlackMessage } from "./slack-bot/slackCmds.ts";
 import { serve } from "./deps.ts";
 
-// Config
-const LOCAL_HOST = "http://localhost:8085/SwBizLogic/Service.svc/ProcessRequest";
-const POOL_SIZE = 15;
 // TODO: This relative path assumes the caller is in subfolder of the project
 const FULL_CONFIG = "../configs/fullCache.json";
 
@@ -16,7 +13,7 @@ export function gitPull() {
   postSlackMessage("Pulled latest code from master");
 }
 
-export async function populateCacheRun(pathToConfig: string | URL) {
+export async function populateCache(pathToConfig: string | URL) {
   // Parse the supplied json config file to XML bodies
   const config: CacheConfig = JSON.parse(
     Deno.readTextFileSync(pathToConfig)
@@ -27,7 +24,7 @@ export async function populateCacheRun(pathToConfig: string | URL) {
 
   postSlackMessage(`Starting to cache. ${payload.length} requests to run based on ${pathToConfig}`);
   // Execute requests
-  await asyncPool(LOCAL_HOST, POOL_SIZE, payload);
+  await populateCacheRunner(payload);
   postSlackMessage(`Cache run complete`);
 }
 
@@ -41,9 +38,10 @@ export async function readCacheRun(pathToConfig: string | URL) {
   var currentDate = new Date();
   console.log("starting to read. Time is: " + currentDate.getMinutes() + "m " + currentDate.getSeconds() + "s " + currentDate.getMilliseconds() + "ms.");
   // Execute requests
-  await asyncPool(LOCAL_HOST, POOL_SIZE, payload);
+  const results = await readCacheRunner(payload);
   var endDate = new Date();
   console.log("starting to read. Time is: " + endDate.getMinutes() + "m " + endDate.getSeconds() + "s " + endDate.getMilliseconds() + "ms.");
+  console.log(results);
 }
 
 export async function cacheSingleSailing(fromPort: string, toPort: string) {
@@ -67,7 +65,7 @@ export async function cacheSingleSailing(fromPort: string, toPort: string) {
 
   postSlackMessage(`Starting to cache ${fromPort} to ${toPort}. ${payload.length} requests to run...`);
   // Execute cache run
-  await asyncPool(LOCAL_HOST, POOL_SIZE, payload);
+  await populateCacheRunner(payload);
   postSlackMessage(`${fromPort} to ${toPort} cached`);
 }
 

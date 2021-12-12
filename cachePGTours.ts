@@ -30,4 +30,4 @@ console.log(searches)
 const payload: string[] = searches.map((search: SailingSearch) => createSeawareRequestWithAllotment(search));
 
 // Execute population of cache
-//await asyncPool(LOCAL_HOST, POOL_SIZE, payload);
+//await populateCacheRunner(payload);

@@ -1,11 +1,11 @@
 import { postSlackMessage } from "./slack-bot/slackCmds.ts";
 
+// Config
+const LOCAL_HOST = "http://localhost:8085/SwBizLogic/Service.svc/ProcessRequest";
+const POOL_SIZE = 15;
+
 // A async pool that runs requests in a throttled manner
-export async function asyncPool(
-  host: string,
-  poolLimit: number,
-  payload: string[]
-): Promise<unknown> {
+export async function populateCacheRunner(payload: string[]): Promise<unknown> {
   const results: Promise<unknown>[] = [];
   const executing: Promise<unknown>[] = [];
   // Flexible progress indicator. If there are more than 10000 requests, progress will be reported every 10000 done
@@ -19,7 +19,7 @@ export async function asyncPool(
     }
 
     // Send the post request and added to the results
-    const promise = Promise.resolve().then(() => postRequest(host, xml));
+    const promise = Promise.resolve().then(() => postRequest(xml));
     results.push(promise);
     // Add the request to the pool and remove it when it's resolved
     const e: Promise<unknown> = promise.then(() =>
@@ -27,7 +27,7 @@ export async function asyncPool(
     );
     executing.push(e);
     // If the pool is currently full, wait for a free spot
-    if (executing.length >= poolLimit) {
+    if (executing.length >= POOL_SIZE) {
       await Promise.race(executing);
     }
   }
@@ -35,8 +35,8 @@ export async function asyncPool(
 }
 
 // Post a XML HTTP requests to Seaware
-async function postRequest(host: string, xmlBody: string): Promise<void> {
-  const req = new Request(host, {
+async function postRequest(xmlBody: string): Promise<void> {
+  const req = new Request(LOCAL_HOST, {
     method: "post",
     headers: { "Content-type": "application/x-versonix-api" },
     body: xmlBody,
@@ -50,9 +50,49 @@ async function postRequest(host: string, xmlBody: string): Promise<void> {
       //logger.error(`Error in response! Status code: ${res.status}`);
     //  return;
     //}
-    // Plug in here to  read the response
+    // Plug in here to read the response
     //  res.text().then((data) => { });
   } catch (e) {
     postSlackMessage(`Fetch Error: ${e}`);
   }
+}
+
+// Post a XML HTTP requests to Seaware
+async function postRequestAndReadStats(xmlBody: string): Promise<void> {
+  const req = new Request(LOCAL_HOST, {
+    method: "post",
+    headers: { "Content-type": "application/x-versonix-api" },
+    body: xmlBody,
+  });
+
+  try {
+    const res = await fetch(req);
+    res.text().then((data) => { 
+
+    });
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+// A async pool that runs requests in a throttled manner
+export async function readCacheRunner(payload: string[]): Promise<unknown> {
+  const results: Promise<unknown>[] = [];
+  const executing: Promise<unknown>[] = [];
+  
+  for (const xml of payload) {
+    // Send the post request and added to the results
+    const promise = Promise.resolve().then(() => postRequestAndReadStats(xml));
+    results.push(promise);
+    // Add the request to the pool and remove it when it's resolved
+    const e: Promise<unknown> = promise.then(() =>
+      executing.splice(executing.indexOf(e), 1)
+    );
+    executing.push(e);
+    // If the pool is currently full, wait for a free spot
+    if (executing.length >= POOL_SIZE) {
+      await Promise.race(executing);
+    }
+  }
+  return Promise.all(results);
 }
