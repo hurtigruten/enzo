@@ -28,20 +28,15 @@ export async function populateCache(pathToConfig: string | URL) {
   postSlackMessage(`Cache run complete`);
 }
 
-export async function readCacheRun(pathToConfig: string | URL) {
+export function readCacheRun(pathToConfig: string | URL) {
   // Parse the supplied json config file to XML bodies
   const config: CacheConfig = JSON.parse(
     Deno.readTextFileSync(pathToConfig)
   ) as CacheConfig;
   const searches: SailingSearch[] = produceJsonSearches(config);
   const payload: string[] = searches.map((search: SailingSearch) => createSeawareReadCacheRequest(search));
-  var currentDate = new Date();
-  console.log("starting to read. Time is: " + currentDate.getMinutes() + "m " + currentDate.getSeconds() + "s " + currentDate.getMilliseconds() + "ms.");
   // Execute requests
-  const results = await readCacheRunner(payload);
-  var endDate = new Date();
-  console.log("starting to read. Time is: " + endDate.getMinutes() + "m " + endDate.getSeconds() + "s " + endDate.getMilliseconds() + "ms.");
-  console.log(results);
+  readCacheRunner(payload);
 }
 
 export async function cacheSingleSailing(fromPort: string, toPort: string) {

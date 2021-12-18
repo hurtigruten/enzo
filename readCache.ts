@@ -4,4 +4,4 @@ import { readCacheRun } from "./cacheCmds.ts";
 //const CONFIG = (Deno.args[0] == "staging") ? "./configs/stagingCache.json" : "./configs/fullCache.json"
 const CONFIG = "./configs/sampleCache.json";
 
-await readCacheRun(CONFIG);
+readCacheRun(CONFIG);

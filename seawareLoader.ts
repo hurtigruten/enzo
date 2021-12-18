@@ -58,7 +58,7 @@ async function postRequest(xmlBody: string): Promise<void> {
 }
 
 // Post a XML HTTP requests to Seaware
-async function postRequestAndReadStats(xmlBody: string): Promise<void> {
+async function postRequestAndReadStats(xmlBody: string) {
   const req = new Request(LOCAL_HOST, {
     method: "post",
     headers: { "Content-type": "application/x-versonix-api" },
@@ -68,7 +68,10 @@ async function postRequestAndReadStats(xmlBody: string): Promise<void> {
   try {
     const res = await fetch(req);
     res.text().then((data) => { 
-
+      const trimmed = data.trim()
+      if (trimmed.includes("<Package>")) {
+        console.log(trimmed)
+      }
     });
   } catch (e) {
     console.log(e);
@@ -76,23 +79,8 @@ async function postRequestAndReadStats(xmlBody: string): Promise<void> {
 }
 
 // A async pool that runs requests in a throttled manner
-export async function readCacheRunner(payload: string[]): Promise<unknown> {
-  const results: Promise<unknown>[] = [];
-  const executing: Promise<unknown>[] = [];
-  
+export function readCacheRunner(payload: string[]) {
   for (const xml of payload) {
-    // Send the post request and added to the results
-    const promise = Promise.resolve().then(() => postRequestAndReadStats(xml));
-    results.push(promise);
-    // Add the request to the pool and remove it when it's resolved
-    const e: Promise<unknown> = promise.then(() =>
-      executing.splice(executing.indexOf(e), 1)
-    );
-    executing.push(e);
-    // If the pool is currently full, wait for a free spot
-    if (executing.length >= POOL_SIZE) {
-      await Promise.race(executing);
-    }
+    postRequestAndReadStats(xml);
   }
-  return Promise.all(results);
 }
