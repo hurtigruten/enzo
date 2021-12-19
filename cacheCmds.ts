@@ -28,7 +28,7 @@ export async function populateCache(pathToConfig: string | URL) {
   postSlackMessage(`Cache run complete`);
 }
 
-export function readCacheRun(market: string, fromPort:string, toPort:string) {
+export async function readCacheRun(market: string, fromPort:string, toPort:string) {
   // Parse the full json config file
   const config: CacheConfig = JSON.parse(Deno.readTextFileSync(FULL_CONFIG)) as CacheConfig;
 
@@ -52,9 +52,7 @@ export function readCacheRun(market: string, fromPort:string, toPort:string) {
   const payload: string[] = searches.map((search: SailingSearch) => createSeawareReadCacheRequest(search));
 
   // Execute requests
-  const results: string[] = cacheReader(payload);
-  // TODO: Prettyprint results
-  return results;
+  await cacheReader(payload);
 }
 
 export async function cacheSingleSailing(fromPort: string, toPort: string) {

@@ -1,7 +1,8 @@
 import { postSlackMessage } from "./slack-bot/slackCmds.ts";
 
 // Config
-const LOCAL_HOST = "http://localhost:8085/SwBizLogic/Service.svc/ProcessRequest";
+const LOCAL_HOST =
+  "http://localhost:8085/SwBizLogic/Service.svc/ProcessRequest";
 const POOL_SIZE = 15;
 
 // A async pool that runs requests in a throttled manner
@@ -43,11 +44,11 @@ async function postRequest(xmlBody: string): Promise<void> {
   });
 
   try {
-    await fetch(req)
+    await fetch(req);
     //const res = await fetch(req);
     // Currently no handling of error messages from Seaware
     //if (res.status !== 200) {
-      //logger.error(`Error in response! Status code: ${res.status}`);
+    //logger.error(`Error in response! Status code: ${res.status}`);
     //  return;
     //}
     // Plug in here to read the response
@@ -58,26 +59,20 @@ async function postRequest(xmlBody: string): Promise<void> {
 }
 
 // Post a XML HTTP requests to Seaware
-async function postRequestAndReadStats(xmlBody: string): Promise<string> {
+async function postRequestAndReadStats(xmlBody: string): Promise<void> {
   const req = new Request(LOCAL_HOST, {
     method: "post",
     headers: { "Content-type": "application/x-versonix-api" },
     body: xmlBody,
   });
-  const res: Response = await fetch(req);
-  return res.text();
+  await fetch(req);
 }
 
 // A async pool that runs requests in a throttled manner
-export function cacheReader(payload: string[]): string[] {
-  const stats: string[] = [];
+export function cacheReader(payload: string[]): Promise<unknown> {
+  const results: Promise<unknown>[] = [];
   for (const xml of payload) {
-    postRequestAndReadStats(xml).then((data: string) => {
-       // TODO: parse response pretty print
-      if (data.includes("<Package>")) {
-        stats.push(data.trim());
-      }
-    })
+    results.push(postRequestAndReadStats(xml));
   }
-  return stats;
+  return Promise.all(results); 
 }

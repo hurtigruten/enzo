@@ -16,12 +16,14 @@ function handleRequest(_req: Request) {
   if (url.search === "") {
     return new Response(Deno.readTextFileSync(CONFIG));
   }
-  let result: string [] = ["No results in cache"];
   const market = url.searchParams.get('market');
   const fromPort = url.searchParams.get('fromPort');
   const toPort = url.searchParams.get('toPort');
   if (market && fromPort && toPort) {
-    result = readCacheRun(market, fromPort, toPort)
+    readCacheRun(market, fromPort, toPort).then((result) => {
+      console.log(result)
+      return new Response("found results");
+    });
   }
-  return new Response(result.join());
+  return new Response("No results in cache");
 }
