@@ -1,12 +1,10 @@
 import type { CacheConfig, SailingSearch } from "./types.ts";
 
-const SEARCH_RANGE = 10;
-
 export function produceJsonSearches(json: CacheConfig): SailingSearch[] {
   // Mix in default values
   const sailings = json.sailings.map((obj) => {
     const daysAhead = obj.daysAhead || json.defaultDaysAhead;
-    const pages = Array.from(Array(Math.ceil(daysAhead / SEARCH_RANGE)).keys());
+    const pages = Array.from(Array(Math.ceil(daysAhead / json.searchRange)).keys());
     return {
       voyageType: obj.voyageType,
       voyageCode: obj.fromPort + "-" + obj.toPort,

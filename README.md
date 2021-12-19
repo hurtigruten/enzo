@@ -18,6 +18,7 @@ Read more about the Seaware Cache [here](https://versonix.atlassian.net/wiki/spa
 * Add Allotment based Tours (need a list of allotment ids from PG for the Tour)
 * PG should offer an API with what tours to cache, then the cache script uses this to decide what to cache (instead of a static file)
 * Retry if requests failed?
+* Use AlwaysUp or similar
 
 # Future Ideas
 * Write tests

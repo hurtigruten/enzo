@@ -5,18 +5,18 @@ const LOCAL_HOST = "http://localhost:8085/SwBizLogic/Service.svc/ProcessRequest"
 const POOL_SIZE = 15;
 
 // A async pool that runs requests in a throttled manner
-export async function populateCacheRunner(payload: string[]): Promise<unknown> {
+export async function cacheSeeder(payload: string[]): Promise<unknown> {
   const results: Promise<unknown>[] = [];
   const executing: Promise<unknown>[] = [];
   // Flexible progress indicator. If there are more than 10000 requests, progress will be reported every 10000 done
-  const moduloNumber = payload.length > 10000 ? 10000 : 1000;
+  //const moduloNumber = payload.length > 10000 ? 10000 : 1000;
 
   for (const xml of payload) {
     // Log the progress so far
-    if (results.length % moduloNumber === 0 && results.length !== 0) {
-      const percent = ((results.length / payload.length) * 100).toFixed(2);
-      postSlackMessage((`${percent} % complete`));
-    }
+    //if (results.length % moduloNumber === 0 && results.length !== 0) {
+    //  const percent = ((results.length / payload.length) * 100).toFixed(2);
+    //  postSlackMessage((`${percent} % complete`));
+    //}
 
     // Send the post request and added to the results
     const promise = Promise.resolve().then(() => postRequest(xml));
@@ -58,29 +58,26 @@ async function postRequest(xmlBody: string): Promise<void> {
 }
 
 // Post a XML HTTP requests to Seaware
-async function postRequestAndReadStats(xmlBody: string) {
+async function postRequestAndReadStats(xmlBody: string): Promise<string> {
   const req = new Request(LOCAL_HOST, {
     method: "post",
     headers: { "Content-type": "application/x-versonix-api" },
     body: xmlBody,
   });
-
-  try {
-    const res = await fetch(req);
-    res.text().then((data) => { 
-      const trimmed = data.trim()
-      if (trimmed.includes("<Package>")) {
-        console.log(trimmed)
-      }
-    });
-  } catch (e) {
-    console.log(e);
-  }
+  const res: Response = await fetch(req);
+  return res.text();
 }
 
 // A async pool that runs requests in a throttled manner
-export function readCacheRunner(payload: string[]) {
+export function cacheReader(payload: string[]): string[] {
+  const stats: string[] = [];
   for (const xml of payload) {
-    postRequestAndReadStats(xml);
+    postRequestAndReadStats(xml).then((data: string) => {
+       // TODO: parse response pretty print
+      if (data.includes("<Package>")) {
+        stats.push(data.trim());
+      }
+    })
   }
+  return stats;
 }

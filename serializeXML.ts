@@ -38,8 +38,8 @@ export function createSeawareReadCacheRequest(search: SailingSearch): string {
       <ValidateMode>N</ValidateMode>
     </MsgHeader>
     <SearchOptions>
-      <CacheSearchMode>ReadCacheOnly</CacheSearchMode>
-      <IncludePriceDetails>Y</IncludePriceDetails>
+      <CacheSearchMode>ReadCache</CacheSearchMode>
+      <IncludePriceDetails>N</IncludePriceDetails>
     </SearchOptions>
     <CustomParams>
       <Scenario>ONEWAY</Scenario>
