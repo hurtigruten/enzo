@@ -69,11 +69,10 @@ async function readRequest(xmlBody: string): Promise<string> {
   return response.text();
 }
 
-// A async pool that runs requests in a throttled manner
-export function cacheReader(payload: string[]): Promise<unknown> {
-  const reqs: Promise<string>[] = [];
-  for (const xml of payload) {
-    reqs.push(readRequest(xml));
-  }
-  return Promise.all(reqs);
+export function cacheReader(payload: string[]) {
+  
+  const results = payload.map((xmlBody) => readRequest(xmlBody))
+  return Promise.all(results);
+
+  //return Promise.all(reqs);
 }
