@@ -8,7 +8,7 @@ const CONFIG = (Deno.args[0] == "staging")
 
 serve((_req: Request) => handleRequest(_req), { port: 3000 });
 
-function handleRequest(_req: Request) {
+async function handleRequest(_req: Request): Promise<Response> {
   const url = new URL(_req.url);
   if (url.pathname !== "/") {
     return new Response("")
@@ -20,10 +20,9 @@ function handleRequest(_req: Request) {
   const fromPort = url.searchParams.get('fromPort');
   const toPort = url.searchParams.get('toPort');
   if (market && fromPort && toPort) {
-    readCacheRun(market, fromPort, toPort).then((result) => {
-      console.log(result)
-      return new Response("found results");
-    });
+    const result = await readCacheRun(market, fromPort, toPort);
+    return new Response(""+result);
+  } else {
+    return new Response("No results in cache");
   }
-  return new Response("No results in cache");
 }

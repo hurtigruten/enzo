@@ -59,20 +59,21 @@ async function postRequest(xmlBody: string): Promise<void> {
 }
 
 // Post a XML HTTP requests to Seaware
-async function postRequestAndReadStats(xmlBody: string): Promise<void> {
+async function readRequest(xmlBody: string): Promise<string> {
   const req = new Request(LOCAL_HOST, {
     method: "post",
     headers: { "Content-type": "application/x-versonix-api" },
     body: xmlBody,
   });
-  await fetch(req);
+  const response = await fetch(req);
+  return response.text();
 }
 
 // A async pool that runs requests in a throttled manner
 export function cacheReader(payload: string[]): Promise<unknown> {
-  const results: Promise<unknown>[] = [];
+  const reqs: Promise<string>[] = [];
   for (const xml of payload) {
-    results.push(postRequestAndReadStats(xml));
+    reqs.push(readRequest(xml));
   }
-  return Promise.all(results); 
+  return Promise.all(reqs);
 }
