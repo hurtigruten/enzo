@@ -30,9 +30,7 @@ export async function requestRunner(payload: string[], poolSize: number): Promis
       await Promise.race(executing);
     }
   }
-  // TODO: Switch to allSettled?
   return Promise.all(results)
-  
 }
 
 // Post a XML HTTP requests to Seaware
