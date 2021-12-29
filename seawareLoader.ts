@@ -1,13 +1,11 @@
 import { postSlackMessage } from "./slack-bot/slackCmds.ts";
 
 // Config
-const LOCAL_HOST =
-  "http://localhost:8085/SwBizLogic/Service.svc/ProcessRequest";
-const POOL_SIZE = 15;
+const HOST = "http://localhost:8085/SwBizLogic/Service.svc/ProcessRequest";
 
 // A async pool that runs requests in a throttled manner
-export async function cacheSeeder(payload: string[]): Promise<unknown> {
-  const results: Promise<unknown>[] = [];
+export async function requestRunner(payload: string[], poolSize: number): Promise<(string | undefined)[]> {
+  const results: Promise<string | undefined>[] = [];
   const executing: Promise<unknown>[] = [];
   // Flexible progress indicator. If there are more than 10000 requests, progress will be reported every 10000 done
   //const moduloNumber = payload.length > 10000 ? 10000 : 1000;
@@ -20,7 +18,7 @@ export async function cacheSeeder(payload: string[]): Promise<unknown> {
     //}
 
     // Send the post request and added to the results
-    const promise = Promise.resolve().then(() => postRequest(xml));
+    const promise = postRequest(xml);
     results.push(promise);
     // Add the request to the pool and remove it when it's resolved
     const e: Promise<unknown> = promise.then(() =>
@@ -28,51 +26,26 @@ export async function cacheSeeder(payload: string[]): Promise<unknown> {
     );
     executing.push(e);
     // If the pool is currently full, wait for a free spot
-    if (executing.length >= POOL_SIZE) {
+    if (executing.length >= poolSize) {
       await Promise.race(executing);
     }
   }
-  return Promise.all(results);
-}
-
-// Post a XML HTTP requests to Seaware
-async function postRequest(xmlBody: string): Promise<void> {
-  const req = new Request(LOCAL_HOST, {
-    method: "post",
-    headers: { "Content-type": "application/x-versonix-api" },
-    body: xmlBody,
-  });
-
-  try {
-    await fetch(req);
-    //const res = await fetch(req);
-    // Currently no handling of error messages from Seaware
-    //if (res.status !== 200) {
-    //logger.error(`Error in response! Status code: ${res.status}`);
-    //  return;
-    //}
-    // Plug in here to read the response
-    //  res.text().then((data) => { });
-  } catch (e) {
-    postSlackMessage(`Fetch Error: ${e}`);
-  }
-}
-
-// Post a XML HTTP requests to Seaware
-async function readRequest(xmlBody: string): Promise<string> {
-  const req = new Request(LOCAL_HOST, {
-    method: "post",
-    headers: { "Content-type": "application/x-versonix-api" },
-    body: xmlBody,
-  });
-  const response = await fetch(req);
-  return response.text();
-}
-
-export function cacheReader(payload: string[]) {
+  // TODO: Switch to allSettled?
+  return Promise.all(results)
   
-  const results = payload.map((xmlBody) => readRequest(xmlBody))
-  return Promise.all(results);
+}
 
-  //return Promise.all(reqs);
+// Post a XML HTTP requests to Seaware
+async function postRequest(xmlBody: string): Promise<string | undefined> {
+  const req = new Request(HOST, {
+    method: "post",
+    headers: { "Content-type": "application/x-versonix-api" },
+    body: xmlBody,
+  });
+  try {
+    const response = await fetch(req)
+    return await response.text();
+  } catch (error) {
+      postSlackMessage(`Fetch Error: ${error}`);
+  } 
 }

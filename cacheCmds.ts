@@ -1,7 +1,7 @@
-import { cacheSeeder, cacheReader } from "./seawareLoader.ts";
+import { requestRunner } from "./seawareLoader.ts";
 import { produceJsonSearches } from "./sailingsParser.ts";
 import { createSeawarePopulateCacheRequest, createSeawareReadCacheRequest} from "./serializeXML.ts";
-import { CacheConfig, Sailing, SailingSearch } from "./types.ts";
+import { CacheConfig, CachedSail, Sailing, SailingSearch } from "./types.ts";
 import { postSlackMessage } from "./slack-bot/slackCmds.ts";
 import { serve } from "./deps.ts";
 
@@ -13,47 +13,58 @@ export function gitPull() {
   postSlackMessage("Pulled latest code from master");
 }
 
-export async function populateCache(pathToConfig: string | URL) {
-  // Parse the supplied json config file to XML bodies
-  const config: CacheConfig = JSON.parse(
-    Deno.readTextFileSync(pathToConfig)
-  ) as CacheConfig;
+export async function populateCache(config: CacheConfig) {
+  // Transform the supplied config to Seaware XML requests
   const searches: SailingSearch[] = produceJsonSearches(config);
   const payload: string[] = searches.map((search: SailingSearch) => createSeawarePopulateCacheRequest(search)
   );
 
-  postSlackMessage(`Starting to cache. ${payload.length} requests to run based on ${pathToConfig}`);
+  postSlackMessage(`Starting to cache. ${payload.length} requests to run`);
   // Execute requests
-  await cacheSeeder(payload);
+  await requestRunner(payload, 15);
   postSlackMessage(`Cache run complete`);
 }
 
-export async function readCacheRun(market: string, fromPort:string, toPort:string) {
-  // Parse the full json config file
-  const config: CacheConfig = JSON.parse(Deno.readTextFileSync(FULL_CONFIG)) as CacheConfig;
-
-  config.defaultMarkets = [market];
-  config.defaultPartyMix = ["ADULT", "ADULT"];
-  config.searchRange = 200;
-
-  // Find requested sailing in config
-  const filteredSailings: Sailing[] = config.sailings.filter(function (sailing) {
-    return sailing.fromPort === fromPort && sailing.toPort === toPort;
-  });
-
-  // TODO: Filter sailings based on input
-  if (filteredSailings.length === 0) {
-    console.log("The requested port combination does not exist in fullCache.json")
+export async function readCache(market: string, fromPort:string, toPort:string) {
+  const config: CacheConfig = {
+    defaultMarkets: ["UK"],
+    defaultDaysAhead: 500,
+    searchRange: 20,
+    defaultDirection: "North",
+    defaultPartyMix: ["ADULT,ADULT"],
+    sailings: [{
+      "fromPort": fromPort,
+      "toPort": toPort,
+      "voyageType": "EXPLORER"
+    }]
   }
-
-  // Parse the config, using only the requested sailing
-  config.sailings = filteredSailings;
   const searches: SailingSearch[] = produceJsonSearches(config);
   const payload: string[] = searches.map((search: SailingSearch) => createSeawareReadCacheRequest(search));
+  const result = await requestRunner(payload, 5);
+  return prettyPrintGetAvailability(result);
+}
 
-  // Execute requests
-  const res = await cacheReader(payload);
-  return res;
+function prettyPrintGetAvailability(xmlArray: (string | undefined)[]): string {
+  const filteredXmls: string[] = xmlArray.filter(xml => xml !== undefined && xml.includes("<Sail>")) as string[];
+  const result = filteredXmls.map((xml) => {
+      const sail = xml.split("</Sail>")[0].split("<Sail>")[1];
+      const ship = sail.split("</Ship>")[0].split("<Ship>")[1];
+      const from = sail.split("</From>")[0].split("<From>")[1];
+      const to = sail.split("</To>")[0].split("<To>")[1];
+      const fromPort = from.split("</Port>")[0].split("<Port>")[1];
+      const toPort = to.split("</Port>")[0].split("<Port>")[1];
+      const fromDate = from.split("</DateTime>")[0].split("<DateTime>")[1].split("T")[0];
+      const toDate = to.split("</DateTime>")[0].split("<DateTime>")[1].split("T")[0];
+      const cachedSailing: CachedSail = {
+        ship: ship,
+        fromPort: fromPort,
+        toPort: toPort,
+        fromDate: fromDate,
+        toDate: toDate,
+      }
+      return cachedSailing
+    });
+  return JSON.stringify(result);
 }
 
 export async function cacheSingleSailing(fromPort: string, toPort: string) {
@@ -77,7 +88,7 @@ export async function cacheSingleSailing(fromPort: string, toPort: string) {
 
   postSlackMessage(`Starting to cache ${fromPort} to ${toPort}. ${payload.length} requests to run...`);
   // Execute cache run
-  await cacheSeeder(payload);
+  await requestRunner(payload, 5);
   postSlackMessage(`${fromPort} to ${toPort} cached`);
 }
 

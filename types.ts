@@ -2,7 +2,6 @@ export type CacheConfig = {
   defaultMarkets: string[];
   defaultDaysAhead: number;
   searchRange: number;
-  cacheMode: string;
   defaultDirection: string;
   defaultPartyMix: string[];
   sailings: Sailing[];
@@ -27,6 +26,14 @@ export type Sailing = {
   partyMixes?: string[];
   marketFilter?: string[];
 }
+
+export type CachedSail = {
+  ship: string;
+  fromPort: string;
+  toPort: string;
+  fromDate: string;
+  toDate: string;
+}    
 
 export type TourConfig = {
   defaultMarkets: string[];
