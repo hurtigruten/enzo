@@ -3,39 +3,40 @@ import { getUserProfile, getWebsocketUrl } from "./slackCmds.ts";
 
 const sockets = new Set<WebSocket>();
 const delay = (ms: number) => new Promise((res) => setTimeout(res, ms));
-const wssResponse = await getWebsocketUrl();
 
 // Create 5 connections
-while (sockets.size < 6) {
-  createWebsocket();
-  await delay(2000);
-}
+createWebsocket(undefined);
+await delay(2000);
+createWebsocket(undefined);
+await delay(2000);
+createWebsocket(undefined);
+await delay(2000);
+createWebsocket(undefined);
+await delay(2000);
+createWebsocket(undefined);
 
-function createWebsocket() {
-  // To debug, append this to the url: "&debug_reconnects=true");
+async function createWebsocket(deadSocket: WebSocket | undefined) {
+  if (deadSocket) {
+    sockets.delete(deadSocket);
+  }
+
+  const wssResponse = await getWebsocketUrl();
+  // To debud, append this to the url: "&debug_reconnects=true");
   const newSocket = new WebSocket(wssResponse.url);
   initializeWebsocket(newSocket);
   sockets.add(newSocket);
 }
 
-function disposeWebsocket(deadSocket: WebSocket) {
-  sockets.delete(deadSocket);
-}
-
 function initializeWebsocket(socket: WebSocket) {
-  socket.onclose = (_) => {
-    disposeWebsocket(socket);
-    createWebsocket();
-  }
+  socket.onclose = (_) => createWebsocket(socket);
   //socket.onopen = (_) => console.log("connection established");
 
   socket.onmessage = async function (event) {
     const message = JSON.parse(event.data);
 
-    /*if (message.type === "disconnect") {
-      console.log(message)
-    }*/
-    
+    if (message.type === "disconnect") {
+      //console.log(message)
+    }
     // Acknowledge message receiveed
     if (message.envelope_id) {
       const ack = { "envelope_id": message.envelope_id };
@@ -43,6 +44,7 @@ function initializeWebsocket(socket: WebSocket) {
     }
 
     if (message.payload) {
+      const message = JSON.parse(event.data);
       const text: string = message?.payload?.event?.text;
 
       if (text) {
