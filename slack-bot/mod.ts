@@ -43,7 +43,6 @@ function initializeWebsocket(socket: WebSocket) {
     }
 
     if (message.payload) {
-      const message = JSON.parse(event.data);
       const text: string = message?.payload?.event?.text;
 
       if (text) {
