@@ -692,7 +692,12 @@
       "fromPort": "YVR",
       "toPort": "USH",
       "voyageType": "EXPLORER"
-    }
+    },
+    {
+      "fromPort": "VAP",
+      "toPort": "CLL",
+      "voyageType": "EXPLORER"
+     }
   ],
   "searchRange": 10
 }
