@@ -3,7 +3,6 @@ import { readCache } from "../cacheCmds.ts";
 
 // If the user supplies "staging" as the first parameter, use staging config
 const CONFIG = (Deno.args[0] == "staging") ? "../configs/stagingCache.json" : "../configs/fullCache.json";
-const environmentConfig: string = Deno.readTextFileSync(CONFIG);
 
 serve((_req: Request) => handleRequest(_req), { port: 3000 });
 
@@ -13,7 +12,7 @@ async function handleRequest(_req: Request) {
     return new Response("")
   }
   if (url.search === "") {
-    return new Response(environmentConfig);
+    return new Response(Deno.readTextFileSync(CONFIG));
   }
   const market = url.searchParams.get('market');
   const fromPort = url.searchParams.get('fromPort');

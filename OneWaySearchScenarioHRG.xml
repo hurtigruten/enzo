@@ -639,7 +639,7 @@
         <StrVal>
           <![CDATA[<ResGuest>                      
         <GuestSeqN>10</GuestSeqN>              
-        <AgeCategory>&Age#9</AgeCategory>
+        <AgeCategory>&Age#9</AgeCategory>     
         <GuestType>&GuestType</GuestType>      
       </ResGuest>                             ]]>
         </StrVal>
@@ -698,7 +698,7 @@
         <InputParamName>GuestType</InputParamName>
         <Mode>DummyIteration</Mode>
         <DefaultStrVal>REGULAR</DefaultStrVal>
-        <VarType>Char</VarType>
+        <VarType>Variant</VarType>
       </SetupRecord>
       <SetupRecord>
         <Class>ParamValue</Class>
