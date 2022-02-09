@@ -485,6 +485,11 @@
     },
     {
       "fromPort": "REK",
+      "toPort": "USH",
+      "voyageType": "EXPLORER"
+    },
+    {
+      "fromPort": "REK",
       "toPort": "YCB",
       "voyageType": "EXPLORER"
     },
