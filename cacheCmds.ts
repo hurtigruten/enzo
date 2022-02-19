@@ -2,18 +2,18 @@ import { requestRunner } from "./seawareLoader.ts";
 import { produceJsonSearches } from "./sailingsParser.ts";
 import { createSeawarePopulateCacheRequest, createSeawareReadCacheRequest} from "./serializeXML.ts";
 import { CacheConfig, CachedSail, Sailing, SailingSearch } from "./types.ts";
-import { postSlackMessage } from "./slack-bot/slackCmds.ts";
+import { postSlackMessage } from "./slackCmds.ts";
 import { serve } from "./deps.ts";
 
 // TODO: This relative path assumes the caller is in subfolder of the project
-const FULL_CONFIG = "../configs/fullCache.json";
+const FULL_CONFIG = "./configs/fullCache.json";
 
 export function gitPull() {
   Deno.run({ cmd: ["git", "pull"] });
   postSlackMessage("Pulled latest code from master");
 }
 
-export async function populateCache(fileConfig = "../configs/fullCache.json") {
+export async function populateCache(fileConfig = "./configs/fullCache.json") {
   const config: CacheConfig = JSON.parse(Deno.readTextFileSync(fileConfig)) as CacheConfig;
   
   // Transform the supplied config to Seaware XML requests
@@ -124,7 +124,7 @@ export async function isAPIup() {
 }
 
 export function startAPI() {
-  serve(() => new Response("../configs/fullCache.json"), { port: 3000 });
+  serve(() => new Response(FULL_CONFIG), { port: 3000 });
 }
 
 export function help() {

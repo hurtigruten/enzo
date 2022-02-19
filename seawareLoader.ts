@@ -1,4 +1,4 @@
-import { postSlackMessage } from "./slack-bot/slackCmds.ts";
+import { postSlackMessage } from "./slackCmds.ts";
 
 // Config
 const HOST = "http://localhost:8085/SwBizLogic/Service.svc/ProcessRequest";
