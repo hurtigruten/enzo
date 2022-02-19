@@ -5,7 +5,6 @@ import { CacheConfig, CachedSail, Sailing, SailingSearch } from "./types.ts";
 import { postSlackMessage } from "./slackCmds.ts";
 import { serve } from "./deps.ts";
 
-// TODO: This relative path assumes the caller is in subfolder of the project
 const FULL_CONFIG = "./configs/fullCache.json";
 
 export function gitPull() {
@@ -124,7 +123,7 @@ export async function isAPIup() {
 }
 
 export function startAPI() {
-  serve(() => new Response(FULL_CONFIG), { port: 3000 });
+  serve(() => new Response(Deno.readTextFileSync(FULL_CONFIG)), { port: 3000 });
 }
 
 export function help() {
