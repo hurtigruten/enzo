@@ -1,10 +1,8 @@
-const APP_TOKEN = "xapp-1-A02FHFZ81N3-2672165845639-c5f315333b06af43e2f33f1110da83c913010d3196455607f65638cbe0dfa1ac";
-const BOT_TOKEN = "xoxb-189767087396-2542390299842-1xMB6ehGh3LA23z0Maip4s06";
-const WEBHOOK = "T5KNK2KBN/B02L8MDP44A/cUaVXYw6hT7ufN0IjqZQbWKY";
+import { dotEnvConfig } from "./deps.ts";
 
 // Post a HTTP requests to Slack
 export async function postSlackMessage(body: string): Promise<void> {
-  const url = "https://hooks.slack.com/services/" + WEBHOOK;
+  const url = "https://hooks.slack.com/services/" + dotEnvConfig().WEBHOOK;
   const req = new Request(url, {
     method: "post",
     headers: { "Content-type": "application/json" },
@@ -30,7 +28,7 @@ export async function getUserProfile(userID: string) {
       method: "GET",
       headers: {
         "Content-type": "application/x-www-form-urlencoded",
-        "Authorization": "Bearer " + BOT_TOKEN,
+        "Authorization": "Bearer " + dotEnvConfig().BOT_TOKEN,
       },
     });
     return await res.json();
@@ -47,7 +45,7 @@ export async function getWebsocketUrl() {
       method: "POST",
       headers: {
         "Content-type": "application/x-www-form-urlencoded",
-        "Authorization": "Bearer " + APP_TOKEN,
+        "Authorization": "Bearer " + dotEnvConfig().APP_TOKEN,
       },
     });
     return await res.json();
