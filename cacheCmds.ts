@@ -13,11 +13,12 @@ export function gitPull() {
   postSlackMessage("Pulled latest code from master");
 }
 
-export async function populateCache(config: CacheConfig) {
+export async function populateCache(fileConfig = "../configs/fullCache.json") {
+  const config: CacheConfig = JSON.parse(Deno.readTextFileSync(fileConfig)) as CacheConfig;
+  
   // Transform the supplied config to Seaware XML requests
   const searches: SailingSearch[] = produceJsonSearches(config);
-  const payload: string[] = searches.map((search: SailingSearch) => createSeawarePopulateCacheRequest(search)
-  );
+  const payload: string[] = searches.map((search: SailingSearch) => createSeawarePopulateCacheRequest(search));
 
   postSlackMessage(`Starting to cache. ${payload.length} requests to run`);
   // Execute requests
@@ -27,7 +28,7 @@ export async function populateCache(config: CacheConfig) {
 
 export async function readCache(market: string, fromPort:string, toPort:string) {
   const config: CacheConfig = {
-    defaultMarkets: ["UK"],
+    defaultMarkets: [market],
     defaultDaysAhead: 500,
     searchRange: 20,
     defaultDirection: "North",
@@ -132,9 +133,10 @@ export function help() {
       "`hi` or `hello` : If you want to say hello to me \n-" +
       "`help?` : If you want to view this help text \n-" +
       "`cached?` : If you want to see what is cached \n-" +
-      "`statusAPI` : If you want to check that the cache API is running \n-" +
-      "`startAPI` : If you want me to start the cache API (use with caution!)\n-" +
-      "`gitPull` : If you want to pull the latest source code from git (use with caution!)\n-" +
-      "`please cache USH to BGO` : If you include two three letter words in upper case, I will attempt to cache that particular port combination (using fromPort and toPort in the order you typed it)",
+      "`statusapi` : If you want to check that the cache API is running \n-" +
+      "`startapi` : If you want me to start the cache API (use with caution!)\n-" +
+      "`gitpull` : If you want to pull the latest source code from git (use with caution!)\n-" +
+      "`fullcacherun` : If you want to initiate a full cache refresh (use with extreme caution!!)\n-" +
+      "`cache USH to BGO` : I will attempt to cache that particular port combination (using fromPort and toPort in the order you typed it)",
   );
 }

@@ -1,27 +1,27 @@
-import { cacheSingleSailing, gitPull, greet, help, isAPIup, startAPI, whatIsCached} from "../cacheCmds.ts";
+import { cacheSingleSailing, gitPull, greet, help, isAPIup, populateCache, startAPI, whatIsCached} from "../cacheCmds.ts";
 import { getUserProfile, getWebsocketUrl } from "./slackCmds.ts";
 
 const sockets = new Set<WebSocket>();
 const delay = (ms: number) => new Promise((res) => setTimeout(res, ms));
 
 // Create 5 connections
-createWebsocket(undefined);
+createWebsocket();
 await delay(2000);
-createWebsocket(undefined);
+createWebsocket();
 await delay(2000);
-createWebsocket(undefined);
+createWebsocket();
 await delay(2000);
-createWebsocket(undefined);
+createWebsocket();
 await delay(2000);
-createWebsocket(undefined);
+createWebsocket();
 
-async function createWebsocket(deadSocket: WebSocket | undefined) {
-  if (deadSocket) {
+async function createWebsocket(deadSocket?: WebSocket) {
+  if (typeof deadSocket !== 'undefined') {
     sockets.delete(deadSocket);
   }
 
   const wssResponse = await getWebsocketUrl();
-  // To debud, append this to the url: "&debug_reconnects=true");
+  // To debug, append this to the url: "&debug_reconnects=true");
   const newSocket = new WebSocket(wssResponse.url);
   initializeWebsocket(newSocket);
   sockets.add(newSocket);
@@ -29,14 +29,10 @@ async function createWebsocket(deadSocket: WebSocket | undefined) {
 
 function initializeWebsocket(socket: WebSocket) {
   socket.onclose = (_) => createWebsocket(socket);
-  //socket.onopen = (_) => console.log("connection established");
 
   socket.onmessage = async function (event) {
     const message = JSON.parse(event.data);
 
-    if (message.type === "disconnect") {
-      //console.log(message)
-    }
     // Acknowledge message receiveed
     if (message.envelope_id) {
       const ack = { "envelope_id": message.envelope_id };
@@ -48,33 +44,36 @@ function initializeWebsocket(socket: WebSocket) {
       const text: string = message?.payload?.event?.text;
 
       if (text) {
-        if (text.includes("hi") || text.includes("hello")) {
+        const cmds = text.toLowerCase();
+        if (cmds.includes("hi") || cmds.includes("hello")) {
           const userID: string = message?.payload?.event?.user;
           const user = await getUserProfile(userID);
           greet(user.user.profile.display_name);
         }
-        if (text.includes("statusAPI")) {
+        if (cmds.includes("statusapi")) {
           isAPIup();
         }
-        if (text.includes("startAPI")) {
+        if (cmds.includes("startapi")) {
           startAPI();
           isAPIup();
         }
-        const words: string[] = text.split(" ");
-        const portRegex = new RegExp("^[A-Z]{3}$", "g");
-        const portCodes = words.filter((word) => word.match(portRegex));
-
-        if (portCodes.length === 2) {
-          cacheSingleSailing(portCodes[0], portCodes[1]);
-        }
-        if (text.includes("cached?")) {
+        if (cmds.includes("cached?")) {
           whatIsCached();
         }
-        if (text.includes("help")) {
+        if (cmds.includes("help")) {
           help();
         }
-        if (text.includes("gitPull")) {
+        if (cmds.includes("gitpull")) {
           gitPull();
+        }
+        if (cmds.includes("fullcacherun")) {
+          populateCache();
+        }
+        const words: string[] = cmds.split(" ");
+        const portRegex = new RegExp("^[a-z]{3}$", "g");
+        const portCodes = words.filter((word) => word.match(portRegex));
+        if (cmds.includes("cache") && portCodes.length === 2) {
+          cacheSingleSailing(portCodes[0], portCodes[1]);
         }
       }
     }
