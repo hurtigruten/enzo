@@ -3,3 +3,4 @@ test*.*
 .vscode
 .gitignore
 .DS_Store
+.env
