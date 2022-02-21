@@ -22,13 +22,6 @@
     },
     {
       "daysAhead": 730,
-      "direction": "North_South",
-      "fromPort": "BGO",
-      "toPort": "TRD",
-      "voyageType": "NORWAY_VOYAGE"
-    },
-    {
-      "daysAhead": 730,
       "direction": "North",
       "fromPort": "BGO",
       "toPort": "KKN",
@@ -50,28 +43,6 @@
         "UK"
       ],
       "toPort": "TOS",
-      "voyageType": "NORWAY_SHORT_VOYAGE"
-    },
-    {
-      "daysAhead": 364,
-      "direction": "South",
-      "fromPort": "TRD",
-      "marketFilter": [
-        "NO",
-        "UK"
-      ],
-      "toPort": "BGO",
-      "voyageType": "NORWAY_SHORT_VOYAGE"
-    },
-    {
-      "daysAhead": 364,
-      "direction": "South",
-      "fromPort": "TOS",
-      "marketFilter": [
-        "NO",
-        "UK"
-      ],
-      "toPort": "BGO",
       "voyageType": "NORWAY_SHORT_VOYAGE"
     },
     {
