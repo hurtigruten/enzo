@@ -14,36 +14,22 @@
   ],
   "sailings": [
     {
-      "daysAhead": 730,
       "direction": "North_South",
       "fromPort": "BGO",
       "toPort": "BGO",
       "voyageType": "NORWAY_VOYAGE"
     },
     {
-      "daysAhead": 730,
       "direction": "North",
       "fromPort": "BGO",
       "toPort": "KKN",
       "voyageType": "NORWAY_VOYAGE"
     },
     {
-      "daysAhead": 730,
       "direction": "South",
       "fromPort": "KKN",
       "toPort": "BGO",
       "voyageType": "NORWAY_VOYAGE"
-    },
-    {
-      "daysAhead": 364,
-      "direction": "North",
-      "fromPort": "BGO",
-      "marketFilter": [
-        "NO",
-        "UK"
-      ],
-      "toPort": "TOS",
-      "voyageType": "NORWAY_SHORT_VOYAGE"
     },
     {
       "daysAhead": 364,
