@@ -16,9 +16,11 @@ export async function populateCache(fileConfig = FULL_CONFIG, onlyExplorer = fal
   const config: CacheConfig = JSON.parse(Deno.readTextFileSync(fileConfig)) as CacheConfig;
 
   if (onlyExplorer) {
-    config.sailings = config.sailings.filter(function (sailing) {
+    const filteredSailings = config.sailings.filter(function (sailing) {
       return sailing.voyageType === "EXPLORER";
     });
+    // Parse the config, using only the requested sailing
+    config.sailings = filteredSailings;
   }
   
   // Transform the supplied config to Seaware XML requests
