@@ -12,8 +12,14 @@ export function gitPull() {
   postSlackMessage("Pulled latest code from master");
 }
 
-export async function populateCache(fileConfig = "./configs/fullCache.json") {
+export async function populateCache(fileConfig = FULL_CONFIG, onlyExplorer = false) {
   const config: CacheConfig = JSON.parse(Deno.readTextFileSync(fileConfig)) as CacheConfig;
+
+  if (onlyExplorer) {
+    config.sailings = config.sailings.filter(function (sailing) {
+      return sailing.voyageType === "EXPLORER";
+    });
+  }
   
   // Transform the supplied config to Seaware XML requests
   const searches: SailingSearch[] = produceJsonSearches(config);
