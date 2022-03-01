@@ -240,7 +240,7 @@
       "toPort": "MVD",
       "voyageType": "EXPLORER"
     },
-	{
+    {
       "fromPort": "LIS",
       "toPort": "POR",
       "voyageType": "EXPLORER"
@@ -659,7 +659,72 @@
       "fromPort": "VAP",
       "toPort": "CLL",
       "voyageType": "EXPLORER"
-     }
+    },
+    {
+      "fromPort": "BGI",
+      "toPort": "REK",
+      "voyageType": "EXPLORER"
+    },
+    {
+      "fromPort": "BGO",
+      "toPort": "LIS",
+      "voyageType": "EXPLORER"
+    },
+    {
+      "fromPort": "BUE",
+      "toPort": "LIS",
+      "voyageType": "EXPLORER"
+    },
+    {
+      "fromPort": "DKR",
+      "toPort": "DKR",
+      "voyageType": "EXPLORER"
+    },
+    {
+      "fromPort": "DKR",
+      "toPort": "LPA",
+      "voyageType": "EXPLORER"
+    },
+    {
+      "fromPort": "LIS",
+      "toPort": "DKR",
+      "voyageType": "EXPLORER"
+    },
+    {
+      "fromPort": "LIS",
+      "toPort": "GLW",
+      "voyageType": "EXPLORER"
+    },
+    {
+      "fromPort": "ONX",
+      "toPort": "BGI",
+      "voyageType": "EXPLORER"
+    },
+    {
+      "fromPort": "PAS",
+      "toPort": "VAP",
+      "voyageType": "EXPLORER"
+    },
+    {
+      "fromPort": "SAN",
+      "toPort": "PAS",
+      "voyageType": "EXPLORER"
+    },
+    {
+      "fromPort": "VAP",
+      "toPort": "ONX",
+      "voyageType": "EXPLORER"
+    },
+    {
+      "fromPort": "VAP",
+      "toPort": "PAS",
+      "voyageType": "EXPLORER"
+    },
+    {
+      "fromPort": "YVR",
+      "toPort": "SAN",
+      "voyageType": "EXPLORER"
+    }
   ],
   "searchRange": 10
 }
