@@ -1,6 +1,7 @@
 todo.txt
 scenarios/
 test.ts
+tests/
 .vscode
 .gitignore
 .env
