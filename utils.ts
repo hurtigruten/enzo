@@ -1,5 +1,7 @@
 import { SlackClient } from "./types.ts";
 
+export const delay = (ms: number) => new Promise((res) => setTimeout(res, ms));
+
 export function timeSince(start: Date, end: Date) {
   const diff = new Date(end.getTime() - start.getTime());
   const diffHours = diff.getUTCHours() < 10

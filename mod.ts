@@ -6,7 +6,7 @@ import {
   SlackClient,
   TourConfig,
 } from "./types.ts";
-import { postMsg, timeSince, updateMsg } from "./utils.ts";
+import { delay, postMsg, timeSince, updateMsg } from "./utils.ts";
 
 const defaultOptions = {
   tours: false,
@@ -20,7 +20,7 @@ const defaultOptions = {
 export async function requestRunner(
   inputOptions: PopulateOptions = {},
   env: EnvironmentConfig,
-  slackClient: SlackClient,
+  slackClient?: SlackClient,
 ) {
   const options: Required<PopulateOptions> = {
     ...defaultOptions,
@@ -31,7 +31,7 @@ export async function requestRunner(
 
   if (options.voyages) {
     const xmlRequests = generateVoyageXMLs(options);
-    if (xmlRequests.length === 0) {
+    if (xmlRequests.length === 0 && slackClient) {
       postMsg(`Could not find any voyage to cache`, slackClient);
     }
     voyagePayload = xmlRequests;
@@ -42,7 +42,7 @@ export async function requestRunner(
     const tourConfig = await res.json() as TourConfig;
     if (tourConfig) {
       const xmlRequests = generateTourXMLs(tourConfig, options);
-      if (xmlRequests.length === 0) {
+      if (xmlRequests.length === 0 && slackClient) {
         postMsg(`Could not find any Tours`, slackClient);
       }
       tourPayload = xmlRequests;
@@ -53,22 +53,29 @@ export async function requestRunner(
 
   if (payload.length !== 0) {
     if (options.readMode) {
-      await pool(payload, 2, env.bizlogicAPI);
+      await pool(payload, env.bizlogicAPI, 2);
     } else {
-      await postMsg(
-        `Starting to cache in ${env.environment}. ${payload.length} searches :steam_locomotive:`,
-        slackClient,
-      );
-      const ts = await postMsg("0% done", slackClient);
+      let ts;
+      if (slackClient) {
+        await postMsg(
+          `Starting to cache ${payload.length} searches :steam_locomotive:`,
+          slackClient,
+        );
+        ts = await postMsg("0% done", slackClient);
+      }
+
       const start = new Date();
-      const poolSize = env.environment === "PRODUCTION" ? 15 : 4;
-      await pool(payload, poolSize, env.bizlogicAPI, ts, slackClient);
+      await pool(payload, env.bizlogicAPI, env.poolSize, ts, slackClient);
       const end = new Date();
-      updateMsg(
-        `All done! Run time was ${timeSince(start, end)}`,
-        ts,
-        slackClient,
-      );
+
+      if (slackClient) {
+        delay(2000);
+        updateMsg(
+          `All done! Run time was ${timeSince(start, end)}`,
+          ts,
+          slackClient,
+        );
+      }
     }
   }
 }

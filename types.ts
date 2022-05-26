@@ -14,9 +14,9 @@ export type PopulateOptions = {
 };
 
 export type EnvironmentConfig = {
-  environment: string;
   tourAPI: string;
   bizlogicAPI: string;
+  poolSize?: number;
 };
 
 export type VoyageConfig = {

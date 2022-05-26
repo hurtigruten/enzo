@@ -3,8 +3,8 @@ import { updateMsg } from "../utils.ts";
 
 export async function pool(
   payload: string[],
-  poolLimit: number,
   url: string,
+  poolSize = 5,
   ts?: string,
   slackClient?: SlackClient,
 ) {
@@ -22,7 +22,7 @@ export async function pool(
       const percent = ((results.length / payload.length) * 100).toFixed(2);
       updateMsg(`${percent}% done`, ts, slackClient);
     }
-    if (executing.length >= poolLimit) {
+    if (executing.length >= poolSize) {
       await Promise.race(executing);
     }
   }
