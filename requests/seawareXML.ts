@@ -1,9 +1,4 @@
-import type { SailingSearch } from "../types.ts";
-
-interface RequestBuildOptions {
-  includePriceDetails: "N" | "Y";
-  cacheSearchMode: "ReadCacheOnly" | "ForcePopulateCacheOnly"
-}
+import type { RequestBuildOptions, SailingSearch } from "../types.ts";
 
 const readRequestOptions: RequestBuildOptions = {
   includePriceDetails: "N",
@@ -14,7 +9,6 @@ const populateRequestOptions: RequestBuildOptions = {
   includePriceDetails: "Y",
   cacheSearchMode: "ForcePopulateCacheOnly"
 }
-
 
 function parseParty(partyMix: string) {
   const res: string[] = partyMix.split(",").map((party) => {
