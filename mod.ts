@@ -55,24 +55,24 @@ export async function requestRunner(
     if (options.readMode) {
       await pool(payload, env.bizlogicAPI, 2);
     } else {
-      let ts;
+      let timeStamp;
       if (slackClient) {
         await postMsg(
           `Starting to cache ${payload.length} searches :steam_locomotive:`,
           slackClient,
         );
-        ts = await postMsg("0% done", slackClient);
+        timeStamp = await postMsg("0% done", slackClient);
       }
 
       const start = new Date();
-      await pool(payload, env.bizlogicAPI, env.poolSize, ts, slackClient);
+      await pool(payload, env.bizlogicAPI, env.poolSize, timeStamp, slackClient);
       const end = new Date();
 
       if (slackClient) {
         delay(2000);
         updateMsg(
           `All done! Run time was ${timeSince(start, end)}`,
-          ts,
+          timeStamp,
           slackClient,
         );
       }

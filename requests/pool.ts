@@ -5,7 +5,7 @@ export async function pool(
   payload: string[],
   url: string,
   poolSize = 5,
-  ts?: string,
+  timeStamp?: string,
   slackClient?: SlackClient,
 ) {
   const results: Promise<string | undefined>[] = [];
@@ -18,9 +18,9 @@ export async function pool(
       executing.splice(executing.indexOf(e), 1)
     );
     executing.push(e);
-    if (ts && slackClient && results.length % 50 === 0) {
+    if (timeStamp && slackClient && results.length % 50 === 0) {
       const percent = ((results.length / payload.length) * 100).toFixed(2);
-      updateMsg(`${percent}% done`, ts, slackClient);
+      updateMsg(`${percent}% done`, timeStamp, slackClient);
     }
     if (executing.length >= poolSize) {
       await Promise.race(executing);

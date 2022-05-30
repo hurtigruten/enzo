@@ -44,7 +44,7 @@ export async function postMsg(body: string, slackClient: SlackClient) {
 
 export async function updateMsg(
   body: string,
-  ts: string,
+  timeStamp: string,
   slackClient: SlackClient,
 ) {
   const url = "https://slack.com/api/chat.update";
@@ -55,6 +55,6 @@ export async function updateMsg(
       Authorization: "Bearer " + slackClient.botToken,
     },
     body:
-      `{"text":"${body}", "channel":"${slackClient.channelId}", "ts":"${ts}"}`,
+      `{"text":"${body}", "channel":"${slackClient.channelId}", "timeStamp":"${timeStamp}"}`,
   });
 }
