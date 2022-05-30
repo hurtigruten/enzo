@@ -22,8 +22,8 @@ export function parseToursDates(json: TourConfig): SailingSearch[] {
     return obj.departureDates.map((date: string) => ({ ...obj, date }));
   });
   const result: SailingSearch[] = flatDates.map((obj) => ({
-    fromDay: addDaysToDate(new Date(obj.date), -30).split("T")[0],
-    toDay: addDaysToDate(new Date(obj.date), 30).split("T")[0],
+    fromDay: obj.date.split("T")[0],
+    toDay: obj.date.split("T")[0],
     voyageCode: obj.voyageCode,
     voyageType: obj.voyageType,
     agreementId: obj.agreementId,

@@ -28,6 +28,12 @@ export function addDaysToDate(baseDate: Date, daysToAdd: number) {
   return copy.toISOString();
 }
 
+export function stripString(input: string) : string {
+  const noLinebreak = input.replace(/(\r\n|\n|\r)/gm, "");
+  const noWhitespace = noLinebreak.replace(/\s/g, '');
+  return noWhitespace;
+}
+
 export async function postMsg(body: string, slackClient: SlackClient) {
   const url = "https://slack.com/api/chat.postMessage";
   const res = await fetch(url, {

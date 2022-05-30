@@ -35,7 +35,7 @@ export type SailingSearch = {
   voyageCode: string;
   party: string;
   market: string;
-  agreementId?: string;
+  agreementId?: string | null;
 };
 
 export type Sailing = {
