@@ -8,8 +8,8 @@ export function timeSince(start: Date, end: Date) {
   const to2digit = (num: number) => String(num).padStart(2, "0");
 
   return [diff.getUTCHours(), diff.getMinutes(), diff.getSeconds()]
-        .map(to2digit)
-        .join(":");
+    .map(to2digit)
+    .join(":");
 }
 
 export function dateFromToday(daysAhead: number): string {
@@ -24,9 +24,9 @@ export function addDaysToDate(baseDate: Date, daysToAdd: number) {
   return copy.toISOString();
 }
 
-export function stripString(input: string) : string {
+export function stripString(input: string): string {
   const noLinebreak = input.replace(/(\r\n|\n|\r)/gm, "");
-  const noWhitespace = noLinebreak.replace(/\s/g, '');
+  const noWhitespace = noLinebreak.replace(/\s/g, "");
   return noWhitespace;
 }
 

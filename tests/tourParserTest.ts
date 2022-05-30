@@ -37,7 +37,7 @@ Deno.test("Parse Tour with range and agreement id #1", () => {
     </CustomParams>
     </GetAvailPrimPkgsCustom_IN>`;
 
-    assertArrayIncludes(strippedPayload, [stripString(expectedXML)]);
+  assertArrayIncludes(strippedPayload, [stripString(expectedXML)]);
 });
 
 Deno.test("Parse Tour with specific dates and agreement id #2", () => {

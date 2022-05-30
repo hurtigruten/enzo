@@ -1,3 +1,8 @@
+export type RequestBuildOptions = {
+  includePriceDetails: "N" | "Y";
+  cacheSearchMode: "ReadCacheOnly" | "ForcePopulateCacheOnly";
+};
+
 export type SlackClient = {
   channelId: string;
   botToken: string;

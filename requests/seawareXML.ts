@@ -1,20 +1,14 @@
-import type { SailingSearch } from "../types.ts";
-
-interface RequestBuildOptions {
-  includePriceDetails: "N" | "Y";
-  cacheSearchMode: "ReadCacheOnly" | "ForcePopulateCacheOnly"
-}
+import type { RequestBuildOptions, SailingSearch } from "../types.ts";
 
 const readRequestOptions: RequestBuildOptions = {
   includePriceDetails: "N",
-  cacheSearchMode: "ReadCacheOnly"
-}
+  cacheSearchMode: "ReadCacheOnly",
+};
 
 const populateRequestOptions: RequestBuildOptions = {
   includePriceDetails: "Y",
-  cacheSearchMode: "ForcePopulateCacheOnly"
-}
-
+  cacheSearchMode: "ForcePopulateCacheOnly",
+};
 
 function parseParty(partyMix: string) {
   const res: string[] = partyMix.split(",").map((party) => {
@@ -23,8 +17,9 @@ function parseParty(partyMix: string) {
   return res.join("");
 }
 
-const buildRequestBody = (options: RequestBuildOptions) => (search: SailingSearch) =>
-  `<GetAvailPrimPkgsCustom_IN>
+const buildRequestBody = (options: RequestBuildOptions) =>
+  (search: SailingSearch) =>
+    `<GetAvailPrimPkgsCustom_IN>
     <MsgHeader>
       <Version>1.0</Version>
       <CallerInfo><UserInfo><Internal></Internal></UserInfo></CallerInfo>
@@ -40,14 +35,16 @@ const buildRequestBody = (options: RequestBuildOptions) => (search: SailingSearc
       <Param><Code>DateTo</Code><Value><Date>${search.toDay}</Date></Value></Param>
       <Param><Code>VoyageType</Code><Value><Str>${search.voyageType}</Str></Value></Param>
       <Param><Code>VoyageCode</Code><Value><Str>${search.voyageCode}</Str></Value></Param>
-      ${search.agreementId 
+      ${
+      search.agreementId
         ? `<Param><Code>AllotmentAgreementID</Code><Value><Num>${search.agreementId}</Num></Value></Param>`
-        : ''}
+        : ""
+    }
       <Param><Code>PartyMix</Code>${parseParty(search.party)}</Param>
       <Param><Code>UseShipAvailCache</Code><Value><Str>Y</Str></Value></Param>
       <Param><Code>Market</Code><Value><Str>${search.market}</Str></Value></Param>
     </CustomParams>
   </GetAvailPrimPkgsCustom_IN>`;
 
-export const readReq = buildRequestBody(readRequestOptions); 
+export const readReq = buildRequestBody(readRequestOptions);
 export const populateReq = buildRequestBody(populateRequestOptions);

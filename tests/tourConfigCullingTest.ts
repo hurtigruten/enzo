@@ -35,7 +35,6 @@ Deno.test("Config culling test #1", () => {
   assertEquals(searches, expectedArray);
 });
 
-
 Deno.test("Config culling test #2", () => {
   const tourConfig = JSON.parse(
     Deno.readTextFileSync("./tourConfigCullingTest.json"),
@@ -45,30 +44,28 @@ Deno.test("Config culling test #2", () => {
   tourConfig.toursWithSpecificDates = cullToursDates(today, tourConfig);
   const searches: SailingSearch[] = parseToursDates(tourConfig);
 
-  const expected1: SailingSearch = 
-    {
-      fromDay: "2022-04-03",
-      toDay: "2022-04-03",
-      voyageType: "EXPLORER",
-      voyageCode: "REK-REK",
-      party: "ADULT,ADULT",
-      market: "UK",
-      agreementId: null,
-    };
-    const expected2: SailingSearch =
-    {
-      fromDay: "2022-08-24",
-      toDay: "2022-08-24",
-      voyageType: "EXPLORER",
-      voyageCode: "REK-REK",
-      party: "ADULT,ADULT",
-      market: "UK",
-      agreementId: "6334",
-    };
+  const expected1: SailingSearch = {
+    fromDay: "2022-04-03",
+    toDay: "2022-04-03",
+    voyageType: "EXPLORER",
+    voyageCode: "REK-REK",
+    party: "ADULT,ADULT",
+    market: "UK",
+    agreementId: null,
+  };
+  const expected2: SailingSearch = {
+    fromDay: "2022-08-24",
+    toDay: "2022-08-24",
+    voyageType: "EXPLORER",
+    voyageCode: "REK-REK",
+    party: "ADULT,ADULT",
+    market: "UK",
+    agreementId: "6334",
+  };
 
-    console.log(searches)
-    console.log(expected1)
-  
+  console.log(searches);
+  console.log(expected1);
+
   assertArrayIncludes(searches, [expected1]);
   assertArrayIncludes(searches, [expected2]);
 });

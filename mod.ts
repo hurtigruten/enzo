@@ -65,7 +65,13 @@ export async function requestRunner(
       }
 
       const start = new Date();
-      await pool(payload, env.bizlogicAPI, env.poolSize, timeStamp, slackClient);
+      await pool(
+        payload,
+        env.bizlogicAPI,
+        env.poolSize,
+        timeStamp,
+        slackClient,
+      );
       const end = new Date();
 
       if (slackClient) {
