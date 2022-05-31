@@ -57,6 +57,6 @@ export async function updateMsg(
       Authorization: "Bearer " + slackClient.botToken,
     },
     body:
-      `{"text":"${body}", "channel":"${slackClient.channelId}", "timeStamp":"${timeStamp}"}`,
+      `{"text":"${body}", "channel":"${slackClient.channelId}", "ts":"${timeStamp}"}`,
   });
 }
