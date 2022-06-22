@@ -16,6 +16,7 @@ export type PopulateOptions = {
   voyageFilter?: string;
   readMode?: boolean;
   ignoreTourDates?: boolean;
+  broadcastMessage?: string;
 };
 
 export type EnvironmentConfig = {

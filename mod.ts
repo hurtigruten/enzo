@@ -15,6 +15,7 @@ const defaultOptions = {
   voyageFilter: ``,
   readMode: false,
   ignoreTourDates: true,
+  broadcastMessage: ``,
 };
 
 export async function requestRunner(
@@ -40,6 +41,7 @@ export async function requestRunner(
   if (options.tours) {
     const res = await fetch(env.tourAPI);
     const tourConfig = await res.json() as TourConfig;
+    tourConfig.searchRange = 10;
     if (tourConfig) {
       const xmlRequests = generateTourXMLs(tourConfig, options);
       if (xmlRequests.length === 0 && slackClient) {
@@ -57,8 +59,14 @@ export async function requestRunner(
     } else {
       let timeStamp;
       if (slackClient) {
+        if (options.broadcastMessage) {
+          await postMsg(
+            options.broadcastMessage,
+            slackClient,
+          );
+        }
         await postMsg(
-          `Starting to cache ${payload.length} searches :steam_locomotive:`,
+          `Caching ${payload.length * 10} days :steam_locomotive:`,
           slackClient,
         );
         timeStamp = await postMsg("0% done", slackClient);

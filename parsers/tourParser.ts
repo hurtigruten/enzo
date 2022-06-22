@@ -86,7 +86,7 @@ export function parseToursRange(json: TourConfig): SailingSearch[] {
 // leading to overall no availability. This function ignores all dates
 export function parseToursIgnoreDates(json: TourConfig): SailingSearch[] {
   const daysAhead = 880;
-  const searchRange = 10;
+  const searchRange = json.searchRange || 20;
   const rangeTours = json.toursWithDateRanges.map((obj) => {
     const pages = Array.from(
       Array(Math.ceil(daysAhead / searchRange)).keys(),
