@@ -66,7 +66,7 @@ export async function requestRunner(
           );
         }
         await postMsg(
-          `Caching ${payload.length * 10} days :steam_locomotive:`,
+          `${payload.length * 10} combinations to process :steam_locomotive:`,
           slackClient,
         );
         timeStamp = await postMsg("0% done", slackClient);
