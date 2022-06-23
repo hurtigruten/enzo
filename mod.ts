@@ -60,9 +60,16 @@ export async function requestRunner(
       let timeStamp;
       if (slackClient) {
         if (options.broadcastMessage) {
+          const metaData = JSON.stringify({
+            "event_type": "cache_run",
+            "event_payload": {
+                "run_options": options,
+            }
+          });
           await postMsg(
             options.broadcastMessage,
             slackClient,
+            metaData
           );
         }
         await postMsg(

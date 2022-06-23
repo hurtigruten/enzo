@@ -30,7 +30,7 @@ export function stripString(input: string): string {
   return noWhitespace;
 }
 
-export async function postMsg(body: string, slackClient: SlackClient) {
+export async function postMsg(body: string, slackClient: SlackClient, metaData?: string) {
   const url = "https://slack.com/api/chat.postMessage";
   const res = await fetch(url, {
     method: "POST",
@@ -38,7 +38,7 @@ export async function postMsg(body: string, slackClient: SlackClient) {
       "Content-type": "application/json",
       Authorization: "Bearer " + slackClient.botToken,
     },
-    body: `{"text":"${body}", "channel":"${slackClient.channelId}"}`,
+    body: `{"text":"${body}", "channel":"${slackClient.channelId}", "metadata":${metaData}}`,
   });
   const output = await res.json();
   return output.ts;
