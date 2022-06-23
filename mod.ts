@@ -93,22 +93,14 @@ export async function requestRunner(
 
       if (slackClient) {
         delay(1000);
-<<<<<<< HEAD
-        const metaData = {
-=======
         const metaData: Metadata = {
->>>>>>> f2eddecaae0804cc6e945cf08a2e45508081383a
           "event_type": "cache_run",
           "event_payload": {
             "text": "Finished cache run",
             "run_options": options,
           },
         };
-<<<<<<< HEAD
-        updateMsg(
-=======
         postMsg(
->>>>>>> f2eddecaae0804cc6e945cf08a2e45508081383a
           `All done! Run time was ${timeSince(start, end)}`,
           slackClient,
           metaData

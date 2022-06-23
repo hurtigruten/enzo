@@ -18,7 +18,7 @@ export async function pool(
       executing.splice(executing.indexOf(e), 1)
     );
     executing.push(e);
-    if (timeStamp && slackClient && results.length % 20 === 0) {
+    if (timeStamp && slackClient && results.length % 50 === 0) {
       const percent = ((results.length / payload.length) * 100).toFixed(2);
       updateMsg(`${percent}% done`, timeStamp, slackClient);
     }
