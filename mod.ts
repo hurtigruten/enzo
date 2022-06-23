@@ -65,13 +65,13 @@ export async function requestRunner(
             slackClient,
           );
         }
-        const metaData = JSON.stringify({
+        const metaData = {
           "event_type": "cache_run",
           "event_payload": {
             "text": "Started cache run",
             "run_options": options,
           },
-        });
+        };
         await postMsg(
           `${payload.length * 10} combinations to process :steam_locomotive:`,
           slackClient,
@@ -92,13 +92,13 @@ export async function requestRunner(
 
       if (slackClient) {
         delay(1000);
-        const metaData = JSON.stringify({
+        const metaData = {
           "event_type": "cache_run",
           "event_payload": {
             "text": "Finished cache run",
             "run_options": options,
           },
-        });
+        };
         updateMsg(
           `All done! Run time was ${timeSince(start, end)}`,
           timeStamp,
