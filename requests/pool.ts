@@ -18,8 +18,9 @@ export async function pool(
       executing.splice(executing.indexOf(e), 1)
     );
     executing.push(e);
-    if (timeStamp && slackClient && results.length % 50 === 0) {
+    if (timeStamp && slackClient && results.length % 20 === 0) {
       const percent = ((results.length / payload.length) * 100).toFixed(2);
+	  console.log("-------------- PROGRESS --------------")
       updateMsg(`${percent}% done`, timeStamp, slackClient);
     }
     if (executing.length >= poolSize) {

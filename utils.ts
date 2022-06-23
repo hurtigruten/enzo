@@ -36,16 +36,19 @@ export async function postMsg(
   metaData?: Metadata,
 ) {
   const url = "https://slack.com/api/chat.postMessage";
+  const reqBody = (metaData) ? `{"text":"${body}", "channel":"${slackClient.channelId}", "metadata":${JSON.stringify(metaData)}}` :
+	`{"text":"${body}", "channel":"${slackClient.channelId}"}`;
+	console.log("POST fetching: " + reqBody);
   const res = await fetch(url, {
     method: "POST",
     headers: {
-      "Content-type": "application/json",
+      "Content-type": "application/json;charset=utf-8",
       Authorization: "Bearer " + slackClient.botToken,
     },
-    body:
-      `{"text":${body}, "channel":${slackClient.channelId}, "metadata":${metaData}}`,
+    body: reqBody,
   });
   const output = await res.json();
+  console.log(output);
   return output.ts;
 }
 
@@ -56,13 +59,17 @@ export async function updateMsg(
   metaData?: Metadata,
 ) {
   const url = "https://slack.com/api/chat.update";
-  await fetch(url, {
+  const reqBody = (metaData) ? `{"text":"${body}", "channel":"${slackClient.channelId}", "ts":"${timeStamp}", "metadata":${JSON.stringify(metaData)}}` :
+	`{"text":"${body}", "channel":"${slackClient.channelId}", "ts":"${timeStamp}"}`;
+	console.log("UPDATE fetching: " + reqBody);
+  const res = await fetch(url, {
     method: "POST",
     headers: {
-      "Content-type": "application/json",
+      "Content-type": "application/json;charset=utf-8",
       Authorization: "Bearer " + slackClient.botToken,
     },
-    body:
-      `{"text":${body}, "channel":${slackClient.channelId}, "ts":${timeStamp}, "metadata":${metaData}}`,
+    body: reqBody,
   });
+  const output = await res.json();
+  console.log(output);
 }
