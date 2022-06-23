@@ -80,3 +80,11 @@ export type TourWithRange = TourBasic & {
 export type TourWithDates = TourBasic & {
   departureDates: string[];
 };
+
+export type Metadata = {
+  event_type: string;
+  event_payload: {
+    text: string;
+    run_options: PopulateOptions;
+  };
+};
