@@ -60,21 +60,21 @@ export async function requestRunner(
       let timeStamp;
       if (slackClient) {
         if (options.broadcastMessage) {
-          const metaData = JSON.stringify({
-            "event_type": "cache_run",
-            "event_payload": {
-                "run_options": options,
-            }
-          });
           await postMsg(
             options.broadcastMessage,
             slackClient,
-            metaData
           );
         }
+        const metaData = JSON.stringify({
+          "event_type": "cache_run",
+          "event_payload": {
+              "run_options": options,
+          }
+        });
         await postMsg(
           `${payload.length * 10} combinations to process :steam_locomotive:`,
           slackClient,
+          metaData
         );
         timeStamp = await postMsg("0% done", slackClient);
       }
