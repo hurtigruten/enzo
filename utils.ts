@@ -30,7 +30,11 @@ export function stripString(input: string): string {
   return noWhitespace;
 }
 
-export async function postMsg(body: string, slackClient: SlackClient, metaData?: string) {
+export async function postMsg(
+  body: string,
+  slackClient: SlackClient,
+  metaData?: string,
+) {
   const url = "https://slack.com/api/chat.postMessage";
   const res = await fetch(url, {
     method: "POST",
@@ -38,7 +42,8 @@ export async function postMsg(body: string, slackClient: SlackClient, metaData?:
       "Content-type": "application/json",
       Authorization: "Bearer " + slackClient.botToken,
     },
-    body: `{"text":"${body}", "channel":"${slackClient.channelId}", "metadata":${metaData}}`,
+    body:
+      `{"text":"${body}", "channel":"${slackClient.channelId}", "metadata":${metaData}}`,
   });
   const output = await res.json();
   return output.ts;
@@ -48,6 +53,7 @@ export async function updateMsg(
   body: string,
   timeStamp: string,
   slackClient: SlackClient,
+  metaData?: string,
 ) {
   const url = "https://slack.com/api/chat.update";
   await fetch(url, {
@@ -57,6 +63,6 @@ export async function updateMsg(
       Authorization: "Bearer " + slackClient.botToken,
     },
     body:
-      `{"text":"${body}", "channel":"${slackClient.channelId}", "ts":"${timeStamp}"}`,
+      `{"text":"${body}", "channel":"${slackClient.channelId}", "ts":"${timeStamp}", "metadata":${metaData}}`,
   });
 }
