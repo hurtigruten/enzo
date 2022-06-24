@@ -90,9 +90,9 @@ export async function requestRunner(
         slackClient,
       );
       const end = new Date();
-
       if (slackClient) {
-        delay(1000);
+        delay(2000);
+        updateMsg(`All done! :sweat_smile:`, timeStamp, slackClient);
         const metaData: Metadata = {
           "event_type": "cache_run",
           "event_payload": {
