@@ -101,7 +101,7 @@ export async function requestRunner(
           },
         };
         postMsg(
-          `All done! Run time was ${timeSince(start, end)}`,
+          `:stopwatch: Run time was ${timeSince(start, end)}`,
           slackClient,
           metaData
         );
