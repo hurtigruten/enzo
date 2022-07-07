@@ -36,18 +36,21 @@ export async function postMsg(
   metaData?: Metadata,
 ) {
   const url = "https://slack.com/api/chat.postMessage";
-  const reqBody = (metaData) ? `{"text":"${body}", "channel":"${slackClient.channelId}", "metadata":${JSON.stringify(metaData)}}` :
-	`{"text":"${body}", "channel":"${slackClient.channelId}"}`;
+  const reqBody = (metaData)
+    ? `{"text":"${body}", "channel":"${slackClient.channelId}", "metadata":${
+      JSON.stringify(metaData)
+    }}`
+    : `{"text":"${body}", "channel":"${slackClient.channelId}"}`;
   try {
-  const res = await fetch(url, {
-    method: "POST",
-    headers: {
-      "Content-type": "application/json;charset=utf-8",
-      Authorization: "Bearer " + slackClient.botToken,
-    },
-    body: reqBody,
-  });
-  const json = await res.json();
+    const res = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json;charset=utf-8",
+        Authorization: "Bearer " + slackClient.botToken,
+      },
+      body: reqBody,
+    });
+    const json = await res.json();
     if (json.ok === false) {
       console.log("POST ERROR: " + json.error);
     }
@@ -64,18 +67,21 @@ export async function updateMsg(
   metaData?: Metadata,
 ) {
   const url = "https://slack.com/api/chat.update";
-  const reqBody = (metaData) ? `{"text":"${body}", "channel":"${slackClient.channelId}", "ts":"${timeStamp}", "metadata":${JSON.stringify(metaData)}}` :
-	`{"text":"${body}", "channel":"${slackClient.channelId}", "ts":"${timeStamp}"}`;
+  const reqBody = (metaData)
+    ? `{"text":"${body}", "channel":"${slackClient.channelId}", "ts":"${timeStamp}", "metadata":${
+      JSON.stringify(metaData)
+    }}`
+    : `{"text":"${body}", "channel":"${slackClient.channelId}", "ts":"${timeStamp}"}`;
   try {
-  const res = await fetch(url, {
-    method: "POST",
-    headers: {
-      "Content-type": "application/json;charset=utf-8",
-      Authorization: "Bearer " + slackClient.botToken,
-    },
-    body: reqBody,
-  });
-  const json = await res.json();
+    const res = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json;charset=utf-8",
+        Authorization: "Bearer " + slackClient.botToken,
+      },
+      body: reqBody,
+    });
+    const json = await res.json();
     if (json.ok === false) {
       console.log("POST ERROR: " + json.error);
     }

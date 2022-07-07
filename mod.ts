@@ -2,10 +2,10 @@ import { pool } from "./requests/pool.ts";
 import { generateTourXMLs, generateVoyageXMLs } from "./requests/generators.ts";
 import {
   EnvironmentConfig,
+  Metadata,
   PopulateOptions,
   SlackClient,
   TourConfig,
-  Metadata
 } from "./types.ts";
 import { delay, postMsg, timeSince, updateMsg } from "./utils.ts";
 
@@ -103,7 +103,7 @@ export async function requestRunner(
         postMsg(
           `:stopwatch: Run time was ${timeSince(start, end)}`,
           slackClient,
-          metaData
+          metaData,
         );
       }
     }

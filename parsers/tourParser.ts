@@ -94,6 +94,7 @@ export function parseToursIgnoreDates(json: TourConfig): SailingSearch[] {
     return {
       voyageType: obj.voyageType,
       voyageCode: obj.fromPort + "-" + obj.toPort,
+      agreementId: obj.agreementId,
       partyMixes: obj.partyMix || json.defaultPartyMix,
       marketList: obj.marketFilter || json.defaultMarkets,
       daysAhead: daysAhead,
@@ -107,6 +108,7 @@ export function parseToursIgnoreDates(json: TourConfig): SailingSearch[] {
     return {
       voyageType: obj.voyageType,
       voyageCode: obj.fromPort + "-" + obj.toPort,
+      agreementId: obj.agreementId,
       partyMixes: obj.partyMix || json.defaultPartyMix,
       marketList: obj.marketFilter || json.defaultMarkets,
       daysAhead: daysAhead,
@@ -140,6 +142,7 @@ export function parseToursIgnoreDates(json: TourConfig): SailingSearch[] {
     voyageCode: obj.voyageCode,
     party: obj.party,
     market: obj.market,
+    agreementId: obj.agreementId,
   }));
   return result;
 }
