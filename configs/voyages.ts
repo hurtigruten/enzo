@@ -49,17 +49,6 @@ export const voyageConfig: VoyageConfig = {
       "voyageType": "NORWAY_SHORT_VOYAGE",
     },
     {
-      "daysAhead": 90,
-      "direction": "North",
-      "fromPort": "BGO",
-      "marketFilter": [
-        "NO",
-        "UK",
-      ],
-      "toPort": "TRD",
-      "voyageType": "NORWAY_SHORT_VOYAGE",
-    },
-    {
       "daysAhead": 60,
       "direction": "South",
       "fromPort": "TOS",
