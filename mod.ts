@@ -74,7 +74,7 @@ export async function requestRunner(
           },
         };
         await postMsg(
-          `${payload.length * 10} combinations to process :steam_locomotive:`,
+          `${payload.length} combinations to process :steam_locomotive:`,
           slackClient,
           metaData,
         );

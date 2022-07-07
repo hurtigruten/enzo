@@ -10,6 +10,7 @@ export async function pool(
 ) {
   const results: Promise<string | undefined>[] = [];
   const executing: Promise<unknown>[] = [];
+  const progressModulo = payload.length > 1000 ? 50 : 10;
 
   for (const xml of payload) {
     const promise = postRequest(xml, url);
@@ -18,7 +19,7 @@ export async function pool(
       executing.splice(executing.indexOf(e), 1)
     );
     executing.push(e);
-    if (timeStamp && slackClient && results.length % 50 === 0) {
+    if (timeStamp && slackClient && results.length % progressModulo === 0) {
       const percent = ((results.length / payload.length) * 100).toFixed(2);
       updateMsg(`${percent}% done`, timeStamp, slackClient);
     }
