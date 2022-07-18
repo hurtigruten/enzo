@@ -3,8 +3,11 @@ import { dateFromToday } from "../utils.ts";
 
 // Temporary function while waiting for PG to fix the bug where PG searches for dates that are not cached,
 // leading to overall no availability. This function ignores all dates
-export function parseToursIgnoreDates(json: TourConfig, numberOfDaysToCache?: number): SailingSearch[] {
-  const daysAhead = numberOfDaysToCache || 880 ;
+export function parseToursIgnoreDates(
+  json: TourConfig,
+  numberOfDaysToCache?: number,
+): SailingSearch[] {
+  const daysAhead = numberOfDaysToCache || 880;
   const searchRange = json.searchRange || 20;
   const rangeTours = json.toursWithDateRanges.map((obj) => {
     const pages = Array.from(

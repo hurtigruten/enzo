@@ -9,10 +9,7 @@ import {
 } from "../types.ts";
 import { populateReq, readReq } from "./seawareXML.ts";
 import { voyageConfig } from "../configs/voyages.ts";
-import {
-  parseToursDates,
-  parseToursRange,
-} from "../parsers/tourParser.ts";
+import { parseToursDates, parseToursRange } from "../parsers/tourParser.ts";
 import { parseVoyages } from "../parsers/voyageParser.ts";
 import { parseToursIgnoreDates } from "../parsers/tourParserIgnoreDates.ts";
 
