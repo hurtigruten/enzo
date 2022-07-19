@@ -5,7 +5,7 @@ import { dateFromToday, stripString } from "../utils.ts";
 
 Deno.test("Parse Voyages test #1", () => {
   const voyageConfig: VoyageConfig = JSON.parse(
-    Deno.readTextFileSync("./sailingParserTest.json"),
+    Deno.readTextFileSync("./sailingParser_test.json"),
   );
   const options: PopulateOptions = { voyages: true };
   const payload: string[] = generateVoyageXMLs(options, voyageConfig);

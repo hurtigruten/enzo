@@ -5,7 +5,7 @@ import { stripString } from "../utils.ts";
 
 Deno.test("Parse Tour with range and agreement id #1", () => {
   const tourConfig: TourConfig = JSON.parse(
-    Deno.readTextFileSync("./tourParserTest.json"),
+    Deno.readTextFileSync("./tourParser_test.json"),
   ) as TourConfig;
   const options: PopulateOptions = { tours: true, ignoreTourDates: false };
   const payload: string[] = generateTourXMLs(tourConfig, options);
@@ -42,7 +42,7 @@ Deno.test("Parse Tour with range and agreement id #1", () => {
 
 Deno.test("Parse Tour with specific dates and agreement id #2", () => {
   const tourConfig: TourConfig = JSON.parse(
-    Deno.readTextFileSync("./tourParserTest.json"),
+    Deno.readTextFileSync("./tourParser_test.json"),
   ) as TourConfig;
   const options: PopulateOptions = { tours: true };
   const payload: string[] = generateTourXMLs(tourConfig, options);

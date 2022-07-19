@@ -5,7 +5,7 @@ import { assertArrayIncludes, assertEquals } from "./deps.ts";
 
 Deno.test("Config culling test #1", () => {
   const tourConfig = JSON.parse(
-    Deno.readTextFileSync("./tourConfigCullingTest.json"),
+    Deno.readTextFileSync("./tourConfigCulling_test.json"),
   ) as TourConfig;
   const today = new Date("2022-04-02");
 
@@ -37,7 +37,7 @@ Deno.test("Config culling test #1", () => {
 
 Deno.test("Config culling test #2", () => {
   const tourConfig = JSON.parse(
-    Deno.readTextFileSync("./tourConfigCullingTest.json"),
+    Deno.readTextFileSync("./tourConfigCulling_test.json"),
   ) as TourConfig;
   const today = new Date("2022-04-02");
 

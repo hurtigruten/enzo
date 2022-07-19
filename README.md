@@ -21,16 +21,23 @@ price and availability in Seaware and needs the following:
   to alow loyalty specific prices, B2B specific prices, Promotion based prices,
   etc.
 
-# Consuming Config
+# Consuming Config from a file
 
-The module can cache based on a file. Currently "./configs/voyage.ts" is the
-config that should be updated whenever there is a need to add or change the
-voyage only sailings.
+Enzo can cache based on a file. Currently "./configs/voyage.ts" is used to cache voyage only sailings.
+If you need to add or change the way these sailings are cached, this file should be modified.
 
-# API
+# Consuming Config from an API
 
-The module can cache based on an API. The API must currently implement the Type
-as defined in "./types.ts"
+Enzo can cache based on an API. The API must implement the Config type as defined in "./types.ts"
+
+# Testing
+
+All tests follow the name convention of filename_*test*.ts. To execute all tests, execute:
+
+`deno test -A`
+
+.. within the "/tests" folder
+
 
 # Seaware cache documentation
 
