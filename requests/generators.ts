@@ -31,18 +31,21 @@ export function generateVoyageXMLs(
   return searches.map((search: SailingSearch) => reqFn(search));
 }
 
-export function cullToursRange(
-  today: Date,
-  tours: TourConfig,
-): TourWithRange[] {
+export function cullToursRange(today: Date, tours: TourConfig): TourWithRange[] {
   return tours.toursWithDateRanges.filter(function (tour: TourWithRange) {
+    console.log(tour)
     const departureFromDate = new Date(tour.departureFromDate);
+    console.log("depFrom: " + departureFromDate)
     const departureToDate = new Date(tour.departureToDate);
+    console.log("depTo: " + departureToDate)
     if (departureFromDate >= today && departureToDate >= today) {
+      console.log("tour is entirely in the future")
       return tour;
     }
     if (departureFromDate < today && departureToDate >= today) {
-      tour.departureFromDate = today.toISOString().split("T")[0];
+      console.log("from date is in the past")
+      console.log("setting from date to: "+today.toJSON().split("T")[0])
+      tour.departureFromDate = today.toJSON().split("T")[0];
       return tour;
     }
   });

@@ -63,9 +63,6 @@ Deno.test("Config culling test #2", () => {
     agreementId: "6334",
   };
 
-  console.log(searches);
-  console.log(expected1);
-
   assertArrayIncludes(searches, [expected1]);
   assertArrayIncludes(searches, [expected2]);
 });

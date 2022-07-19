@@ -10,8 +10,8 @@ export function parseToursWithDatesAndBuffer(
 ): SailingSearch[] {
   json.toursWithSpecificDates = json.toursWithSpecificDates.map((tour) => {
     const bufferedDates = tour.departureDates.flatMap((depDate) => {
-      const fromDate: Date = addDaysToDate(new Date(depDate), -buffer);
-      const toDate: Date = addDaysToDate(new Date(depDate), buffer);
+      const fromDate: Date = new Date(addDaysToDate(new Date(depDate), -buffer));
+      const toDate: Date = new Date(addDaysToDate(new Date(depDate), buffer));
       return getDatesInRangeFormatted(fromDate, toDate);
     });
     tour.departureDates = [...new Set(bufferedDates)];
