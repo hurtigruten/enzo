@@ -1,36 +1,22 @@
 import { SailingSearch, TourConfig } from "../types.ts";
-import { dateFromToday } from "../utils.ts";
+import { addDaysToDate, getDatesInRangeFormatted } from "../utils.ts";
+import { parseToursDates } from "./tourParser.ts";
 
 // Temporary function while waiting for PG to fix the bug where PG searches for dates that are not cached,
 // leading to overall no availability. This function buffers all dates
-export function parseToursBufferDates( json: TourConfig, bufferSize: number): SailingSearch[] {
-  const toursWithSpecifics = json.toursWithSpecificDates.map((tour) => {
-    return {
-      voyageCode: tour.fromPort + "-" + tour.toPort,
-      voyageType: tour.voyageType,
-      agreementId: tour.agreementId,
-      partyMixes: tour.partyMix || json.defaultPartyMix,
-      marketList: tour.marketFilter || json.defaultMarkets,
-      departureDates: tour.departureDates,
-    };
+export function parseToursWithDatesAndBuffer(
+  json: TourConfig,
+  buffer: number,
+): SailingSearch[] {
+  json.toursWithSpecificDates = json.toursWithSpecificDates.map((tour) => {
+    const bufferedDates = tour.departureDates.flatMap((depDate) => {
+      const fromDate: Date = addDaysToDate(new Date(depDate), -buffer);
+      const toDate: Date = addDaysToDate(new Date(depDate), buffer);
+      return getDatesInRangeFormatted(fromDate, toDate);
+    });
+    tour.departureDates = [...new Set(bufferedDates)];
+    return tour;
   });
-  const flatParty = toursWithSpecifics.flatMap((obj) => {
-    return obj.partyMixes.map((party: string) => ({ ...obj, party }));
-  });
-  const flatMarket = flatParty.flatMap((obj) => {
-    return obj.marketList.map((market: string) => ({ ...obj, market }));
-  });
-  const flatDates = flatMarket.flatMap((obj) => {
-    return obj.departureDates.map((date: string) => ({ ...obj, date }));
-  });
-  const result: SailingSearch[] = flatDates.map((obj) => ({
-    fromDay: obj.date.split("T")[0],
-    toDay: obj.date.split("T")[0],
-    voyageCode: obj.voyageCode,
-    voyageType: obj.voyageType,
-    agreementId: obj.agreementId,
-    party: obj.party,
-    market: obj.market,
-  }));
-  return result;
+
+  return parseToursDates(json);
 }

@@ -23,21 +23,23 @@ price and availability in Seaware and needs the following:
 
 # Consuming Config from a file
 
-Enzo can cache based on a file. Currently "./configs/voyage.ts" is used to cache voyage only sailings.
-If you need to add or change the way these sailings are cached, this file should be modified.
+Enzo can cache based on a file. Currently "./configs/voyage.ts" is used to cache
+voyage only sailings. If you need to add or change the way these sailings are
+cached, this file should be modified.
 
 # Consuming Config from an API
 
-Enzo can cache based on an API. The API must implement the Config type as defined in "./types.ts"
+Enzo can cache based on an API. The API must implement the Config type as
+defined in "./types.ts"
 
 # Testing
 
-All tests follow the name convention of filename_*test*.ts. To execute all tests, execute:
+All tests follow the name convention of filename__test_.ts. To execute all
+tests, execute:
 
 `deno test -A`
 
 .. within the "/tests" folder
-
 
 # Seaware cache documentation
 

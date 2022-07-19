@@ -1,47 +1,57 @@
-import { generateTourXMLs } from "../requests/generators.ts";
-import { PopulateOptions, TourConfig } from "../types.ts";
-
+import { parseToursWithDatesAndBuffer } from "../parsers/tourParserBufferDates.ts";
+import { SailingSearch, TourConfig } from "../types.ts";
+import { assert, assertArrayIncludes } from "./deps.ts";
 
 Deno.test("Parse Tour with specific dates, buffered #1", () => {
   const tourConfig: TourConfig = JSON.parse(
     Deno.readTextFileSync("./tourParser_test.json"),
   ) as TourConfig;
 
-  const tour1 = tourConfig.toursWithSpecificDates[0];
+  tourConfig.toursWithSpecificDates = tourConfig.toursWithSpecificDates.filter(
+    (tour) => {
+      return tour.tourCode === "FRICE2210";
+    },
+  );
 
-  console.log(tour1)
+  const tours: SailingSearch[] = parseToursWithDatesAndBuffer(tourConfig, 7);
 
-  /*
-  const options: PopulateOptions = { tours: true, ignoreTourDates: false };
-  const payload: string[] = generateTourXMLs(tourConfig, options);
+  assertArrayIncludes(tours, [
+    {
+      fromDay: "2022-07-21",
+      toDay: "2022-07-21",
+      voyageCode: "REK-REK",
+      voyageType: "EXPLORER",
+      agreementId: null,
+      party: "ADULT",
+      market: "US",
+    },
+    {
+      fromDay: "2022-08-04",
+      toDay: "2022-08-04",
+      voyageCode: "REK-REK",
+      voyageType: "EXPLORER",
+      agreementId: null,
+      party: "ADULT",
+      market: "US",
+    },
+    {
+      fromDay: "2022-08-14",
+      toDay: "2022-08-14",
+      voyageCode: "REK-REK",
+      voyageType: "EXPLORER",
+      agreementId: null,
+      party: "ADULT",
+      market: "US",
+    },
+  ]);
 
-  const strippedPayload = payload.map((search) => {
-    return stripString(search);
+  const found = tours.filter((search) => {
+    return (
+      search.fromDay === "2022-08-02" &&
+      search.party === "ADULT" &&
+      search.market === "US"
+    );
   });
 
-  const expectedXML = `<GetAvailPrimPkgsCustom_IN>
-    <MsgHeader>
-      <Version>1.0</Version>
-      <CallerInfo><UserInfo><Internal></Internal></UserInfo></CallerInfo>
-      <ValidateMode>N</ValidateMode>
-    </MsgHeader>
-    <SearchOptions>
-      <CacheSearchMode>ForcePopulateCacheOnly</CacheSearchMode>
-      <IncludePriceDetails>Y</IncludePriceDetails>
-    </SearchOptions>
-    <CustomParams>
-      <Scenario>ONEWAY</Scenario>
-      <Param><Code>DateFrom</Code><Value><Date>2023-05-05</Date></Value></Param>
-      <Param><Code>DateTo</Code><Value><Date>2023-05-14</Date></Value></Param>
-      <Param><Code>VoyageType</Code><Value><Str>NORWAY_VOYAGE</Str></Value></Param>
-      <Param><Code>VoyageCode</Code><Value><Str>BGO-BGO</Str></Value></Param>
-      <Param><Code>AllotmentAgreementID</Code><Value><Num>6334</Num></Value></Param>
-      <Param><Code>PartyMix</Code><Value><Str>ADULT</Str></Value></Param>
-      <Param><Code>UseShipAvailCache</Code><Value><Str>Y</Str></Value></Param>
-      <Param><Code>Market</Code><Value><Str>UK</Str></Value></Param>
-    </CustomParams>
-    </GetAvailPrimPkgsCustom_IN>`;
-
-  assertArrayIncludes(strippedPayload, [stripString(expectedXML)]);
-  */
+  assert(found.length === 1);
 });

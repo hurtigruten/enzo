@@ -63,16 +63,17 @@ export function parseToursRange(json: TourConfig): SailingSearch[] {
   const flatDates = flatMarket.flatMap((obj) => {
     return obj.pages.map((page: number) => ({
       ...obj,
-      fromDay: addDaysToDate(obj.startDate, page * searchRange),
+      fromDay:
+        addDaysToDate(obj.startDate, page * searchRange).toJSON().split("T")[0],
       toDay: addDaysToDate(
         obj.startDate,
         Math.min(page * searchRange + (searchRange - 1), obj.totalRange),
-      ),
+      ).toJSON().split("T")[0],
     }));
   });
   const result: SailingSearch[] = flatDates.map((obj) => ({
-    fromDay: obj.fromDay.split("T")[0],
-    toDay: obj.toDay.split("T")[0],
+    fromDay: obj.fromDay,
+    toDay: obj.toDay,
     voyageCode: obj.voyageCode,
     voyageType: obj.voyageType,
     agreementId: obj.agreementId,

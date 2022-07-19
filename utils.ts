@@ -15,13 +15,25 @@ export function timeSince(start: Date, end: Date) {
 export function dateFromToday(daysAhead: number): string {
   const date = new Date();
   date.setDate(date.getDate() + daysAhead);
-  return date.toISOString().split("T")[0];
+  return date.toJSON().split("T")[0];
 }
 
 export function addDaysToDate(baseDate: Date, daysToAdd: number) {
   const copy = new Date(Number(baseDate));
   copy.setDate(baseDate.getDate() + daysToAdd);
-  return copy.toISOString();
+  // To avoid timezone issues, set date to noon
+  copy.setHours(copy.getHours() + 12);
+  return copy;
+}
+
+export function getDatesInRangeFormatted(startDate: Date, endDate: Date) {
+  const date = new Date(startDate.getTime());
+  const dates = [];
+  while (date <= endDate) {
+    dates.push(new Date(date).toJSON().split("T")[0]);
+    date.setDate(date.getDate() + 1);
+  }
+  return dates;
 }
 
 export function stripString(input: string): string {
