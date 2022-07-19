@@ -23,7 +23,7 @@ export function addDaysToDate(baseDate: Date, daysToAdd: number) {
   copy.setDate(baseDate.getDate() + daysToAdd);
   // To avoid timezone issues, set date to noon
   copy.setHours(copy.getHours() + 12);
-  return copy;
+  return copy.toJSON().split("T")[0];
 }
 
 export function getDatesInRangeFormatted(startDate: Date, endDate: Date) {
