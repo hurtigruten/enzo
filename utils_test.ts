@@ -1,14 +1,14 @@
-import { assertEquals } from "../deps.ts";
+import { assertEquals } from "./deps.ts";
 import {
   addDaysToDate,
   dateFromTodayFormatted,
   getDatesInRangeFormatted,
   onlyUniqueStrings,
   stripString,
-  timeSince,
-} from "../utils.ts";
-import { generateTourXMLs } from "../requests/generators.ts";
-import { PopulateOptions, TourConfig } from "../types.ts";
+  timeSince
+} from "./utils.ts";
+import { generateTourXMLs } from "./requests/generators.ts";
+import { PopulateOptions, TourConfig } from "./types.ts";
 
 //TODO: Switch to using test json instead of synthetic dates
 
@@ -90,7 +90,7 @@ Deno.test("Utils - Time since", () => {
 
 Deno.test("Utils - Only unique searches", () => {
   const tourConfig: TourConfig = JSON.parse(
-    Deno.readTextFileSync("./tourAPI.json"),
+    Deno.readTextFileSync("./testdata/tourAPI.json"),
   ) as TourConfig;
   const options: PopulateOptions = { tours: true, ignoreTourDates: false };
   const payload: string[] = generateTourXMLs(tourConfig, options);

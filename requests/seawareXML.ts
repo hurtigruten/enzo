@@ -1,4 +1,5 @@
 import type { RequestBuildOptions, SailingSearch } from "../types.ts";
+import { stripString } from "../utils.ts";
 
 const readRequestOptions: RequestBuildOptions = {
   includePriceDetails: "N",
@@ -19,7 +20,7 @@ export function parseParty(partyMix: string) {
 
 const buildRequestBody =
   (options: RequestBuildOptions) => (search: SailingSearch) =>
-    `<GetAvailPrimPkgsCustom_IN>
+    stripString(`<GetAvailPrimPkgsCustom_IN>
     <MsgHeader>
       <Version>1.0</Version>
       <CallerInfo><UserInfo><Internal></Internal></UserInfo></CallerInfo>
@@ -44,7 +45,7 @@ const buildRequestBody =
       <Param><Code>UseShipAvailCache</Code><Value><Str>Y</Str></Value></Param>
       <Param><Code>Market</Code><Value><Str>${search.market}</Str></Value></Param>
     </CustomParams>
-  </GetAvailPrimPkgsCustom_IN>`;
+  </GetAvailPrimPkgsCustom_IN>`);
 
 export const readReq = buildRequestBody(readRequestOptions);
 export const populateReq = buildRequestBody(populateRequestOptions);
