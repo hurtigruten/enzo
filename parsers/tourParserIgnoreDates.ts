@@ -1,5 +1,5 @@
 import { SailingSearch, TourConfig } from "../types.ts";
-import { dateFromToday } from "../utils.ts";
+import { dateFromTodayFormatted } from "../utils.ts";
 
 // Temporary function while waiting for PG to fix the bug where PG searches for dates that are not cached,
 // leading to overall no availability. This function ignores all dates
@@ -48,8 +48,8 @@ export function parseToursIgnoreDates(
   const flatDates = flatMarket.flatMap((obj) => {
     return obj.pages.map((page: number) => ({
       ...obj,
-      fromDay: dateFromToday(page * searchRange),
-      toDay: dateFromToday(
+      fromDay: dateFromTodayFormatted(page * searchRange),
+      toDay: dateFromTodayFormatted(
         Math.min(
           page * searchRange + (searchRange - 1),
           obj.daysAhead - 1,

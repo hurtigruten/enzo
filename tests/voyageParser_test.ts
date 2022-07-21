@@ -1,11 +1,11 @@
 import { assertArrayIncludes } from "./deps.ts";
 import { PopulateOptions, VoyageConfig } from "../types.ts";
 import { generateVoyageXMLs } from "../requests/generators.ts";
-import { dateFromToday, stripString } from "../utils.ts";
+import { dateFromTodayFormatted, stripString } from "../utils.ts";
 
 Deno.test("Parse Voyages test #1", () => {
   const voyageConfig: VoyageConfig = JSON.parse(
-    Deno.readTextFileSync("./sailingParser_test.json"),
+    Deno.readTextFileSync("./voyageConfig.json"),
   );
   const options: PopulateOptions = { voyages: true };
   const payload: string[] = generateVoyageXMLs(options, voyageConfig);
@@ -27,10 +27,10 @@ Deno.test("Parse Voyages test #1", () => {
     <CustomParams>
       <Scenario>ONEWAY</Scenario>
       <Param><Code>DateFrom</Code><Value><Date>${
-    dateFromToday(0)
+    dateFromTodayFormatted(0)
   }</Date></Value></Param>
       <Param><Code>DateTo</Code><Value><Date>${
-    dateFromToday(4)
+    dateFromTodayFormatted(4)
   }</Date></Value></Param>
       <Param><Code>VoyageType</Code><Value><Str>NORWAY_VOYAGE</Str></Value></Param>
       <Param><Code>VoyageCode</Code><Value><Str>BGO-BGO</Str></Value></Param>
@@ -53,10 +53,10 @@ Deno.test("Parse Voyages test #1", () => {
     <CustomParams>
       <Scenario>ONEWAY</Scenario>
       <Param><Code>DateFrom</Code><Value><Date>${
-    dateFromToday(5)
+    dateFromTodayFormatted(5)
   }</Date></Value></Param>
       <Param><Code>DateTo</Code><Value><Date>${
-    dateFromToday(9)
+    dateFromTodayFormatted(9)
   }</Date></Value></Param>
       <Param><Code>VoyageType</Code><Value><Str>NORWAY_VOYAGE</Str></Value></Param>
       <Param><Code>VoyageCode</Code><Value><Str>BGO-BGO</Str></Value></Param>
@@ -79,10 +79,10 @@ Deno.test("Parse Voyages test #1", () => {
     <CustomParams>
       <Scenario>ONEWAY</Scenario>
       <Param><Code>DateFrom</Code><Value><Date>${
-    dateFromToday(10)
+    dateFromTodayFormatted(10)
   }</Date></Value></Param>
       <Param><Code>DateTo</Code><Value><Date>${
-    dateFromToday(11)
+    dateFromTodayFormatted(11)
   }</Date></Value></Param>
       <Param><Code>VoyageType</Code><Value><Str>NORWAY_VOYAGE</Str></Value></Param>
       <Param><Code>VoyageCode</Code><Value><Str>BGO-BGO</Str></Value></Param>

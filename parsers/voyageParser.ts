@@ -1,5 +1,5 @@
 import type { SailingSearch, VoyageConfig } from "../types.ts";
-import { dateFromToday } from "../utils.ts";
+import { dateFromTodayFormatted } from "../utils.ts";
 
 export function parseVoyages(json: VoyageConfig): SailingSearch[] {
   const sailings = json.sailings.map((obj) => {
@@ -25,8 +25,8 @@ export function parseVoyages(json: VoyageConfig): SailingSearch[] {
   const flatDates = flatMarket.flatMap((obj) => {
     return obj.pages.map((page: number) => ({
       ...obj,
-      fromDay: dateFromToday(page * json.searchRange),
-      toDay: dateFromToday(
+      fromDay: dateFromTodayFormatted(page * json.searchRange),
+      toDay: dateFromTodayFormatted(
         Math.min(
           page * json.searchRange + (json.searchRange - 1),
           obj.daysAhead - 1,

@@ -20,3 +20,5 @@ export function parseToursWithDatesAndBuffer(
 
   return parseToursDates(json);
 }
+
+// TODO: Add method for Ranges. Add populate option

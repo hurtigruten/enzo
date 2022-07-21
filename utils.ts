@@ -12,7 +12,7 @@ export function timeSince(start: Date, end: Date) {
     .join(":");
 }
 
-export function dateFromToday(daysAhead: number): string {
+export function dateFromTodayFormatted(daysAhead: number): string {
   const date = new Date();
   date.setDate(date.getDate() + daysAhead);
   return date.toJSON().split("T")[0];
@@ -21,7 +21,7 @@ export function dateFromToday(daysAhead: number): string {
 export function addDaysToDate(baseDate: Date, daysToAdd: number) {
   const copy = new Date(Number(baseDate));
   copy.setDate(baseDate.getDate() + daysToAdd);
-  // To avoid timezone issues, set date to noon
+  // To avoid timezone issues, set time to noon
   copy.setHours(copy.getHours() + 12);
   return copy;
 }
