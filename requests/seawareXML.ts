@@ -10,15 +10,15 @@ const populateRequestOptions: RequestBuildOptions = {
   cacheSearchMode: "ForcePopulateCacheOnly",
 };
 
-function parseParty(partyMix: string) {
+export function parseParty(partyMix: string) {
   const res: string[] = partyMix.split(",").map((party) => {
     return `<Value><Str>${party}</Str></Value>`;
   });
   return res.join("");
 }
 
-const buildRequestBody = (options: RequestBuildOptions) =>
-  (search: SailingSearch) =>
+const buildRequestBody =
+  (options: RequestBuildOptions) => (search: SailingSearch) =>
     `<GetAvailPrimPkgsCustom_IN>
     <MsgHeader>
       <Version>1.0</Version>

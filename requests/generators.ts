@@ -21,7 +21,7 @@ export function generateVoyageXMLs(
   const config: VoyageConfig = inputConfig || { ...voyageConfig };
   if (options.voyageFilter) {
     const [fromPort, toPort] = options.voyageFilter.split("-");
-    config.sailings = voyageConfig.sailings.filter(
+    config.sailings = config.sailings.filter(
       function (sailing: Sailing) {
         return sailing.fromPort === fromPort && sailing.toPort === toPort;
       },
@@ -31,21 +31,18 @@ export function generateVoyageXMLs(
   return searches.map((search: SailingSearch) => reqFn(search));
 }
 
-export function cullToursRange(today: Date, tours: TourConfig): TourWithRange[] {
+export function cullToursRange(
+  today: Date,
+  tours: TourConfig,
+): TourWithRange[] {
   return tours.toursWithDateRanges.filter(function (tour: TourWithRange) {
-    console.log(tour)
     const departureFromDate = new Date(tour.departureFromDate);
-    console.log("depFrom: " + departureFromDate)
     const departureToDate = new Date(tour.departureToDate);
-    console.log("depTo: " + departureToDate)
     if (departureFromDate >= today && departureToDate >= today) {
-      console.log("tour is entirely in the future")
       return tour;
     }
     if (departureFromDate < today && departureToDate >= today) {
-      console.log("from date is in the past")
-      console.log("setting from date to: "+today.toJSON().split("T")[0])
-      tour.departureFromDate = today.toJSON().split("T")[0];
+      tour.departureFromDate = today.toJSON();
       return tour;
     }
   });
@@ -70,10 +67,11 @@ export function cullToursDates(
 }
 
 export function generateTourXMLs(
-  tourConfig: TourConfig,
+  config: TourConfig,
   options: PopulateOptions,
 ): string[] {
   const reqFn = options.readMode ? readReq : populateReq;
+  const tourConfig = JSON.parse(JSON.stringify(config));
   if (options.tourFilter) {
     tourConfig.toursWithDateRanges = tourConfig.toursWithDateRanges.filter(
       function (tour: TourWithRange) {

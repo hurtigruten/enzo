@@ -13,6 +13,15 @@
       "direction": "North_South",
       "fromPort": "BGO",
       "toPort": "BGO"
+    },
+    {
+      "direction": "North",
+      "daysAhead": 1, 
+      "fromPort": "BGO",
+      "toPort": "KKN",
+      "voyageType": "NORWAY_VOYAGE",
+      "partyMix": ["ADULT,ADULT"],
+      "marketFilter": ["UK"]
     }
   ]
 }

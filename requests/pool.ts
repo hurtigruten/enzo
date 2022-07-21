@@ -41,6 +41,6 @@ export async function postRequest(xmlBody: string, url: string) {
     const output = response.text();
     return output;
   } catch (error) {
-    console.log(`Fetch Error: ${error}`);
+    return (`Fetch Error: ${error}`);
   }
 }

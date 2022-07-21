@@ -7,7 +7,7 @@ import {
   SlackClient,
   TourConfig,
 } from "./types.ts";
-import { delay, postMsg, timeSince, updateMsg } from "./utils.ts";
+import { delay, onlyUniqueStrings, postMsg, timeSince, updateMsg } from "./utils.ts";
 
 const defaultOptions = {
   tours: false,
@@ -52,7 +52,7 @@ export async function requestRunner(
     }
   }
 
-  const payload = [...new Set(voyagePayload.concat(tourPayload))];
+  const payload = onlyUniqueStrings(voyagePayload.concat(tourPayload));
 
   if (payload.length !== 0) {
     if (options.readMode) {

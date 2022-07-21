@@ -101,3 +101,7 @@ export async function updateMsg(
     console.log("FETCH ERROR:" + e);
   }
 }
+
+export function onlyUniqueStrings(strings: string[]) {
+  return [...new Set(strings)];
+}

@@ -1,6 +1,6 @@
 import { parseToursWithDatesAndBuffer } from "../parsers/tourParserBufferDates.ts";
 import { SailingSearch, TourConfig } from "../types.ts";
-import { assert, assertArrayIncludes } from "./deps.ts";
+import { assertArrayIncludes, assertEquals } from "../deps.ts";
 
 Deno.test("Parse Tour with specific dates, buffered #1", () => {
   const tourConfig: TourConfig = JSON.parse(
@@ -53,5 +53,5 @@ Deno.test("Parse Tour with specific dates, buffered #1", () => {
     );
   });
 
-  assert(found.length === 1);
+  assertEquals(found.length, 1);
 });
