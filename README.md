@@ -39,7 +39,7 @@ tests, execute:
 
 `deno test -A`
 
-.. within the "/tests" folder
+... within the root folder (or in a subfolder containing tests)
 
 # Seaware cache documentation
 
