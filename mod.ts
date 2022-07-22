@@ -15,6 +15,8 @@ import {
   updateMsg,
 } from "./utils.ts";
 
+// TODO: Add read cache option
+
 export async function requestRunner(
   inputOptions: PopulateOptions = {},
   env: EnvironmentConfig,
@@ -27,6 +29,8 @@ export async function requestRunner(
     voyageFilter: ``,
     readMode: false,
     ignoreTourDates: true,
+    bufferTourDates: false,
+    bufferSize: 0,
     broadcastMessage: ``,
   };
 

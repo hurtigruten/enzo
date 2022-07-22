@@ -1,4 +1,7 @@
-import { parseToursWithDatesAndBuffer } from "../parsers/tourParserBufferDates.ts";
+import {
+  parseToursWithDatesAndBuffer,
+  parseToursWithRangesAndBuffer,
+} from "../parsers/tourParserBufferDates.ts";
 import { SailingSearch } from "../types.ts";
 import { assertArrayIncludes, assertEquals } from "../deps.ts";
 import { getTourTestData } from "../utils.ts";
@@ -63,4 +66,50 @@ Deno.test("Parse Tours Buffer dates - Tours with Specific dates, only unique sea
   });
 
   assertEquals(filtered.length, 1);
+});
+
+Deno.test("Parse Tours Buffer dates - Tours with Ranges", () => {
+  const tourConfig = getTourTestData();
+
+  tourConfig.toursWithDateRanges = tourConfig.toursWithDateRanges.filter(
+    (tour) => {
+      return tour.tourCode === "TOURINTHEFUTURE";
+    },
+  );
+
+  tourConfig.toursWithSpecificDates = [];
+
+  const tours = parseToursWithRangesAndBuffer(tourConfig, 3);
+
+  const expected = [
+    {
+      fromDay: "2050-03-29",
+      toDay: "2050-04-07",
+      voyageCode: "BGO-BGO",
+      voyageType: "NORWAY_VOYAGE",
+      agreementId: "2345",
+      party: "ADULT",
+      market: "UK",
+    },
+    {
+      fromDay: "2050-05-08",
+      toDay: "2050-05-17",
+      voyageCode: "BGO-BGO",
+      voyageType: "NORWAY_VOYAGE",
+      agreementId: "2345",
+      party: "ADULT",
+      market: "UK",
+    },
+    {
+      fromDay: "2050-05-28",
+      toDay: "2050-06-03",
+      voyageCode: "BGO-BGO",
+      voyageType: "NORWAY_VOYAGE",
+      agreementId: "2345",
+      party: "ADULT",
+      market: "UK",
+    },
+  ];
+
+  assertArrayIncludes(tours, expected);
 });

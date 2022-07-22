@@ -12,6 +12,10 @@ import { voyageConfig } from "../configs/voyages.ts";
 import { parseToursDates, parseToursRange } from "../parsers/tourParser.ts";
 import { parseVoyages } from "../parsers/voyageParser.ts";
 import { parseToursIgnoreDates } from "../parsers/tourParserIgnoreDates.ts";
+import {
+  parseToursWithDatesAndBuffer,
+  parseToursWithRangesAndBuffer,
+} from "../parsers/tourParserBufferDates.ts";
 
 export function generateVoyageXMLs(
   options: PopulateOptions,
@@ -86,6 +90,11 @@ export function generateTourXMLs(
   let searches: SailingSearch[] = [];
   if (options.ignoreTourDates) {
     searches = parseToursIgnoreDates(tourConfig, 880);
+  } else if (options.bufferTourDates) {
+    const bufferSize = options.bufferSize || 7;
+    searches = parseToursWithRangesAndBuffer(tourConfig, bufferSize).concat(
+      parseToursWithDatesAndBuffer(tourConfig, bufferSize),
+    );
   } else {
     const today = new Date();
     tourConfig.toursWithDateRanges = cullToursRange(today, tourConfig);

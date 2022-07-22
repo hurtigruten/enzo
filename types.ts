@@ -16,6 +16,8 @@ export type PopulateOptions = {
   voyageFilter?: string;
   readMode?: boolean;
   ignoreTourDates?: boolean;
+  bufferTourDates?: boolean;
+  bufferSize?: number;
   broadcastMessage?: string;
 };
 

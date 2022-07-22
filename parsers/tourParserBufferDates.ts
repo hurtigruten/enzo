@@ -1,6 +1,6 @@
 import { SailingSearch, TourConfig } from "../types.ts";
 import { addDaysToDate, getDatesInRangeFormatted } from "../utils.ts";
-import { parseToursDates } from "./tourParser.ts";
+import { parseToursDates, parseToursRange } from "./tourParser.ts";
 
 // Temporary function while waiting for PG to fix the bug where PG searches for dates that are not cached,
 // leading to overall no availability. This function buffers all dates
@@ -23,4 +23,18 @@ export function parseToursWithDatesAndBuffer(
   return parseToursDates(json);
 }
 
-// TODO: Add method for Ranges. Add populate option. Add tests
+export function parseToursWithRangesAndBuffer(
+  json: TourConfig,
+  buffer: number,
+) {
+  json.toursWithDateRanges = json.toursWithDateRanges.map((tour) => {
+    const fromDate = new Date(tour.departureFromDate);
+    const toDate = new Date(tour.departureToDate);
+    tour.departureFromDate =
+      addDaysToDate(fromDate, -buffer).toJSON().split("T")[0];
+    tour.departureToDate = addDaysToDate(toDate, buffer).toJSON().split("T")[0];
+    return tour;
+  });
+
+  return parseToursRange(json);
+}

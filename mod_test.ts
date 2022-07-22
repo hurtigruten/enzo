@@ -23,6 +23,8 @@ Deno.test("Mod - Request at localhost ", async () => {
     voyageFilter: ``,
     readMode: false,
     ignoreTourDates: true,
+    bufferTourDates: false,
+    bufferSize: 0,
     broadcastMessage: ``,
   };
   const runner = await requestRunner(popOptions, envConfig);
