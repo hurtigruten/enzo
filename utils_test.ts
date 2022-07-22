@@ -5,25 +5,39 @@ import {
   getDatesInRangeFormatted,
   onlyUniqueStrings,
   stripString,
-  timeSince
+  timeSince,
 } from "./utils.ts";
 import { generateTourXMLs } from "./requests/generators.ts";
 import { PopulateOptions, TourConfig } from "./types.ts";
 
-//TODO: Switch to using test json instead of synthetic dates
-
 Deno.test("Utils - Add days to Date #1", () => {
-  const date1 = new Date("2022-05-29");
+  const tourConfig: TourConfig = JSON.parse(
+    Deno.readTextFileSync("./testdata/tourAPI.json"),
+  ) as TourConfig;
+
+  const filtered = tourConfig.toursWithDateRanges.filter((tour) => {
+    return tour.tourCode === "TOURINTHEPAST";
+  });
+
+  const date1 = new Date(filtered[0].departureFromDate);
   const newDate = addDaysToDate(date1, 5);
-  const expected = new Date("2022-06-03").toJSON().split("T")[0];
+  const expected = new Date("2020-04-06").toJSON().split("T")[0];
   const actual = newDate.toJSON().split("T")[0];
   assertEquals(actual, expected);
 });
 
 Deno.test("Utils - Add days to Date #2", () => {
-  const date1 = new Date("2022-05-29");
+  const tourConfig: TourConfig = JSON.parse(
+    Deno.readTextFileSync("./testdata/tourAPI.json"),
+  ) as TourConfig;
+
+  const filtered = tourConfig.toursWithDateRanges.filter((tour) => {
+    return tour.tourCode === "TOURINTHEPAST";
+  });
+
+  const date1 = new Date(filtered[0].departureFromDate);
   const newDate = addDaysToDate(date1, -5);
-  const expected = new Date("2022-05-24").toJSON().split("T")[0];
+  const expected = new Date("2020-03-27").toJSON().split("T")[0];
   const actual = newDate.toJSON().split("T")[0];
   assertEquals(actual, expected);
 });
@@ -45,18 +59,24 @@ Deno.test("Utils - Date from Today #2", () => {
 });
 
 Deno.test("Utils - Get dates in Range Formatted", () => {
-  const date1 = new Date("2022-05-29T00:00:00.000Z");
-  const date2 = new Date("2022-06-04T00:00:00.000Z");
+  const tourConfig: TourConfig = JSON.parse(
+    Deno.readTextFileSync("./testdata/tourAPI.json"),
+  ) as TourConfig;
+
+  const filtered = tourConfig.toursWithSpecificDates.filter((tour) => {
+    return tour.tourCode === "TOURWITHNEARBYDATES";
+  });
+
+  const date1 = new Date(filtered[0].departureDates[0]);
+  const date2 = new Date(filtered[0].departureDates[1]);
 
   const range = getDatesInRangeFormatted(date1, date2);
   const expected = [
-    "2022-05-29",
-    "2022-05-30",
-    "2022-05-31",
-    "2022-06-01",
-    "2022-06-02",
-    "2022-06-03",
-    "2022-06-04",
+    "2030-03-31",
+    "2030-04-01",
+    "2030-04-02",
+    "2030-04-03",
+    "2030-04-04",
   ];
   assertEquals(range, expected);
 });
@@ -99,7 +119,7 @@ Deno.test("Utils - Only unique searches", () => {
     return stripString(search);
   });
 
-  const expectedXML = `
+  const expected = `
   <GetAvailPrimPkgsCustom_IN>
     <MsgHeader>
       <Version>1.0</Version>
@@ -124,10 +144,11 @@ Deno.test("Utils - Only unique searches", () => {
   </GetAvailPrimPkgsCustom_IN>`;
 
   const filteredPayload = strippedPayload.filter((payload) => {
-    return payload === stripString(expectedXML);
+    return payload === stripString(expected);
   });
-  const uniquePayloads = onlyUniqueStrings(filteredPayload);
 
   assertEquals(filteredPayload.length, 2);
+
+  const uniquePayloads = onlyUniqueStrings(filteredPayload);
   assertEquals(uniquePayloads.length, 1);
 });

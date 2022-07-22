@@ -16,7 +16,7 @@
     },
     {
       "direction": "North",
-      "daysAhead": 1, 
+      "daysAhead": 1,
       "fromPort": "BGO",
       "toPort": "KKN",
       "voyageType": "NORWAY_VOYAGE",

@@ -7,27 +7,34 @@ import {
   SlackClient,
   TourConfig,
 } from "./types.ts";
-import { delay, onlyUniqueStrings, postMsg, timeSince, updateMsg } from "./utils.ts";
-
-const defaultOptions = {
-  tours: false,
-  tourFilter: ``,
-  voyages: false,
-  voyageFilter: ``,
-  readMode: false,
-  ignoreTourDates: true,
-  broadcastMessage: ``,
-};
+import {
+  delay,
+  onlyUniqueStrings,
+  postMsg,
+  timeSince,
+  updateMsg,
+} from "./utils.ts";
 
 export async function requestRunner(
   inputOptions: PopulateOptions = {},
   env: EnvironmentConfig,
   slackClient?: SlackClient,
 ) {
+  const defaultOptions = {
+    tours: false,
+    tourFilter: ``,
+    voyages: false,
+    voyageFilter: ``,
+    readMode: false,
+    ignoreTourDates: true,
+    broadcastMessage: ``,
+  };
+
   const options: Required<PopulateOptions> = {
     ...defaultOptions,
     ...inputOptions,
   };
+
   let voyagePayload: string[] = [];
   let tourPayload: string[] = [];
 

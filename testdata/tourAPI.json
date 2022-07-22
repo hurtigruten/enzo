@@ -61,7 +61,7 @@
     },
     {
       "departureFromDate": "2020-04-01T00:00:00",
-      "departureToDate": "2020-05-31T00:00:00",
+      "departureToDate": "2020-05-27T00:00:00",
       "marketFilter": [
         "UK"
       ],
@@ -661,7 +661,7 @@
         "UK"
       ],
       "tourCode": "TOURWITHNEARBYDATES",
-      "agreementId": null,
+      "agreementId": "1234",
       "fromPort": "REK",
       "toPort": "REK",
       "partyMix": ["ADULT,ADULT"],
@@ -690,7 +690,7 @@
       ],
       "marketFilter": null,
       "tourCode": "FNGRE2215",
-      
+
       "agreementId": null,
       "fromPort": "REK",
       "toPort": "REK",

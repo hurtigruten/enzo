@@ -1,5 +1,6 @@
 import { assertStringIncludes } from "../deps.ts";
-import { PopulateOptions, TourConfig } from "../types.ts";
+import { PopulateOptions } from "../types.ts";
+import { getTourTestData } from "../utils.ts";
 import { generateTourXMLs } from "./generators.ts";
 import { pool, postRequest } from "./pool.ts";
 
@@ -9,9 +10,7 @@ Deno.test("Pool - Post Request, fetch error", async () => {
 });
 
 Deno.test("Pool - Pool, fetch error", async () => {
-  const tourConfig: TourConfig = JSON.parse(
-    Deno.readTextFileSync("../testdata/tourAPI.json"),
-  ) as TourConfig;
+  const tourConfig = getTourTestData();
   const options: PopulateOptions = { tours: true, ignoreTourDates: false };
   const payload: string[] = generateTourXMLs(tourConfig, options);
   const samplePayload: string[] = [payload[0]];

@@ -1,4 +1,4 @@
-import { Metadata, SlackClient } from "./types.ts";
+import { Metadata, SlackClient, TourConfig, VoyageConfig } from "./types.ts";
 
 export const delay = (ms: number) => new Promise((res) => setTimeout(res, ms));
 
@@ -104,4 +104,32 @@ export async function updateMsg(
 
 export function onlyUniqueStrings(strings: string[]) {
   return [...new Set(strings)];
+}
+
+export function getTourTestData(): TourConfig {
+  let tourConfig: TourConfig;
+  try {
+    tourConfig = JSON.parse(
+      Deno.readTextFileSync("./testdata/tourAPI.json"),
+    ) as TourConfig;
+  } catch {
+    tourConfig = JSON.parse(
+      Deno.readTextFileSync("../testdata/tourAPI.json"),
+    ) as TourConfig;
+  }
+  return tourConfig;
+}
+
+export function getVoyageTestData(): VoyageConfig {
+  let voyageConfig: VoyageConfig;
+  try {
+    voyageConfig = JSON.parse(
+      Deno.readTextFileSync("./testdata/voyageConfig.json"),
+    ) as VoyageConfig;
+  } catch {
+    voyageConfig = JSON.parse(
+      Deno.readTextFileSync("../testdata/voyageConfig.json"),
+    ) as VoyageConfig;
+  }
+  return voyageConfig;
 }

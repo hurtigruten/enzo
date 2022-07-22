@@ -1,11 +1,10 @@
 import { parseToursWithDatesAndBuffer } from "../parsers/tourParserBufferDates.ts";
-import { SailingSearch, TourConfig } from "../types.ts";
+import { SailingSearch } from "../types.ts";
 import { assertArrayIncludes, assertEquals } from "../deps.ts";
+import { getTourTestData } from "../utils.ts";
 
 Deno.test("Parse Tours Buffer dates - Tours with Specific dates", () => {
-  const tourConfig: TourConfig = JSON.parse(
-    Deno.readTextFileSync("../testdata/tourAPI.json"),
-  ) as TourConfig;
+  const tourConfig = getTourTestData();
 
   tourConfig.toursWithSpecificDates = tourConfig.toursWithSpecificDates.filter(
     (tour) => {
@@ -23,7 +22,7 @@ Deno.test("Parse Tours Buffer dates - Tours with Specific dates", () => {
       voyageType: "EXPLORER",
       agreementId: null,
       party: "ADULT,ADULT",
-      market: "UK"
+      market: "UK",
     },
     {
       fromDay: "2030-04-01",
@@ -32,7 +31,7 @@ Deno.test("Parse Tours Buffer dates - Tours with Specific dates", () => {
       voyageType: "EXPLORER",
       agreementId: null,
       party: "ADULT,ADULT",
-      market: "UK"
+      market: "UK",
     },
     {
       fromDay: "2030-04-02",
@@ -41,17 +40,15 @@ Deno.test("Parse Tours Buffer dates - Tours with Specific dates", () => {
       voyageType: "EXPLORER",
       agreementId: null,
       party: "ADULT,ADULT",
-      market: "UK"
-    }
+      market: "UK",
+    },
   ];
 
-  assertArrayIncludes(tours, expected)
+  assertArrayIncludes(tours, expected);
 });
 
 Deno.test("Parse Tours Buffer dates - Tours with Specific dates, only unique searches", () => {
-  const tourConfig: TourConfig = JSON.parse(
-    Deno.readTextFileSync("../testdata/tourAPI.json"),
-  ) as TourConfig;
+  const tourConfig = getTourTestData();
 
   tourConfig.toursWithSpecificDates = tourConfig.toursWithSpecificDates.filter(
     (tour) => {
