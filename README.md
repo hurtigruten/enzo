@@ -11,7 +11,9 @@ threads are fully saturated, leading to optimal caching.
 This module is meant to be used by a script, Slack bot, etc. that need to cache
 price and availability in Seaware and needs the following:
 
-- Deno needs to be installed, check the [website](https://deno.land/).
+- Deno needs to be installed locally and on the Bizlogic Server, check the [website](https://deno.land/).
+
+- Recommend using VS Code + the Deno extension for developing locally.
 
 - In Seaware, "Custom Availability Search" rules need to be in place for every
   search the cache application wishes to perform (that means that any potential
@@ -34,7 +36,7 @@ defined in "./types.ts"
 
 # Testing
 
-All tests follow the name convention of filename__test_.ts. To execute all
+All tests follow the name convention of filename_test.ts. To execute all
 tests, execute:
 
 `deno test -A`
