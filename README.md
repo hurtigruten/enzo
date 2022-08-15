@@ -47,3 +47,5 @@ tests, execute:
 
 Read more about the Seaware Cache
 [here](https://versonix.atlassian.net/wiki/spaces/PublicDocs/pages/10289154/Availability+Cache)
+
+And [here](https://hurtigruten.atlassian.net/wiki/spaces/PGD/pages/3562864644/Seaware+Cache+enzo)
