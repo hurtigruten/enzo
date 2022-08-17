@@ -43,6 +43,12 @@ tests, execute:
 
 ... within the root folder (or in a subfolder containing tests)
 
+# How to release a new version
+
+1. Pull in the proposed PR(s) and/or make sure master has the code you want to release a new version for
+2. Create a new tag
+3. If relevant, update Slack bots, scripts and any other component that wishes to use the new version
+
 # Seaware cache documentation
 
 Read more about the Seaware Cache
