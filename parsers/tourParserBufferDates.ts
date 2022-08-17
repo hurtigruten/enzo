@@ -6,14 +6,15 @@ import { parseToursDates, parseToursRange } from "./tourParser.ts";
 // leading to overall no availability. This function buffers all dates
 export function parseToursWithDatesAndBuffer(
   json: TourConfig,
-  buffer: number,
+  buffer?: number,
 ): SailingSearch[] {
+  const bufferSize = buffer || 7;
   json.toursWithSpecificDates = json.toursWithSpecificDates.map((tour) => {
     const bufferedDates = tour.departureDates.flatMap((depDate) => {
       const fromDate: Date = new Date(
-        addDaysToDate(new Date(depDate), -buffer),
+        addDaysToDate(new Date(depDate), -bufferSize),
       );
-      const toDate: Date = new Date(addDaysToDate(new Date(depDate), buffer));
+      const toDate: Date = new Date(addDaysToDate(new Date(depDate), bufferSize));
       return getDatesInRangeFormatted(fromDate, toDate);
     });
     tour.departureDates = [...new Set(bufferedDates)];
@@ -25,14 +26,15 @@ export function parseToursWithDatesAndBuffer(
 
 export function parseToursWithRangesAndBuffer(
   json: TourConfig,
-  buffer: number,
+  buffer?: number,
 ) {
+  const bufferSize = buffer || 7;
   json.toursWithDateRanges = json.toursWithDateRanges.map((tour) => {
     const fromDate = new Date(tour.departureFromDate);
     const toDate = new Date(tour.departureToDate);
     tour.departureFromDate =
-      addDaysToDate(fromDate, -buffer).toJSON().split("T")[0];
-    tour.departureToDate = addDaysToDate(toDate, buffer).toJSON().split("T")[0];
+      addDaysToDate(fromDate, -bufferSize).toJSON().split("T")[0];
+    tour.departureToDate = addDaysToDate(toDate, bufferSize).toJSON().split("T")[0];
     return tour;
   });
 

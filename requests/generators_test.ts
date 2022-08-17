@@ -8,8 +8,8 @@ import {
   stripString,
 } from "../utils.ts";
 import {
-  cullToursDates,
-  cullToursRange,
+  filterPastToursWithDates,
+  filterPastToursWithRange,
   generateTourXMLs,
   generateVoyageXMLs,
 } from "./generators.ts";
@@ -97,7 +97,7 @@ Deno.test("Generators - Culling Range, Tour with some dates in the past", () => 
   const tourConfig = getTourTestData();
   const today = new Date("2030-04-02");
 
-  tourConfig.toursWithDateRanges = cullToursRange(today, tourConfig);
+  tourConfig.toursWithDateRanges = filterPastToursWithRange(today, tourConfig);
 
   const searches: SailingSearch[] = parseToursRange(tourConfig);
   const expected = [
@@ -119,7 +119,7 @@ Deno.test("Generators - Culling Range, Tour entirely in the past", () => {
 
   const today = new Date("2030-04-02");
 
-  tourConfig.toursWithDateRanges = cullToursRange(today, tourConfig);
+  tourConfig.toursWithDateRanges = filterPastToursWithRange(today, tourConfig);
 
   const filtered = tourConfig.toursWithDateRanges.filter((tour) => {
     return tour.tourCode === "TOURINTHEPAST";
@@ -132,7 +132,7 @@ Deno.test("Generators - Culling Range, Tour entirely in the future", () => {
   const tourConfig = getTourTestData();
   const today = new Date("2030-04-02");
 
-  tourConfig.toursWithDateRanges = cullToursRange(today, tourConfig);
+  tourConfig.toursWithDateRanges = filterPastToursWithRange(today, tourConfig);
 
   const searches: SailingSearch[] = parseToursRange(tourConfig);
   const expected = [
@@ -159,7 +159,7 @@ Deno.test("Generators - Culling Specific dates, Tour with some dates in the past
     },
   );
 
-  tourConfig.toursWithSpecificDates = cullToursDates(today, tourConfig);
+  tourConfig.toursWithSpecificDates = filterPastToursWithDates(today, tourConfig);
 
   const departures = tourConfig.toursWithSpecificDates[0].departureDates.length;
   assertEquals(departures, 1);
@@ -169,7 +169,7 @@ Deno.test("Generators - Culling Specific dates, Tour with some dates in the past
   const tourConfig = getTourTestData();
   const today = new Date("2030-04-02");
 
-  tourConfig.toursWithSpecificDates = cullToursDates(today, tourConfig);
+  tourConfig.toursWithSpecificDates = filterPastToursWithDates(today, tourConfig);
 
   const searches: SailingSearch[] = parseToursDates(tourConfig);
   const expected: SailingSearch = {
@@ -189,7 +189,7 @@ Deno.test("Generators - Culling Specific dates, Tour entirely in the past", () =
   const tourConfig = getTourTestData();
   const today = new Date("2050-04-02");
 
-  tourConfig.toursWithSpecificDates = cullToursDates(today, tourConfig);
+  tourConfig.toursWithSpecificDates = filterPastToursWithDates(today, tourConfig);
 
   const departures = tourConfig.toursWithSpecificDates.length;
   assertEquals(departures, 0);
@@ -207,7 +207,7 @@ Deno.test("Generators - Culling Specific dates, Tour entirely in the future", ()
 
   tourConfig.toursWithDateRanges = [];
 
-  tourConfig.toursWithSpecificDates = cullToursDates(today, tourConfig);
+  tourConfig.toursWithSpecificDates = filterPastToursWithDates(today, tourConfig);
 
   const departures = tourConfig.toursWithSpecificDates[0].departureDates.length;
   assertEquals(departures, 2);

@@ -15,8 +15,6 @@ import {
   updateMsg,
 } from "./utils.ts";
 
-// TODO: Add read cache option
-
 export async function requestRunner(
   inputOptions: PopulateOptions = {},
   env: EnvironmentConfig,
@@ -30,7 +28,7 @@ export async function requestRunner(
     readMode: false,
     ignoreTourDates: true,
     bufferTourDates: false,
-    bufferSize: 0,
+    bufferSize: 7,
     broadcastMessage: ``,
   };
 
@@ -53,8 +51,8 @@ export async function requestRunner(
   if (options.tours) {
     const res = await fetch(env.tourAPI);
     const tourConfig = await res.json() as TourConfig;
-    tourConfig.searchRange = 10;
     if (tourConfig) {
+      tourConfig.searchRange = 10;
       const xmlRequests = generateTourXMLs(tourConfig, options);
       if (xmlRequests.length === 0 && slackClient) {
         postMsg(`Could not find any Tours`, slackClient);

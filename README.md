@@ -8,7 +8,7 @@ threads are fully saturated, leading to optimal caching.
 
 # Prerequisites
 
-This module is meant to be used by a script, Slack bot, etc. that need to cache
+This module is meant to be used by a Slack bot, script, etc. that need to cache
 price and availability in Seaware and needs the following:
 
 - Deno needs to be installed, check the [website](https://deno.land/).

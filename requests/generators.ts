@@ -35,7 +35,7 @@ export function generateVoyageXMLs(
   return searches.map((search: SailingSearch) => reqFn(search));
 }
 
-export function cullToursRange(
+export function filterPastToursWithRange(
   today: Date,
   tours: TourConfig,
 ): TourWithRange[] {
@@ -52,7 +52,7 @@ export function cullToursRange(
   });
 }
 
-export function cullToursDates(
+export function filterPastToursWithDates(
   today: Date,
   tours: TourConfig,
 ): TourWithDates[] {
@@ -89,16 +89,15 @@ export function generateTourXMLs(
   }
   let searches: SailingSearch[] = [];
   if (options.ignoreTourDates) {
-    searches = parseToursIgnoreDates(tourConfig, 880);
+    searches = parseToursIgnoreDates(tourConfig);
   } else if (options.bufferTourDates) {
-    const bufferSize = options.bufferSize || 7;
-    searches = parseToursWithRangesAndBuffer(tourConfig, bufferSize).concat(
-      parseToursWithDatesAndBuffer(tourConfig, bufferSize),
+    searches = parseToursWithRangesAndBuffer(tourConfig, options.bufferSize).concat(
+      parseToursWithDatesAndBuffer(tourConfig, options.bufferSize),
     );
   } else {
     const today = new Date();
-    tourConfig.toursWithDateRanges = cullToursRange(today, tourConfig);
-    tourConfig.toursWithSpecificDates = cullToursDates(today, tourConfig);
+    tourConfig.toursWithDateRanges = filterPastToursWithRange(today, tourConfig);
+    tourConfig.toursWithSpecificDates = filterPastToursWithDates(today, tourConfig);
     searches = parseToursRange(tourConfig).concat(parseToursDates(tourConfig));
   }
   return searches.map((search: SailingSearch) => reqFn(search));
