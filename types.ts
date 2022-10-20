@@ -22,6 +22,9 @@ export type PopulateOptions = {
 };
 
 export type EnvironmentConfig = {
+  pgPassword: string;
+  pgUserName: string;
+  authAPI: string;
   tourAPI: string;
   bizlogicAPI: string;
   poolSize?: number;
@@ -91,3 +94,13 @@ export type Metadata = {
     run_options: PopulateOptions;
   };
 };
+
+export type AuthRequest = {
+  userName: string;
+  password: string;
+};
+
+export type TokenResponse = {
+  token: string;
+  ttl: number;
+}

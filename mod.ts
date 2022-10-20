@@ -1,5 +1,6 @@
 import { pool } from "./requests/pool.ts";
 import { generateTourXMLs, generateVoyageXMLs } from "./requests/generators.ts";
+import { getPgToken } from "./pgAuthentication.ts";
 import {
   EnvironmentConfig,
   Metadata,
@@ -49,7 +50,13 @@ export async function requestRunner(
   }
 
   if (options.tours) {
-    const res = await fetch(env.tourAPI);
+    const token = await getPgToken(env);
+    const init: RequestInit = {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      }
+    };
+    const res = await fetch(env.tourAPI, init);
     const tourConfig = await res.json() as TourConfig;
     if (tourConfig) {
       tourConfig.searchRange = 10;

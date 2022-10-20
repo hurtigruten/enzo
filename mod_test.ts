@@ -6,6 +6,9 @@ Deno.test("Mod - Empty runner", async () => {
   const envConfig: EnvironmentConfig = {
     tourAPI: "",
     bizlogicAPI: "",
+    authAPI: "",
+    pgUserName: "",
+    pgPassword: ""
   };
   const runner = await requestRunner({}, envConfig);
   assertEquals(runner, undefined);
@@ -15,6 +18,9 @@ Deno.test("Mod - Request at localhost ", async () => {
   const envConfig: EnvironmentConfig = {
     tourAPI: "",
     bizlogicAPI: "http://localhost:3000",
+    authAPI: "",
+    pgUserName: "",
+    pgPassword: ""
   };
   const popOptions = {
     tours: false,
