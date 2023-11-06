@@ -24,14 +24,14 @@ export const voyageConfig: VoyageConfig = {
       "voyageType": "NORWAY_VOYAGE",
     },
     {
-      "daysAhead": 365,
+      "daysAhead": 730,
       "direction": "North",
       "fromPort": "BGO",
       "toPort": "KKN",
       "voyageType": "NORWAY_VOYAGE",
     },
     {
-      "daysAhead": 365,
+      "daysAhead": 730,
       "direction": "South",
       "fromPort": "KKN",
       "toPort": "BGO",
