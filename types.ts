@@ -25,7 +25,15 @@ export type EnvironmentConfig = {
   tourAPI: string;
   bizlogicAPI: string;
   poolSize?: number;
+  auth0Config: Auth0Config;
 };
+
+export type Auth0Config = {
+  clientId: string;
+  clientSecret: string;
+  audience: string;
+  tokenUrl: string;
+}
 
 export type VoyageConfig = {
   defaultMarkets: string[];

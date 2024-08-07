@@ -1,6 +1,7 @@
 import { pool } from "./requests/pool.ts";
 import { generateTourXMLs, generateVoyageXMLs } from "./requests/generators.ts";
 import {
+  Auth0Config,
   EnvironmentConfig,
   Metadata,
   PopulateOptions,
@@ -14,6 +15,32 @@ import {
   timeSince,
   updateMsg,
 } from "./utils.ts";
+
+const getPgBearerToken = async (auth0Config: Auth0Config) => {
+  const res = await fetch(auth0Config.tokenUrl, {
+    method: "POST",
+    headers: {
+      "content-type": "application/json",
+    },
+    body: JSON.stringify({
+      client_id: auth0Config.clientId,
+      client_secret: auth0Config.clientSecret,
+      audience: auth0Config.audience,
+      grant_type: "client_credentials",
+    })
+  });
+
+  if (!res.ok)
+    throw new Error("Could not get bearer token");
+
+  const data = await res.json() as { access_token: string };
+  if (!data.access_token)
+    throw new Error("Could not get bearer token");
+
+  return data.access_token;
+}
+
+export { getPgBearerToken };
 
 export async function requestRunner(
   inputOptions: PopulateOptions = {},
@@ -49,7 +76,16 @@ export async function requestRunner(
   }
 
   if (options.tours) {
-    const res = await fetch(env.tourAPI);
+    const bearerToken = await getPgBearerToken(env.auth0Credentials);
+
+    if (!bearerToken)
+      throw new Error("Could not get bearer token");
+
+    const res = await fetch(env.tourAPI, {
+      headers: {
+        Authorization: `Bearer ${bearerToken}`,
+      }
+    });
     const tourConfig = await res.json() as TourConfig;
     if (tourConfig) {
       tourConfig.searchRange = 10;
