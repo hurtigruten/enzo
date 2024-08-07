@@ -16,7 +16,20 @@ import {
   updateMsg,
 } from "./utils.ts";
 
-const getPgBearerToken = async (auth0Config: Auth0Config) => {
+let token: string | null = null;
+let lastRefresh: Date | null = null;
+const tokenValidityInMs = 82800000; // 23 hours
+
+const isTokenValid = () => {
+  if (token === null || lastRefresh === null)
+    return false;
+  if (new Date().getTime() - lastRefresh.getTime() >= tokenValidityInMs)
+    return false;
+
+  return true;
+}
+
+const refreshBearerToken = async (auth0Config: Auth0Config) => {
   const res = await fetch(auth0Config.tokenUrl, {
     method: "POST",
     headers: {
@@ -37,7 +50,16 @@ const getPgBearerToken = async (auth0Config: Auth0Config) => {
   if (!data.access_token)
     throw new Error("Could not get bearer token");
 
-  return data.access_token;
+  token = data.access_token;
+  lastRefresh = new Date();
+}
+
+const getPgBearerToken = async (auth0Config: Auth0Config) => {
+  if (isTokenValid())
+    return token;
+
+  await refreshBearerToken(auth0Config);
+  return token;
 }
 
 export { getPgBearerToken };
@@ -76,7 +98,7 @@ export async function requestRunner(
   }
 
   if (options.tours) {
-    const bearerToken = await getPgBearerToken(env.auth0Credentials);
+    const bearerToken = await getPgBearerToken(env.auth0Config);
 
     if (!bearerToken)
       throw new Error("Could not get bearer token");
