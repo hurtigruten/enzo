@@ -38,12 +38,12 @@ export async function postRequest(xmlBody: string, url: string) {
   });
   try {
     const response = await fetch(req);
-    const output = response.text();
+    const output = await response.text();
 
-    const jsonResponse = await response.json();
+    //const jsonResponse = await response.text();
 
-    var filename = "./logs/test-" + crypto.randomUUID() + ".json";
-    await Deno.writeTextFile(filename, JSON.stringify(jsonResponse));
+    var filename = "./logs/test-" + crypto.randomUUID() + ".xml";
+    await Deno.writeTextFile(filename, output);
 
     return output;
   } catch (error) {
