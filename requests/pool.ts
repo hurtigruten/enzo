@@ -41,7 +41,7 @@ export async function postRequest(xmlBody: string, url: string) {
     const output = response.text();
 
     var filename = "./logs/test-" + crypto.randomUUID() + ".json";
-    await Deno.writeTextFile(filename, response);
+    await Deno.writeTextFile(filename, JSON.stringify(response));
 
     return output;
   } catch (error) {
