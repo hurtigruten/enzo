@@ -39,6 +39,10 @@ export async function postRequest(xmlBody: string, url: string) {
   try {
     const response = await fetch(req);
     const output = response.text();
+
+    var filename = "./logs/test-" + crypto.randomUUID() + ".json";
+    await Deno.writeTextFile(filename, output);
+
     return output;
   } catch (error) {
     return (`Fetch Error: ${error}`);
