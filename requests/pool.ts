@@ -37,11 +37,11 @@ export async function postRequest(xmlBody: string, url: string) {
     body: xmlBody,
   });
   try {
-    const response = await fetch(req);
+    const response = await fetch(req).then((data) => {Deno.writeTextFile("./logs/test-" + crypto.randomUUID() + ".json", JSON.stringify(data))});
     const output = response.text();
 
-    var filename = "./logs/test-" + crypto.randomUUID() + ".json";
-    await Deno.writeTextFile(filename, JSON.stringify(response));
+    //var filename = "./logs/test-" + crypto.randomUUID() + ".json";
+    //await Deno.writeTextFile(filename, JSON.stringify(response));
 
     return output;
   } catch (error) {
