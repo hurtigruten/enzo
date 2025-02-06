@@ -38,7 +38,7 @@ export const voyageConfig: VoyageConfig = {
       "voyageType": "NORWAY_VOYAGE",
     },
     {
-      "daysAhead": 220,
+      "daysAhead": 730,
       "direction": "North_South",
       "fromPort": "BGO",
       "toPort": "TRD",
